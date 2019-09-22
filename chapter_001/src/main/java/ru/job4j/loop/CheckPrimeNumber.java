@@ -4,7 +4,9 @@ public class CheckPrimeNumber {
     public boolean check(int num) {
         boolean prime = true;
             if (num <= 10) {
-                if (num == 2) {
+                if ( num == 1) {
+                    prime = true;
+                }else if (num == 2) {
                     prime = true;
                 } else if (num == 3) {
                     prime = true;
