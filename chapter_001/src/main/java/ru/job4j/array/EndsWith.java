@@ -8,6 +8,7 @@ public class EndsWith {
             int index = word.length - i;
             if (word[index] != post[i]) {
                 result = false;
+                break;
             }
         }
         return result;
