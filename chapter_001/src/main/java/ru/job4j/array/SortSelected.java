@@ -1,7 +1,7 @@
 package ru.job4j.array;
 
 public class SortSelected {
-    // sort int[] by increase
+    // sort int[] by increase (0 >> 100+)
     public static int[] sort(int[] data) {
         for (int i = 0; i < data.length; i++) {
             int temp = data[i];
@@ -13,7 +13,7 @@ public class SortSelected {
         return data;
     }
 
-    // find value of min element in int[]
+    // find value of minimal element in int[]
     private static int findMinFrom (int[] data, int start) {
         int min = data[start];
         for (int i = start; i < data.length; i++) {
