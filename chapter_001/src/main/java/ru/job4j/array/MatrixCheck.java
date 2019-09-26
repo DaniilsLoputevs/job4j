@@ -2,7 +2,32 @@ package ru.job4j.array;
 
 public class MatrixCheck {
 
-    public static boolean isWin(char[][] board) {
+    public static boolean isWin (char[][] board) {
+        boolean result = false;
+
+        for (int row = 0; row < board.length; row++) {
+            int winRowCount = 0;
+            int winCellCount = 0;
+
+            for (int cell = 0; cell < board.length; cell++) {
+
+                if (board[row][cell] == 'X') {
+                    winRowCount++;
+                }
+                if (board[cell][row] == 'X') {
+                    winCellCount++;
+                }
+
+                if (winCellCount == 5 || winRowCount == 5) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static boolean isWinOld(char[][] board) {
         //Мульти-return или boolean? - логика такая же, но с boolean строк больше и действий так же.
                 if (isWinHorizontal(board)) {
                     return true;
@@ -40,9 +65,9 @@ public class MatrixCheck {
                 }
             }
         }
-
         return result;
     }
+
     // Доп. метод
     // метод вывода массива[][] в консоль.
     private static void showX2Array (char[][] X2Array) {
@@ -86,6 +111,6 @@ public class MatrixCheck {
         };
         boolean lose = isWin(notWin);
         showX2Array(notWin);
-        System.out.println("A board has a winner : " + lose + '\n');
+        System.out.println("A board has a winner : " + lose + '\n'); // false is correct
     }
 }
