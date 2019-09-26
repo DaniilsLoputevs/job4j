@@ -17,4 +17,14 @@ public class EndsWith {
         }
         return result;
     }
+    public static boolean endsWithV2(char[] word, char[] post) {
+        boolean result = true;
+        for (int i = 0; i < post.length ; i++) {
+            if (word[word.length - 1 - i] != post[post.length - 1 - i]) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
 }
