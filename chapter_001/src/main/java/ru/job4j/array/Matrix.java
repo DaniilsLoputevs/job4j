@@ -7,6 +7,10 @@ public class Matrix {
         int[][] arr = test.multiple(5);
         System.out.println();
         test.showX2Array(arr);
+        // multipleV2
+        int[][] arr1 = test.multipleV2(5);
+        System.out.println();
+        test.showX2Array(arr1);
     }
 
     public int[][] multiple(int size) {
@@ -22,6 +26,15 @@ public class Matrix {
                     cell = countLeft;
                 }
                 table[i][j] = cell;
+            }
+        }
+        return table;
+    }
+    public int[][] multipleV2(int size) {
+        int[][] table = new int[size][size];
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table[i].length; j++) {
+                table[i][j] = (i + 1) * (j + 1);
             }
         }
         return table;
