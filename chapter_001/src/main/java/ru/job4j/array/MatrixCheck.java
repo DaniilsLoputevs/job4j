@@ -18,7 +18,7 @@ public class MatrixCheck {
                     winCellCount++;
                 }
 
-                if (winCellCount == 5 || winRowCount == 5) {
+                if (winCellCount == board.length || winRowCount == board.length) {
                     result = true;
                     break;
                 }
