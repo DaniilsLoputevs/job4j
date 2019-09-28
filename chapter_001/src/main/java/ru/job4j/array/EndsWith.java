@@ -5,7 +5,7 @@ public class EndsWith {
         boolean result = true;
         int postIndex = post.length - 1;
         // проверить, что массив word имеет последние элементы одинаковые с post
-        for (int i = word.length - 1; i >= 0 ; i--) {
+        for (int i = word.length - 1; i >= 0; i--) {
             if (word[i] != post[postIndex]) {
                 result = false;
                 break;
@@ -19,7 +19,7 @@ public class EndsWith {
     }
     public static boolean endsWithV2(char[] word, char[] post) {
         boolean result = true;
-        for (int i = 0; i < post.length ; i++) {
+        for (int i = 0; i < post.length; i++) {
             if (word[word.length - 1 - i] != post[post.length - 1 - i]) {
                 result = false;
                 break;

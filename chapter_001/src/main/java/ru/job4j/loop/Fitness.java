@@ -1,7 +1,7 @@
 package ru.job4j.loop;
 
 public class Fitness {
-    public int calc_one(int ivan, int nik) {
+    public int calcOne(int ivan, int nik) {
         int month = 0;
         while (ivan < nik) {
             month++;

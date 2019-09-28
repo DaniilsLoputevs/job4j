@@ -6,19 +6,19 @@ import static org.junit.Assert.assertThat;
 
 public class FactorialTest {
     @Test  // факториал для числа 5 равен 120
-    public void Factorial_Five() {
+    public void factorialFive() {
         Factorial factorial = new Factorial();
         int result = factorial.calc(5);
         assertThat(result, is(120));
     }
     @Test  // факториал для числа 0 равен 1
-    public void Factorial_Zero() {
+    public void factorialZero() {
         Factorial factorial = new Factorial();
         int result = factorial.calc(0);
         assertThat(result, is(0));
     }
     @Test  // факториал для числа 7 равен 5040
-    public void Factorial_Seven() {
+    public void factorialSeven() {
         Factorial factorial = new Factorial();
         int result = factorial.calc(7);
         assertThat(result, is(5040));

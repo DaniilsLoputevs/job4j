@@ -23,7 +23,7 @@ public class Converter {
         doLogic();
         test();
     }
-    private static void doLogic(){
+    private static void doLogic() {
         // Ruble - Euro
         int euro = rubleToEuro(140);
         System.out.println("140 rubles are " + euro + " euro."); // 2

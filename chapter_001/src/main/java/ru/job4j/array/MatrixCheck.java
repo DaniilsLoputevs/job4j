@@ -2,22 +2,18 @@ package ru.job4j.array;
 
 public class MatrixCheck {
 
-    public static boolean isWin (char[][] board) {
+    public static boolean isWin(char[][] board) {
         boolean result = false;
-
         for (int row = 0; row < board.length; row++) {
             int winRowCount = 0;
             int winCellCount = 0;
-
             for (int cell = 0; cell < board.length; cell++) {
-
                 if (board[row][cell] == 'X') {
                     winRowCount++;
                 }
                 if (board[cell][row] == 'X') {
                     winCellCount++;
                 }
-
                 if (winCellCount == board.length || winRowCount == board.length) {
                     result = true;
                     break;
@@ -28,14 +24,11 @@ public class MatrixCheck {
     }
 
     public static boolean isWinOld(char[][] board) {
-        //Мульти-return или boolean? - логика такая же, но с boolean строк больше и действий так же.
-                if (isWinHorizontal(board)) {
-                    return true;
-                } else if (isWinVertical(board)) {
-                    return true;
-                } else return false;
+        // Мульти-return или boolean? - логика такая же, но с boolean строк больше и действий так же.
+        // если один из методов возвращает true, то >> return true;
+        return isWinVertical(board) || isWinHorizontal(board);
     }
-    private static boolean isWinHorizontal (char[][] board) {
+    private static boolean isWinHorizontal(char[][] board) {
         boolean result = false;
         for (int row = 0; row < board.length; row++) {
             int winCount = 0;
@@ -51,7 +44,7 @@ public class MatrixCheck {
         }
         return result;
     }
-    private static boolean isWinVertical (char[][] board) {
+    private static boolean isWinVertical(char[][] board) {
         boolean result = false;
         for (int row = 0; row < board.length; row++) {
             int winCount = 0;
@@ -70,10 +63,10 @@ public class MatrixCheck {
 
     // Доп. метод
     // метод вывода массива[][] в консоль.
-    private static void showX2Array (char[][] X2Array) {
-        for (int i = 0; i < X2Array.length; i++) {
-            for (int k = 0; k < X2Array[i].length; k++) {
-                System.out.print(X2Array[i][k]);
+    private static void showX2Array(char[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int k = 0; k < matrix[i].length; k++) {
+                System.out.print(matrix[i][k]);
             }
             System.out.println();
         }

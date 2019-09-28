@@ -15,7 +15,7 @@ public class FindLoopTest {
         assertThat(result, is(expect));
     }
     @Test // search value = 7 >> find index = -1
-    public void whenArrayHas7Then_Nothing () {
+    public void whenArrayHas7ThenNothing() {
         int[] input = new int[] {5, 10, 3};
         int value = 7;
         int result = FindLoop.indexOf(input, value);

@@ -6,19 +6,19 @@ public class Matrix {
         Matrix test = new Matrix();
         int[][] arr = test.multiple(5);
         System.out.println();
-        test.showX2Array(arr);
+        test.shoMatrix(arr);
         // multipleV2
         int[][] arr1 = test.multipleV2(5);
         System.out.println();
-        test.showX2Array(arr1);
+        test.shoMatrix(arr1);
     }
 
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
         for (int i = 0; i < table.length; i++) {
-            int countLeft = i +1;
+            int countLeft = i + 1;
             for (int j = 0; j < table[i].length; j++) {
-                int countRight = j +1;
+                int countRight = j + 1;
                 int cell = countLeft * countRight;
                 if (i == 0) {
                     cell = countRight;
@@ -42,10 +42,10 @@ public class Matrix {
 
     // Доп. метод
     // метод вывода массива[][] в консоль.
-    private void showX2Array (int[][] X2Array) {
-        for (int i = 0; i < X2Array.length; i++) {
-            for (int k = 0; k < X2Array[i].length; k++) {
-                System.out.print(X2Array[i][k] + " ");
+    private void shoMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int k = 0; k < matrix[i].length; k++) {
+                System.out.print(matrix[i][k] + " ");
             }
             System.out.println();
         }
