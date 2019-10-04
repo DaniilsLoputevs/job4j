@@ -23,46 +23,7 @@ public class MatrixCheck {
         return result;
     }
 
-    public static boolean isWinOld(char[][] board) {
-        // Мульти-return или boolean? - логика такая же, но с boolean строк больше и действий так же.
-        // если один из методов возвращает true, то >> return true;
-        return isWinVertical(board) || isWinHorizontal(board);
-    }
-    private static boolean isWinHorizontal(char[][] board) {
-        boolean result = false;
-        for (int row = 0; row < board.length; row++) {
-            int winCount = 0;
-            for (int cell = 0; cell < board.length; cell++) {
-                if (board[row][cell] == 'X') {
-                    winCount++;
-                }
-                if (winCount == 5) {
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-    private static boolean isWinVertical(char[][] board) {
-        boolean result = false;
-        for (int row = 0; row < board.length; row++) {
-            int winCount = 0;
-            for (int cell = 0; cell < board.length; cell++) {
-                if (board[cell][row] == 'X') {
-                    winCount++;
-                }
-                if (winCount == 5) {
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    // Доп. метод
-    // метод вывода массива[][] в консоль.
+    // *Доп. метод - метод вывода массива[][] в консоль.
     private static void showX2Array(char[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int k = 0; k < matrix[i].length; k++) {

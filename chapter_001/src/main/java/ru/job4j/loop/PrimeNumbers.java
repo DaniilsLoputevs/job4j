@@ -1,6 +1,7 @@
 package ru.job4j.loop;
 
 public class PrimeNumbers {
+    // считает количество простых чисел от 1 до finish
     public int calc(int finish) {
         CheckPrimeNumber check = new CheckPrimeNumber();
         int count = 0;

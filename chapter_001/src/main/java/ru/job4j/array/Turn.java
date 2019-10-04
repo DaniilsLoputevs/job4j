@@ -1,6 +1,7 @@
 package ru.job4j.array;
 
 public class Turn {
+    // переворачивает массив с головы до ног
     public int[] back(int[] array) {
         for (int i = 0; i < array.length / 2; i++) {
             int temp = array[i];

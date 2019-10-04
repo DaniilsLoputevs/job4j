@@ -9,7 +9,6 @@ public class Fit {
         double result = (heightInCM - 100) * 1.15;
         return result;
     }
-
     public static double womanWeight(double heightInCM) {
         double result = (heightInCM - 110) * 1.15;
         return result;

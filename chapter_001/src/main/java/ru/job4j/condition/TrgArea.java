@@ -1,6 +1,7 @@
 package ru.job4j.condition;
 
 public class TrgArea {
+    // площадь треугольника
     public static double area(double a, double b, double c) {
         double p = (a + b + c) / 2;
         double sqrt = p * (p - a) * (p - b) * (p - c);

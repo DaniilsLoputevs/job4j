@@ -1,13 +1,13 @@
 package ru.job4j.array;
 
 public class Defragment {
+    // While can be replaced by for () {}
     public static String[] compress(String[] array) {
         for (int index = 0; index < array.length; index++) {
             String cell = array[index];
             if (cell == null) {
-                // Здесь нужен цикл while
-                int j = index + 1;  // looks like a part of "for" loop
-                while (j < array.length) {  // looks like a part of "for" loop
+                int j = index + 1;
+                while (j < array.length) {
                     if (array[j] == null) {
                         j++;
                         continue;
@@ -18,7 +18,7 @@ public class Defragment {
                         array[j] = temp;
                         break;
                     }
-                    j++;  // looks like a part of "for" loop
+                    j++;
                 }
             }
             System.out.print(array[index] + " ");
@@ -30,7 +30,6 @@ public class Defragment {
         String[] input = {"I", null, "wanna", null, "be", null, "compressed"};
         String[] compressed = compress(input);
         System.out.println();
-
         for (int index = 0; index < compressed.length; index++) {
             System.out.print(compressed[index] + " ");
         }

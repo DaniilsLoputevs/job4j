@@ -12,7 +12,7 @@ public class Matrix {
         System.out.println();
         test.shoMatrix(arr1);
     }
-
+    // Показывает таблицу умнажения от 1 до size
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
         for (int i = 0; i < table.length; i++) {
@@ -40,8 +40,7 @@ public class Matrix {
         return table;
     }
 
-    // Доп. метод
-    // метод вывода массива[][] в консоль.
+    // *Доп. метод - метод вывода массива[][] в консоль.
     private void shoMatrix(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int k = 0; k < matrix[i].length; k++) {
@@ -50,5 +49,4 @@ public class Matrix {
             System.out.println();
         }
     }
-
 }

@@ -2,27 +2,25 @@ package ru.job4j.converter;
 
 public class Converter {
 
+    public static void main(String[] args) {
+        doLogic();
+        test();
+    }
+
     public static int rubleToEuro(int value) {
         return value / 70;
     }
-
     public static int rubleToDollar(int value) {
         return value / 60;
     }
-
     public static int euroToRuble(int value) {
         return value * 70;
     }
-
     public static float euroToDollar(int value) {
         float changeRate = 1.1f; // from google for 12.09.2019 - 00:05 (timezone: GMT+1)
         return value * changeRate;
     }
 
-    public static void main(String[] args) {
-        doLogic();
-        test();
-    }
     private static void doLogic() {
         // Ruble - Euro
         int euro = rubleToEuro(140);
@@ -64,7 +62,5 @@ public class Converter {
         float out3 = euroToDollar(in3);
         boolean passed3 = expected3 == out3;
         System.out.println("90 Euro are 90 Dollar. Test result : " + passed3);
-
     }
-
 }

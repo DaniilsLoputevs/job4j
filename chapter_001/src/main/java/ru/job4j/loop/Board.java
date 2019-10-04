@@ -1,6 +1,7 @@
 package ru.job4j.loop;
 
 public class Board {
+    //нарисовать доску в консоль
     public static String paintString(int width, int height) {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < height; row++) {

@@ -1,7 +1,7 @@
 package ru.job4j.extra;
 
 public class Merge {
-
+    //
     public int[] merge(int[] left, int[] right) {
         int[] result = new int[left.length + right.length];
         int leftIndex = 0;
@@ -24,8 +24,7 @@ public class Merge {
         return result;
     }
 
-    // Доп. метод
-    // метод вывода массива[][] в консоль.
+    // *Доп. метод - метод вывода массива[] в консоль.
     private void showIntsArray(int[] arr) {
         for (int anArr : arr) {
             System.out.print(anArr + " ");
