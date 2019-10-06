@@ -33,18 +33,18 @@ public class Point {
         System.out.println("result (352, 47) to (731, 868) " + point2);
         System.out.println();
         //test v2
-        Point a = new Point(10,40);
-        Point b = new Point(20,80);
+        Point a = new Point(10, 40);
+        Point b = new Point(20, 80);
         double dist = a.distance(b);
         System.out.println("result (10, 40) to (20, 80) " + dist);
-        Point a1 = new Point(70,85);
-        Point b1 = new Point(160,800);
+        Point a1 = new Point(70, 85);
+        Point b1 = new Point(160, 800);
         double dist1 = a1.distance(b1);
-        System.out.println("result (70, 85) to (160, 800) " + point1);
-        Point a2 = new Point(352,47);
-        Point b2 = new Point(731,868);
+        System.out.println("result (70, 85) to (160, 800) " + dist1);
+        Point a2 = new Point(352, 47);
+        Point b2 = new Point(731, 868);
         double dist2 = a2.distance(b2);
-        System.out.println("result (352, 47) to (731, 868) " + point2);
+        System.out.println("result (352, 47) to (731, 868) " + dist2);
 
     }
 }
