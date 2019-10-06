@@ -6,12 +6,21 @@ import static java.lang.Math.sqrt;
 public class Point {
     private int x;
     private int y;
+    private int z;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
+    public Point(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
+    public double distance3D(Point that) {
+        return sqrt(pow(that.x - this.x, 2) + pow(that.y - this.y, 2) + pow(that.z - this.z, 2));
+    }
     public static double distance(int x1, int y1, int x2, int y2) {
         double firstBrackets = x2 - x1;
         double resultX = pow(firstBrackets, 2);
