@@ -16,6 +16,14 @@ public class Calculator {
         double result =  first + second;
         System.out.println(first + "+" + second + " = " + result);
     }
+    public static void add(double first, double second, double third) {
+        double result =  first + second + third;
+        System.out.println(first + "+" + second + "+" + third + " = " + result);
+    }
+    public static void add(double first, double second, double third, double fourth) {
+        double result =  first + second + third;
+        System.out.println(first + "+" + second +  "+"  + third + "+" + fourth + " = " + result);
+    }
     /**
      * Деление
      * @param first перывй аргумент
@@ -49,6 +57,8 @@ public class Calculator {
 
     public static void main(String[] args) {
         add(1, 1);
+        add(1, 2, 3);
+        add(1, 2, 3, 4);
         div(4, 2);
         multiply(2, 1);
         subtract(10, 5);

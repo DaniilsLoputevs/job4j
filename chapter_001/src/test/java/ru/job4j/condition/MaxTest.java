@@ -10,16 +10,33 @@ public class MaxTest {
         int result = Max.max(1, 2);
         assertThat(result, is(2));
     }
-
     @Test
     public void whenMax4To3Then4() {
         int result = Max.max(3, 4);
         assertThat(result, is(4));
     }
-
     @Test
-    public void whenMax5To5Then5() {
-        int result = Max.max(5, 5);
-        assertThat(result, is(5));
+    public void testOverloadOne() {
+        int result = Max.max(4, 7, 9);
+        assertThat(result, is(9));
     }
+    @Test
+    public void testOverloadTwo() {
+        int result = Max.max(8, 11, 7);
+        assertThat(result, is(11));
+    }
+    @Test
+    public void testOverloadThree() {
+        int result = Max.max(9, 7, 7, 17);
+        assertThat(result, is(17));
+    }
+    @Test
+    public void testOverloadFour() {
+        int result = Max.max(33, 37, 3);
+        assertThat(result, is(37));
+    }
+
+
+
+
 }
