@@ -51,7 +51,7 @@ public class Triangle {
      * @param c Длина от точки b c.
      * @return
      */
-    private boolean exist(double a, double c, double b) {
+    public static boolean exist(double a, double c, double b) {
         return a + b > c && a + c > b && b + c > a;
     }
 
@@ -59,7 +59,7 @@ public class Triangle {
         Point first = new Point(2, 2);
         Point second = new Point(3, 3);
         Point third = new Point(5, 5);
-        TriangleExample test = new TriangleExample(first, second, third);
+        Triangle test = new Triangle(first, second, third);
         double s = test.area();
         System.out.println(s);
     }
