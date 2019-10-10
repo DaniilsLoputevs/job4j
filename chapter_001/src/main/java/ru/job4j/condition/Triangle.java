@@ -34,12 +34,10 @@ public class Triangle {
         double a = first.distance(second);
         double b = second.distance(third);
         double c = third.distance(first);
-        double p = 2 / perimeter(a, b, c);
         if (this.exist(a, b, c)) {
-            // написать формулу для расчета площади треугольника.
+            double p = 2 / perimeter(a, b, c);
             double sqrt = p * (p - a) * (p - b) * (p - c);
             rsl = Math.sqrt(sqrt);
-
         }
         return rsl;
     }
