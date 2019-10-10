@@ -32,7 +32,7 @@ public class MaxTest {
     }
     @Test
     public void testOverloadFour() {
-        int result = Max.max(33, 37, 3);
+        int result = Max.max(33, 37, 3, 7);
         assertThat(result, is(37));
     }
 

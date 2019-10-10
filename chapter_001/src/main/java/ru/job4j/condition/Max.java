@@ -12,8 +12,6 @@ public class Max {
     }
 
     public static int max(int first, int second, int third, int fourth) {
-        int result = (first > second) ? first : second;
-        result = (result > third) ? result : third;
-        return (result > fourth) ? result : fourth;
+        return max(max(first, second), max(third, fourth));
     }
 }
