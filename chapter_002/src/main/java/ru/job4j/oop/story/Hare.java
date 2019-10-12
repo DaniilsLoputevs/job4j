@@ -1,5 +1,5 @@
 package ru.job4j.oop.story;
 
-public class Hare extends animal{
+public class Hare extends Animal {
 
 }

@@ -10,7 +10,7 @@ public class Battery {
     }
     public void load(Battery another) {
         int totalValue = this.value + another.value;
-        if(totalValue >= another.limit) {
+        if (totalValue >= another.limit) {
             this.value = limit;
             another.value = totalValue - limit;
         } else {

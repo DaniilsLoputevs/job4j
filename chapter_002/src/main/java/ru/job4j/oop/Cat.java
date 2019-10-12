@@ -12,7 +12,7 @@ public class Cat {
         this.name = nick;
     }
     public void show() {
-        System.out.println(this.name + " - " +this.food);
+        System.out.println(this.name + " - " + this.food);
         System.out.println(this.food);
     }
     public static void main(String[] args) {
