@@ -1,21 +1,32 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
  * @version $Id$
- * @since 0.1
+ * @since 15.10.19
  */
 public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    private final Item[] items = new Item[10]; // Должно быть 100
 
     /**
      * Указатель ячейки для новой заявки.
      */
     private int position = 0;
+
+    /**
+     * Метод генерирует уникальный ключ для заявки.
+     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
+     * @return Уникальный ключ.
+     */
+    private String generateId() {
+        Random rm = new Random();
+        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
+    }
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -28,94 +39,66 @@ public class Tracker {
     }
 
     /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
+     * Метод ищет ячейку по указаному id и заменяет её содержимое на @param item
+     * @param id
+     * @param item
+     * @return result
      */
-    private String generateId() {
-        Random rm = new Random();
-        return String.valueOf(rm.nextLong() + System.currentTimeMillis());
-    }
-
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 items[i] = item;
+                item.setId(id);
                 result = true;
                 break;
             }
         }
-
         return result;
     }
 
+    /**
+     * Метод принимает id зайавки которую нужно удалить, после двигает все след. ячейки в лево.
+     * @param id
+     * @return result
+     */
     public boolean delete(String id) {
         boolean result = false;
-        int index = 0;
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
-                items[i] = null;
+               System.arraycopy(items, i, items, i + 1, position);
                 result = true;
-                index = i;
                 break;
             }
-        }
-        for (; index < items.length - 1; index++) {
-            items[index] = items[index + 1];
         }
         return result;
     }
 
     public Item[] findAll() {
-        int length = 0;
-        int index = 0;
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null) {
-                length++;
-            }
-        }
-        Item[] result = new Item[length];
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null) {
-                result[index] = items[i];
-                i++;
-            }
-        }
-        return result;
+        return  Arrays.copyOf(this.items, this.position);
     }
 
     public Item[] findByName(String key) {
-        int length = 0;
-        int index = 0;
-        for (int i = 0; i < items.length; i++) {
+        Item[] result = new Item[position];
+        for (int i = 0; i < position; i++) {
             if (items[i] != null) {
                 if (items[i].getName().equals(key)) {
-                    length++;
-                }
-            }
-        }
-        Item[] result = new Item[length + 1];
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null) {
-                if (items[i].getName().equals(key)) {
-                    result[index] = items[i];
-                    index++;
+                    result[i] = items[i];
                 }
             }
         }
         return result;
+//        return Arrays.copyOf(items,);
     }
 
     public Item findById(String id) {
         Item result = null;
-        for (Item item : this.items) {
-            if (item.getId().equals(id)) {
-                result = item;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                result = items[i];
                 break;
             }
         }
         return result;
     }
-
 }

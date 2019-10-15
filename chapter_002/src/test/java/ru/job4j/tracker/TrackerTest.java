@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
     @Test // add
-    public void whenAddNewItemThenTrackerHasSameItem() {
+    public void add() {
         Tracker tracker = new Tracker();
         Item item = new Item("test1");
         tracker.add(item);
@@ -15,7 +15,7 @@ public class TrackerTest {
         assertThat(result.getName(), is(item.getName()));
     }
     @Test // replace
-    public void whenReplaceNameThenReturnNewName() {
+    public void replace() {
         Tracker tracker = new Tracker();
         Item previous = new Item("test1");
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
@@ -29,46 +29,58 @@ public class TrackerTest {
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
     }
-    @Test
-    public void findAll() {
-        Tracker tracker = new Tracker();
-        Item first = new Item("first");
-        Item second = new Item("second");
-        Item third = new Item("third");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-        Item[] itemsTest = new Item[3];
-        itemsTest[0] = first;
-        itemsTest[0] = second;
-        itemsTest[0] = third;
-        assertThat(tracker.findAll(), is(itemsTest));
-    }
-    @Test
-    public void findByName() {
-        Tracker tracker = new Tracker();
-        Item first = new Item("first");
-        Item second = new Item("first");
-        Item third = new Item("second");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-        Item[] itemsTest = new Item[3];
-        itemsTest[0] = first;
-        itemsTest[1] = second;
-        itemsTest[2] = null;
-        assertThat(tracker.findByName("first"), is(itemsTest));
-    }
-    @Test
+    @Test // delete
     public void delete() {
         Tracker tracker = new Tracker();
-        Item first = new Item("first");
-        Item second = new Item("second");
-        Item third = new Item("third");
+        Item first = new Item("one");
+        Item second = new Item("two");
+        Item third = new Item("three");
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
         assertThat(tracker.delete(second.getId()), is(true));
 
     }
+    @Test // findAll
+    public void findAll() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("one");
+        Item second = new Item("two");
+        Item third = new Item("three");
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+        Item[] itemsTest = new Item[3];
+        itemsTest[0] = first;
+        itemsTest[1] = second;
+        itemsTest[2] = third;
+        assertThat(tracker.findAll(), is(itemsTest));
+    }
+    @Test // findByName
+    public void findByName() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("one");
+        Item second = new Item("one");
+        Item third = new Item("two");
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+        Item[] itemsTest = new Item[3];
+        itemsTest[0] = first; // one
+        itemsTest[1] = second; // one
+        itemsTest[2] = null;
+        assertThat(tracker.findByName("one"), is(itemsTest));
+    }
+    @Test // findById
+    public void findById() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("one");
+        Item second = new Item("two");
+        Item third = new Item("three");
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+        assertThat(tracker.findById(first.getId()), is(first));
+    }
+
 }
