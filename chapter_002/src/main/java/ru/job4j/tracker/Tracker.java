@@ -11,7 +11,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[10]; // Должно быть 100
+    private final Item[] items = new Item[100]; // Должно быть 100
 
     /**
      * Указатель ячейки для новой заявки.
@@ -68,6 +68,7 @@ public class Tracker {
             if (items[i].getId().equals(id)) {
                System.arraycopy(items, i, items, i + 1, position);
                 result = true;
+                position--;
                 break;
             }
         }
@@ -80,15 +81,15 @@ public class Tracker {
 
     public Item[] findByName(String key) {
         Item[] result = new Item[position];
+        int count = 0;
         for (int i = 0; i < position; i++) {
             if (items[i] != null) {
                 if (items[i].getName().equals(key)) {
-                    result[i] = items[i];
+                    result[count++] = items[i];
                 }
             }
         }
-        return result;
-//        return Arrays.copyOf(items,);
+        return Arrays.copyOf(result, count);
     }
 
     public Item findById(String id) {

@@ -65,10 +65,9 @@ public class TrackerTest {
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
-        Item[] itemsTest = new Item[3];
+        Item[] itemsTest = new Item[2];
         itemsTest[0] = first; // one
         itemsTest[1] = second; // one
-        itemsTest[2] = null;
         assertThat(tracker.findByName("one"), is(itemsTest));
     }
     @Test // findById
