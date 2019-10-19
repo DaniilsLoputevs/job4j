@@ -17,25 +17,25 @@ public class StartUI {
             System.out.print("Select: ");
             int select = Integer.valueOf(input.askStr(""));
 
-            if (select == 0) {        // Add new Item
+            if (select == 0) {               // Add new Item
                 createItem(input, tracker);
 
-            } else if (select == 1) { // Show all items
+            } else if (select == 1) {        // Show all items
                 showAllItems(tracker);
 
-            } else if (select == 2) { // Edit item
+            } else if (select == 2) {        // Edit item
                 replaceItem(input, tracker);
 
-            } else if (select == 3) { // Delete item
+            } else if (select == 3) {        // Delete item
                 deleteItem(input, tracker);
 
-            } else if (select == 4) { // Find item by id
+            } else if (select == 4) {        // Find item by id
                 findById(input, tracker);
 
-            } else if (select == 5) { // Find items by name
+            } else if (select == 5) {        // Find items by name
                 findByName(tracker);
 
-            } else if (select == 6) { // Exit Program
+            } else if (select == 6) {        // Exit Program
                 run = false;
             }
         }
@@ -76,9 +76,6 @@ public class StartUI {
         System.out.print("Enter name: ");
         String name =  input.askStr("");
         Item item = new Item(name);
-        // Для теста
-//        Item test = new Item("test");
-
         tracker.replace(id, item);
         System.out.println();
     }
@@ -111,9 +108,6 @@ public class StartUI {
         tracker.findByName(test.getName());
         System.out.println();
     }
-
-
-
 
 
     public static void main(String[] args) {
