@@ -39,9 +39,9 @@ public class Tracker {
     }
 
     /**
-     * Метод ищет ячейку по указаному id и заменяет её содержимое на @param item
-     * @param id
-     * @param item
+     * Метод ищет ячейку по указаному @param id и заменяет её содержимое на @param item
+     * @param id id старой заявки (для удаление)
+     * @param item новая заявка
      * @return result
      */
     public boolean replace(String id, Item item) {
@@ -59,7 +59,7 @@ public class Tracker {
 
     /**
      * Метод принимает id зайавки которую нужно удалить, после двигает все след. ячейки в лево.
-     * @param id
+     * @param id id заявки (для удаление)
      * @return result
      */
     public boolean delete(String id) {
@@ -67,9 +67,9 @@ public class Tracker {
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                System.arraycopy(items, i, items, i + 1, position);
-                result = true;
-                position--;
-                break;
+               result = true;
+               position--;
+               break;
             }
         }
         return result;

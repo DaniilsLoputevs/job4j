@@ -72,25 +72,25 @@ public class StartUI {
     public static void replaceItem(Input input, Tracker tracker) {
         System.out.println("заменить заявку, по id");
         System.out.print("Enter id: ");
-        // int id = input.askStr("");  // на будущие
+        String id = input.askStr("");  // на будущие
         System.out.print("Enter name: ");
         String name =  input.askStr("");
         Item item = new Item(name);
         // Для теста
-        Item test = new Item("test");
+//        Item test = new Item("test");
 
-        tracker.replace(test.getId(), item);
+        tracker.replace(id, item);
         System.out.println();
     }
 
     public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("Удалить заявку по id");
         System.out.print("Enter id: ");
-        // int id =  input.askStr("");  // на будущие
+        String id =  input.askStr("");  // на будущие
         // Для теста
-        Item test = new Item("test");
+//        Item test = new Item("test");
 
-        tracker.delete(test.getId());
+        tracker.delete(id);
         System.out.println();
     }
 
