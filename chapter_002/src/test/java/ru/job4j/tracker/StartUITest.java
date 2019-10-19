@@ -12,7 +12,7 @@ public class StartUITest {
 
         Tracker tracker = new Tracker();
 
-        StartUI.createItem(input, tracker);
+//        StartUI.createItem(input, tracker);
 
         Item created = tracker.findAll()[0];
         Item expected = new Item("Fix PC");
@@ -28,7 +28,7 @@ public class StartUITest {
                 item.getId(), // id сохраненной заявки в объект tracker.
                 "replaced item"
         };
-        StartUI.replaceItem(new StubInput(answers), tracker);
+//        StartUI.replaceItem(new StubInput(answers), tracker);
         Item replaced = tracker.findById(item.getId());
         assertThat(replaced.getName(), is("replaced item"));
     }
@@ -45,10 +45,30 @@ public class StartUITest {
         String[] answers = {
                 item3.getId(), // id сохраненной заявки в объект tracker.
         };
-        StartUI.deleteItem(new StubInput(answers), tracker);
+//        StartUI.deleteItem(new StubInput(answers), tracker);
         Item[] test = new Item[] {
                 item1, item2
         };
         assertThat(tracker.findAll(), is(test));
+    }
+    @Test // 0. Exit
+    public void whenExit() {
+        StubInput input = new StubInput(
+                new String[] {"0"}
+        );
+        StubAction action = new StubAction();
+        new StartUI().init(input, new Tracker(), new UserAction[] { action });
+        assertThat(action.isCall(), is(true));
+    }
+    @Test // init
+    public void init() {
+        StubInput input = new StubInput(
+                new String[] {"0"}
+        );
+//        Tracker tracker = new Tracker();
+        StubAction action = new StubAction();
+        new StartUI().init(input, new Tracker(), new UserAction[] { action });
+        assertThat(action.isCall(), is(true));
+
     }
 }
