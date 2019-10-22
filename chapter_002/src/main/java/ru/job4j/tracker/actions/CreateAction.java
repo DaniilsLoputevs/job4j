@@ -20,6 +20,4 @@ public class CreateAction implements UserAction {
         System.out.println();
         return true;
     }
-
-
 }
