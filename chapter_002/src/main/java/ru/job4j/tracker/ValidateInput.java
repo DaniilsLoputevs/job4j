@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+/**
+ * Реализует interface Input - Валидация данных
+ * @author Daniils Loputevs
+ * @version $Id$
+ * @since 22.10.19
+ **/
+
 public class ValidateInput implements Input {
     private final Input input;
 

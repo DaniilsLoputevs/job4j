@@ -2,6 +2,13 @@ package ru.job4j.tracker;
 
 import java.util.Scanner;
 
+/**
+ * Реализация interface Input - описывает ввод данных от консоли.
+ * @author Daniils Loputevs
+ * @version $Id$
+ * @since 22.10.19
+ **/
+
 public class ConsoleInput implements Input {
     private Scanner scanner = new Scanner(System.in);
 

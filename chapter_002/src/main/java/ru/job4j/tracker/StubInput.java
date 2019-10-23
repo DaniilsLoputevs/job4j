@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+/**
+ * Реализует interface Input - Заглушка
+ * @author Daniils Loputevs
+ * @version $Id$
+ * @since 22.10.19
+ **/
+
 public class StubInput implements Input {
     private String[] answers;
     private int position = 0;

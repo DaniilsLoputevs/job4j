@@ -1,6 +1,13 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.actions.CreateAction;
+import ru.job4j.tracker.actions.*;
+
+/**
+ * Главый класс с main методом
+ * @author Daniils Loputevs
+ * @version $Id$
+ * @since 22.10.19
+ **/
 
 public class StartUI {
 
@@ -27,7 +34,13 @@ public class StartUI {
         Input validate = new ValidateInput(input);
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction()
+                new ExitOfProgramm(),
+                new CreateAction(),
+                new ReplaceItem(),
+                new DeleteItem(),
+                new FindAllItemsAction(),
+                new FindByNameItem(),
+                new FindByIdItem()
         };
         new StartUI().init(validate, tracker, actions);
     }

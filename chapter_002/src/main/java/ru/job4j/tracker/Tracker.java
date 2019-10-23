@@ -4,9 +4,13 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
+ * Класс менеджер заявок, нужен для создания объектов
+ * @author Daniils Loputevs
  * @version $Id$
- * @since 15.10.19
+ * @since 22.10.19
+ * Created 15.10.19
  */
+
 public class Tracker {
     /**
      * Массив для хранение заявок.
@@ -15,13 +19,14 @@ public class Tracker {
 
     /**
      * Указатель ячейки для новой заявки.
+     * + Также, указатель заполнености массива.
      */
     private int position = 0;
 
     /**
      * Метод генерирует уникальный ключ для заявки.
      * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
+     * @return Уникальный ключ. (далее присваивается заявке(Item item), как id).
      */
     private String generateId() {
         Random rm = new Random();
@@ -29,8 +34,9 @@ public class Tracker {
     }
 
     /**
-     * Метод реализаущий добавление заявки в хранилище
-     * @param item новая заявка
+     * Метод реализаущий добавление заявки в хранилище.
+     * + Присваивает id для новой заявки.
+     * @param item новая заявка.
      */
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -39,10 +45,10 @@ public class Tracker {
     }
 
     /**
-     * Метод ищет ячейку по указаному @param id и заменяет её содержимое на @param item
-     * @param id id старой заявки (для удаление)
-     * @param item новая заявка
-     * @return result
+     * Метод ищет ячейку по указаному @param id и заменяет её содержимое на @param item.
+     * @param id id старой заявки (для удаление).
+     * @param item новая заявка.
+     * @return boolean result - получилось или нет.
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
@@ -59,8 +65,8 @@ public class Tracker {
 
     /**
      * Метод принимает id зайавки которую нужно удалить, после двигает все след. ячейки в лево.
-     * @param id id заявки (для удаление)
-     * @return result
+     * @param id id заявки (для удаление).
+     * @return boolean result - получилось или нет.
      */
     public boolean delete(String id) {
         boolean result = false;
@@ -75,10 +81,18 @@ public class Tracker {
         return result;
     }
 
+    /**
+     * Метод возвращает все заявки.
+     * @return Item[] - массив всех заявок.
+     */
     public Item[] findAll() {
         return  Arrays.copyOf(this.items, this.position);
     }
 
+    /**
+     * Метод возвращает все заявки совпадающие с указаным именем.
+     * @return Item[] - массив всех заявок с одинаковыми именами.
+     */
     public Item[] findByName(String key) {
         Item[] result = new Item[position];
         int count = 0;
@@ -92,6 +106,11 @@ public class Tracker {
         return Arrays.copyOf(result, count);
     }
 
+    /**
+     * Метод возвращает заявку по указанному id.
+     * @param id id заявки для возврата.
+     * @return Item - нужная заявка.
+     */
     public Item findById(String id) {
         Item result = null;
         for (int i = 0; i < position; i++) {
