@@ -1,12 +1,53 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
-import ru.job4j.tracker.actions.StubAction;
+import ru.job4j.tracker.actions.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class StartUITest {
+    // Главные тесты класса
+
+    /**
+     * init()
+     */
+    @Test
+    public void init() {
+        // создаём искуственный ввод информации
+        StubInput input = new StubInput(
+                new String[] {"0"}
+        );
+        // создаём искуственное действие
+        StubAction action = new StubAction();
+        // проверяем метод (действие должно вернуть true, т.к. оно было вызвано)
+        new StartUI().init(input, new Tracker(), new UserAction[] {action});
+        assertThat(action.isCall(), is(true));
+    }
+
+    /**
+     * showMenu()
+     */
+    @Test
+    public void showMenu() {
+        // Проверяет, что в списке ВСЕ действия что должы там быть
+        UserAction[] actions = {
+                new ExitOfProgramm(),
+                new CreateAction(),
+                new ReplaceItem(),
+                new DeleteItem(),
+                new FindAllItemsAction(),
+                new FindByNameItem(),
+                new FindByIdItem()
+        };
+        new StartUI().showMenu(actions);
+    }
+
+
+
+
+    // Тесты ниже, это тесты Tracker через main (ввод через консоль)
+
     @Test // add Item || create Item
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
@@ -53,6 +94,7 @@ public class StartUITest {
         };
         assertThat(tracker.findAll(), is(test));
     }
+
     @Test // 0. Exit
     public void whenExit() {
         StubInput input = new StubInput(
@@ -62,15 +104,6 @@ public class StartUITest {
         new StartUI().init(input, new Tracker(), new UserAction[] {action});
         assertThat(action.isCall(), is(true));
     }
-    @Test // init
-    public void init() {
-        StubInput input = new StubInput(
-                new String[] {"0"}
-        );
-//        Tracker tracker = new Tracker();
-        StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[] {action});
-        assertThat(action.isCall(), is(true));
 
-    }
+
 }

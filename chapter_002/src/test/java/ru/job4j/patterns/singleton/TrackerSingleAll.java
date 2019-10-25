@@ -1,8 +1,6 @@
-package ru.job4j.tracker.singleton;
+package ru.job4j.patterns.singleton;
 
 import org.junit.Test;
-import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

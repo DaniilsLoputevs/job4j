@@ -6,30 +6,51 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
-    @Test // add
+
+    /**
+     * generateId()
+     */
+    @Test
+    public void generateId() {
+        String example = new Tracker().generateId();
+        String test = new Tracker().generateId();
+        assertThat(example.equals(test), is(false));
+    }
+
+    /**
+     * add()
+     */
+    @Test
     public void add() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1");
-        tracker.add(item);
-        Item result = tracker.findById(item.getId());
-        assertThat(result.getName(), is(item.getName()));
+        Item example = new Item("example");
+        tracker.add(example); // при добавлении в tracker, у заявки появляеться id
+        // достаём из массива заявку по id первой
+        Item test = tracker.findById(example.getId());
+        // сравниваем, что привер и вторая заявки одинаковы
+        assertThat(example, is(test));
     }
-    @Test // replace
+
+    /**
+     * replace()
+     */
+    @Test
     public void replace() {
         Tracker tracker = new Tracker();
-        Item previous = new Item("test1");
-        // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
-        tracker.add(previous);
-        // Создаем новую заявку.
-        Item next = new Item("test2");
-        // Проставляем старый id из previous, который был сгенерирован выше.
-        next.setId(previous.getId());
+        Item example = new Item("example");
+        // Добавляем заявку в трекер. Теперь у неё есть свой id (!= null)
+        tracker.add(example);
+        Item test = new Item("test"); // Создаем новую заявку.
         // Обновляем заявку в трекере.
-        tracker.replace(previous.getId(), next);
-        // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+        tracker.replace(example.getId(), test);
+        // Проверяем, что заявка с таким id имеет новое имя "test"
+        assertThat(tracker.findById(example.getId()).getName(), is("test"));
     }
-    @Test // delete
+
+    /** НЕ РААБОТАЕТ!!!!!
+     * delete()
+     */
+    @Test // Метод не рпботает корректно!!!!!!!!!!!
     public void delete() {
         Tracker tracker = new Tracker();
         Item first = new Item("one");
@@ -38,48 +59,70 @@ public class TrackerTest {
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
-        assertThat(tracker.delete(second.getId()), is(true));
+        Item[] example = new Item[] {
+                first, second, third
+        };
+        tracker.delete(first.getId());
+
+        assertThat(tracker.findAll(), is(example));
+
+//        Item example = new Item("example");
+        Item test = new Item("test");
+//        tracker.add(example);
+        tracker.add(test);
+        // сохраняем id заявки для удаления
+//        String testId = example.getId();
+//        tracker.delete(testId);
+
+//        assertThat(tracker.findById(testId), is(example));
 
     }
-    @Test // findAll
+
+    /**
+     * findAll()
+     */
+    @Test
     public void findAll() {
         Tracker tracker = new Tracker();
-        Item first = new Item("one");
-        Item second = new Item("two");
-        Item third = new Item("three");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-        Item[] itemsTest = new Item[3];
-        itemsTest[0] = first;
-        itemsTest[1] = second;
-        itemsTest[2] = third;
+        Item example = new Item("example");
+        Item test = new Item("test");
+        tracker.add(example);
+        tracker.add(test);
+        Item[] itemsTest = new Item[] {
+                example, test
+        };
         assertThat(tracker.findAll(), is(itemsTest));
     }
-    @Test // findByName
+
+    /**
+     * findByName()
+     */
+    @Test
     public void findByName() {
         Tracker tracker = new Tracker();
-        Item first = new Item("one");
-        Item second = new Item("one");
-        Item third = new Item("two");
+        Item first = new Item("example");
+        Item second = new Item("test");
+        Item third = new Item("example");
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
-        Item[] itemsTest = new Item[2];
-        itemsTest[0] = first; // one
-        itemsTest[1] = second; // one
-        assertThat(tracker.findByName("one"), is(itemsTest));
+        Item[] itemsTest = new Item[] {
+                first, third // "example"
+        };
+        assertThat(tracker.findByName("example"), is(itemsTest));
     }
-    @Test // findById
+
+    /**
+     * findById()
+     */
+    @Test
     public void findById() {
         Tracker tracker = new Tracker();
-        Item first = new Item("one");
-        Item second = new Item("two");
-        Item third = new Item("three");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-        assertThat(tracker.findById(first.getId()), is(first));
+        Item example = new Item("example");
+        Item test = new Item("test");
+        tracker.add(example);
+        tracker.add(test);
+        assertThat(tracker.findById(test.getId()), is(test));
     }
 
 }
