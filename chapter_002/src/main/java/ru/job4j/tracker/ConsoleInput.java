@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Реализация interface Input - описывает ввод данных от консоли.
+ * Все методы выполяют одну функцию - спровить строку
  * @author Daniils Loputevs
  * @version $Id$
  * @since 22.10.19

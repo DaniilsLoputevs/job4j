@@ -1,7 +1,8 @@
 package ru.job4j.tracker;
 
 /**
- * Реализует interface Input - Валидация данных
+ * Реализует interface Input - Валидация данных для ConsoleInput
+ * Все методы выполяют одну функцию - спровить строку
  * @author Daniils Loputevs
  * @version $Id$
  * @since 22.10.19
@@ -10,9 +11,14 @@ package ru.job4j.tracker;
 public class ValidateInput implements Input {
     private final Input input;
 
-    public ValidateInput(Input input) {
+    /**
+     * Конструктор
+     * @param input - ConsoleInput input - объявляеться в main()
+     */
+    ValidateInput(Input input) {
         this.input = input;
     }
+
 
     @Override
     public String askStr(String question) {
@@ -33,9 +39,9 @@ public class ValidateInput implements Input {
                 value = input.askInt(question, max);
                 invalid = false;
             } catch (IllegalStateException moe) {
-                System.out.println("Please select key from menu ");
+                System.out.println("Please select key from menu.");
             } catch (NumberFormatException nfe) {
-                System.out.println("Please enter validate data again ");
+                System.out.println("Please enter validate data again.");
             }
         } while (invalid);
         return value;

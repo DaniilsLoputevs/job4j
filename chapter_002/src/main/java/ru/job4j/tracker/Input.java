@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 /**
  * Замена Scanner scanner т.к. нужно как меньше внешних зависимостей
- * Все методы выполняют одну функцию.
+ * Все методы этого interface выполняют одну функцию - спросить строку
  * @author Daniils Loputevs
  * @version $Id$
  * @since 22.10.19

@@ -1,7 +1,8 @@
 package ru.job4j.tracker;
 
 /**
- * Реализует interface Input - Заглушка
+ * Реализует interface Input - Заглушка. Нужна для тестов
+ * Все методы выполяют одну функцию - спровить строку
  * @author Daniils Loputevs
  * @version $Id$
  * @since 22.10.19
@@ -10,6 +11,7 @@ package ru.job4j.tracker;
 public class StubInput implements Input {
     private String[] answers;
     private int position = 0;
+
 
     public StubInput(String[] answers) {
         this.answers = answers;
@@ -27,6 +29,10 @@ public class StubInput implements Input {
 
     @Override
     public int askInt(String question, int max) {
+        int select = askInt(question);
+        if (select < 0 || select >= max) {
+            throw new IllegalStateException(String.format("Out of about %s > [0, %s]", select, max));
+        }
         return askInt(question);
     }
 }

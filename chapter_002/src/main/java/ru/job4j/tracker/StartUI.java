@@ -1,17 +1,23 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.actions.*;
+import ru.job4j.tracker.item_actions.*;
 
 /**
  * Главый класс с main методом
  * @author Daniils Loputevs
  * @version $Id$
- * @since 22.10.19
+ * @since 24.10.19
  **/
 
 public class StartUI {
 
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
+    /**
+     * Старт всей программы
+     * @param input - ValidateInput(input)
+     * @param tracker - Tracker tracker
+     * @param actions - UserAction[] - массив всех действий с заявками
+     */
+    void init(Input input, Tracker tracker, UserAction[] actions) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
@@ -21,7 +27,11 @@ public class StartUI {
         }
     }
 
-    private void showMenu(UserAction[] actions) {
+    /**
+     * показывает имя всех Действий добавленых в item_actions
+     * @param actions - UserAction[] actions
+     */
+    void showMenu(UserAction[] actions) {
         System.out.println("Menu.");
         for (int index = 0; index < actions.length; index++) {
             System.out.println(index + ". " + actions[index].name());
@@ -35,12 +45,12 @@ public class StartUI {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new ExitOfProgramm(),
-                new CreateAction(),
-                new ReplaceItem(),
+                new Create(),
+                new Replace(),
                 new DeleteItem(),
-                new FindAllItemsAction(),
-                new FindByNameItem(),
-                new FindByIdItem()
+                new FindAll(),
+                new FindByName(),
+                new FindById()
         };
         new StartUI().init(validate, tracker, actions);
     }
