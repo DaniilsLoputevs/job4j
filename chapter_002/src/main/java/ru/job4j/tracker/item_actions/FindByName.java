@@ -1,4 +1,4 @@
-package ru.job4j.tracker.actions;
+package ru.job4j.tracker.item_actions;
 
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
@@ -12,10 +12,10 @@ import ru.job4j.tracker.UserAction;
  * @since 24.10.19
  **/
 
-public class FindByNameItem implements UserAction {
-    @Override
-    public String name() {
-        return "=== Find Item by Name ====";
+public class FindByName extends BaseAction {
+
+    public FindByName(int key, String name) {
+        super(key, name);
     }
 
     @Override
@@ -25,6 +25,7 @@ public class FindByNameItem implements UserAction {
         for (Item item : tracker.findByName(name)) {
             System.out.println(String.format("%s %s", item.getId(), item.getName()));
         }
+        System.out.println();
         return true;
     }
 }

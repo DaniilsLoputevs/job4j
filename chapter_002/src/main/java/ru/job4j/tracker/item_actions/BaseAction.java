@@ -1,4 +1,4 @@
-package ru.job4j.tracker.actions;
+package ru.job4j.tracker.item_actions;
 
 import ru.job4j.tracker.UserAction;
 
@@ -10,14 +10,15 @@ public abstract class BaseAction implements UserAction {
         this.key = key;
         this.name = name;
     }
-//
-//    @Override
-//    public int key() {
-//        return this.key;
-//    }
-//
-//    @Override
-//    public String info() {
-//        return String.format("%s : %s", this.key, this.name);
-//    }
+
+    @Override
+    public int key() {
+        return this.key;
+    }
+
+    @Override
+    public String name() {
+        return String.format("%s : %s", this.key, this.name);
+    }
+
 }

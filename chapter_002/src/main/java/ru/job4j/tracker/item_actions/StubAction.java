@@ -1,4 +1,4 @@
-package ru.job4j.tracker.actions;
+package ru.job4j.tracker.item_actions;
 
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
@@ -9,7 +9,7 @@ import ru.job4j.tracker.UserAction;
  * Нужна для тестов
  * @author Daniils Loputevs
  * @version $Id$
- * @since 24.10.19
+ * @since 25.10.19
  **/
 
 public class StubAction implements UserAction {
@@ -17,6 +17,7 @@ public class StubAction implements UserAction {
      * переменная отвечает за вызов метода, если он был вызван, то call >> = true
      */
     private boolean call = false;
+
 
     @Override
     public String name() {

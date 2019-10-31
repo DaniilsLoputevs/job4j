@@ -1,4 +1,4 @@
-package ru.job4j.tracker.actions;
+package ru.job4j.tracker.item_actions;
 
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
@@ -9,13 +9,14 @@ import ru.job4j.tracker.UserAction;
  * Заменить заявку по id на новую заявку в tracker.items
  * @author Daniils Loputevs
  * @version $Id$
- * @since 24.10.19
+ * @since 25.10.19
  **/
 
-public class ReplaceItem implements UserAction {
-    @Override
-    public String name() {
-        return "=== Replace Item ====";
+public class Replace extends BaseAction {
+
+
+    public Replace(int key, String name) {
+        super(key, name);
     }
 
     @Override
