@@ -20,19 +20,18 @@ public class PhoneDictionary {
         for (Person person : persons) {
             if (person.getName().matches(key)) {
                 result.add(person);
-                break;
+                continue;
             }
             if (person.getSurname().matches(key)) {
                 result.add(person);
-                break;
+                continue;
             }
             if (person.getPhone().matches(key)) {
                 result.add(person);
-                break;
+                continue;
             }
             if (person.getAddress().matches(key)) {
                 result.add(person);
-                break;
             }
         }
         return result;
