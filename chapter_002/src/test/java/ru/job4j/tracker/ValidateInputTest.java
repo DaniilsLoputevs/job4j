@@ -1,11 +1,8 @@
 package ru.job4j.tracker;
 
-import org.hamcrest.core.Is;
-import org.junit.Assert;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.StringJoiner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -18,21 +15,11 @@ public class ValidateInputTest {
         ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
         PrintStream defaultOutput = System.out;
         System.setOut(new PrintStream(newOutput));
+        // Основной блок
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"9", "6"})
+                new StubInput(new String[] {"9", "1", "2"})
         );
-        input.askInt("9", 6); // Действие
-
-
-        // Такая же, строка, что метод кинул в sout();
-//        String expect = "Please select key from menu.%n";
-
-//        Assert.assertThat(new String(newOutput.toByteArray()), Is.is(expect));
-
-
-
-
-
+        input.askInt("take first answer from arr", 6); // Действие
         assertThat(
                 newOutput.toString(),
                 is(String.format("Please select key from menu.%n"))
@@ -49,9 +36,9 @@ public class ValidateInputTest {
         System.setOut(new PrintStream(newOutput));
         // Основной блок
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"invalid", "1"})
+                new StubInput(new String[] {"invalid", "1", "2"})
         );
-        input.askInt("Enter", 1);
+        input.askInt("take first answer from arr", 4);
         // Сравнение
         assertThat(
                 newOutput.toString(),

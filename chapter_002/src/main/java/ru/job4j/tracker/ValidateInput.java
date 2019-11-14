@@ -27,7 +27,17 @@ public class ValidateInput implements Input {
 
     @Override
     public int askInt(String question) {
-        return 0;
+        boolean invalid = true;
+        int value = -1;
+        do {
+            try {
+                value = input.askInt(question);
+                invalid = false;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter validate data again ");
+            }
+        } while (invalid);
+        return value;
     }
 
     @Override
