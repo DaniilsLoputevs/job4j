@@ -14,7 +14,7 @@ public class ConvertMatrix2ListTest {
                 {1, 2, 3, 4},
                 {5, 6, 7},
                 {8, 9},
-                {10, 11, 12},
+                {10, 11, 12}
         };
         List<Integer> expect = Arrays.asList(
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
