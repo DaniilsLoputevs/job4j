@@ -7,7 +7,7 @@ import java.util.Random;
  * Класс менеджер заявок, нужен для создания объектов
  * @author Daniils Loputevs
  * @version $Id$
- * @since 22.10.19
+ * @since 15.11.19
  * Created 15.10.19
  */
 
@@ -15,7 +15,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100]; // Должно быть 100
+    private final Item[] items = new Item[100]; // по умолчания должно быть 100
 
     /**
      * Указатель ячейки для новой заявки.
@@ -28,11 +28,13 @@ public class Tracker {
      * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
      * @return Уникальный ключ. (далее присваивается заявке(Item item), как id).
      */
-    private String generateId() {
+    String generateId() {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 
+
+    // Методы на которых основаны все клаасы в пакете item_actions
     /**
      * Метод реализаущий добавление заявки в хранилище.
      * + Присваивает id для новой заявки.
@@ -46,39 +48,36 @@ public class Tracker {
 
     /**
      * Метод ищет ячейку по указаному @param id и заменяет её содержимое на @param item.
+     * После замены, ячейка имее старый id.
      * @param id id старой заявки (для удаление).
      * @param item новая заявка.
-     * @return boolean result - получилось или нет.
      */
-    public boolean replace(String id, Item item) {
-        boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                items[i] = item;
-                item.setId(id);
-                result = true;
-                break;
+    public void replace(String id, Item item) {
+        if (isIdExist(id)) {
+            for (int i = 0; i < position; i++) {
+                if (items[i].getId().equals(id)) {
+                    items[i] = item;
+                    item.setId(id);
+                    break;
+                }
             }
         }
-        return result;
     }
 
     /**
      * Метод принимает id зайавки которую нужно удалить, после двигает все след. ячейки в лево.
      * @param id id заявки (для удаление).
-     * @return boolean result - получилось или нет.
      */
-    public boolean delete(String id) {
-        boolean result = false;
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-               System.arraycopy(items, i, items, i + 1, position);
-               result = true;
-               position--;
-               break;
+    public void delete(String id) {
+        if (isIdExist(id)) {
+            for (int i = 0; i < position; i++) {
+                if (items[i].getId().equals(id)) {
+                    System.arraycopy(items, 0, items, 0, position);
+                    position--;
+                    break;
+                }
             }
         }
-        return result;
     }
 
     /**
@@ -87,6 +86,7 @@ public class Tracker {
      */
     public Item[] findAll() {
         return  Arrays.copyOf(this.items, this.position);
+//        return  items;
     }
 
     /**
@@ -113,12 +113,31 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
+        if (isIdExist(id)) {
+            for (int i = 0; i < position; i++) {
+                if (items[i].getId().equals(id)) {
+                    result = items[i];
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Метод проверяет есть ли, такой id в системе
+     * @param id - id для проверки
+     * @return true/false - Есть/Нету
+     */
+    private boolean isIdExist (String id) {
+        boolean result = false;
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
-                result = items[i];
+                result = true;
                 break;
             }
         }
+        if (!result) { System.out.println("Такого id не существует."); }
         return result;
     }
 }

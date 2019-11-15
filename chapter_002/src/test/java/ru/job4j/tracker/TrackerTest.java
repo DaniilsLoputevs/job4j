@@ -59,10 +59,16 @@ public class TrackerTest {
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
+
+        tracker.delete(second.getId());
+
+        System.out.println(first);
+        System.out.println(second);
+        System.out.println(third);
+
         Item[] example = new Item[] {
-                first, second, third
+                first, third
         };
-        tracker.delete(first.getId());
 
         assertThat(tracker.findAll(), is(example));
 
