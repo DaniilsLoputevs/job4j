@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -129,6 +133,26 @@ public class TrackerTest {
         tracker.add(example);
         tracker.add(test);
         assertThat(tracker.findById(test.getId()), is(test));
+    }
+
+    @Test
+    public void isIdExist() {
+        // Подгатовка
+        ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
+        PrintStream defaultOutput = System.out;
+        System.setOut(new PrintStream(newOutput));
+        // Основной блок
+        Tracker tracker = new Tracker();
+        Item example = new Item("example");
+        tracker.add(example);
+        tracker.findById(tracker.generateId());
+        // Сравнение
+        MatcherAssert.assertThat(
+                newOutput.toString(),
+                is(String.format("Такого id не существует.%n"))
+        );
+        // Возвращаем стандартный вывод
+        System.setOut(defaultOutput);
     }
 
 }
