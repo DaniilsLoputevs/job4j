@@ -34,7 +34,7 @@ public class Tracker {
     }
 
 
-    // Методы на которых основаны все клаасы в пакете item_actions
+    // Методы на которых основаны все клаасы в пакете actions
     /**
      * Метод реализаущий добавление заявки в хранилище.
      * + Присваивает id для новой заявки.
@@ -53,14 +53,17 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void replace(String id, Item item) {
-        if (isIdExist(id)) {
-            for (int i = 0; i < position; i++) {
-                if (items[i].getId().equals(id)) {
-                    items[i] = item;
-                    item.setId(id);
-                    break;
-                }
+        boolean idExist = false;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                items[i] = item;
+                item.setId(id);
+                idExist = true;
+                break;
             }
+        }
+        if (!idExist) {
+            System.out.println("Такого id не существует.");
         }
     }
 
@@ -69,14 +72,17 @@ public class Tracker {
      * @param id id заявки (для удаление).
      */
     public void delete(String id) {
-        if (isIdExist(id)) {
-            for (int i = 0; i < position; i++) {
-                if (items[i].getId().equals(id)) {
-                    System.arraycopy(items, 0, items, 0, position);
-                    position--;
-                    break;
-                }
+        boolean idExist = false;
+        for (int i = 0; i < position; i++) {
+            if (items[i].getId().equals(id)) {
+                System.arraycopy(items, 0, items, 0, position);
+                position--;
+                idExist = true;
+                break;
             }
+        }
+        if (!idExist) {
+            System.out.println("Такого id не существует.");
         }
     }
 
@@ -86,7 +92,6 @@ public class Tracker {
      */
     public Item[] findAll() {
         return  Arrays.copyOf(this.items, this.position);
-//        return  items;
     }
 
     /**
@@ -113,31 +118,15 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        if (isIdExist(id)) {
-            for (int i = 0; i < position; i++) {
-                if (items[i].getId().equals(id)) {
-                    result = items[i];
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Метод проверяет есть ли, такой id в системе
-     * @param id - id для проверки
-     * @return true/false - Есть/Нету
-     */
-    private boolean isIdExist (String id) {
-        boolean result = false;
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
-                result = true;
-                break;
+            result = items[i];
+            break;
             }
         }
-        if (!result) { System.out.println("Такого id не существует."); }
+        if (result == null) {
+            System.out.println("Такого id не существует.");
+        }
         return result;
     }
 }
