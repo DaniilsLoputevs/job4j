@@ -1,41 +1,64 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.item_actions.*;
+import ru.job4j.tracker.actions.Create;
+import ru.job4j.tracker.actions.ExitOfProgramm;
+import ru.job4j.tracker.actions.FindAll;
+import ru.job4j.tracker.actions.FindById;
+import ru.job4j.tracker.actions.FindByName;
+import ru.job4j.tracker.actions.Replace;
+
+import java.util.ArrayList;
 
 /**
  * Главый класс с main методом
  * @author Daniils Loputevs
  * @version $Id$
- * @since 24.10.19
+ * @since 17.11.19
  **/
 
 public class StartUI {
 
     /**
-     * Старт всей программы
-     * @param input - ValidateInput(input)
-     * @param tracker - Tracker tracker
-     * @param actions - UserAction[] - массив всех действий с заявками
+     * Метод инициилизации программы
+     * @param input - ValidateInput(input).
+     * @param tracker - Tracker tracker.
+     * @param actions - ArrayList<UserAction> - массив действий с заявками.
      */
-    void init(Input input, Tracker tracker, UserAction[] actions) {
+    void init(Input input, Tracker tracker, ArrayList<UserAction> actions) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
-            int select = input.askInt("Select: ", actions.length);
-            UserAction action = actions[select];
+            int select = input.askInt("Select: ", actions.size());
+            UserAction action = actions.get(select);
             run = action.execute(input, tracker);
         }
     }
 
     /**
-     * показывает имя всех Действий добавленых в item_actions
-     * @param actions - UserAction[] actions
+     * Показывает имина всех Действий добавленых в actions.
+     * @param actions - ArrayList<UserAction> - список действий.
      */
-    void showMenu(UserAction[] actions) {
+    void showMenu(ArrayList<UserAction> actions) {
         System.out.println("Menu.");
-        for (int index = 0; index < actions.length; index++) {
-            System.out.println(index + ". " + actions[index].name());
+        for (int index = 0; index < actions.size(); index++) {
+            System.out.println(actions.get(index).name());
         }
+    }
+
+    /**
+     * Мнтод для заполнения списка с возможными действиями.
+     * @return actions - задаёт содержимое массива.
+     */
+    private static ArrayList setActions() {
+        ArrayList<UserAction> actions = new ArrayList();
+        actions.add(new ExitOfProgramm(0, "=== Exit ===="));
+        actions.add(new Create(1, "=== Create a new Item ===="));
+        actions.add(new Replace(2, "=== Replace Item ===="));
+//        actions.add(   new DeleteItem(),);
+        actions.add(new FindAll(4, "=== Show all Items ===="));
+        actions.add(new FindByName(5, "=== Find Item by Name ===="));
+        actions.add(new FindById(6,  "=== Find Item by Id ===="));
+        return actions;
     }
 
 
@@ -43,15 +66,7 @@ public class StartUI {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
-                new ExitOfProgramm(0, "=== Exit ===="),
-                new Create(1, "=== Create a new Item ===="),
-                new Replace(2, "=== Replace Item ===="),
-                new DeleteItem(),
-                new FindAll(4, "=== Show all Items ===="),
-                new FindByName(5, "=== Find Item by Name ===="),
-                new FindById(6,  "=== Find Item by Id ====")
-        };
+        ArrayList<UserAction> actions = setActions();
         new StartUI().init(validate, tracker, actions);
     }
 }

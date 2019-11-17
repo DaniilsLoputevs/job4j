@@ -1,11 +1,11 @@
 package ru.job4j.tracker;
 
 /**
- * Реализует interface Input - Заглушка. Нужна для тестов
- * Все методы выполяют одну функцию - спровить строку
+ * Реализует interface Input - Заглушка. Нужна для тестов.
+ * Все методы выполяют одну функцию - спровить строку.
  * @author Daniils Loputevs
  * @version $Id$
- * @since 22.10.19
+ * @since 14.11.19
  **/
 
 public class StubInput implements Input {

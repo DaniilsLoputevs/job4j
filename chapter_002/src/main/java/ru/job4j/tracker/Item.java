@@ -1,11 +1,11 @@
 package ru.job4j.tracker;
 
 /**
- * Класс нужен для создания объектов.
- * Главное массив объектов в Tracker
+ * Класс нужен для создания объектов(заявок).
+ * Все заявк хранятся ArrayList<Item> items в классе Tracker
  * @author Daniils Loputevs
  * @version $Id$
- * @since 22.10.19
+ * @since 17.11.19
  **/
 
 public class Item {
@@ -13,12 +13,13 @@ public class Item {
     private String name;
 
     /**
-     *  Основной конструктор
+     * Основной конструктор
      * @param name - имя заявки
      **/
     public Item(String name) {
         this.name = name;
     }
+
 
      // Getters & Setters
     /**

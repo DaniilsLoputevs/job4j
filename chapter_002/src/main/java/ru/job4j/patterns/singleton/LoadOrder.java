@@ -1,4 +1,4 @@
-package ru.job4j.tracker.singleton;
+package ru.job4j.patterns.singleton;
 
 public class LoadOrder {
 

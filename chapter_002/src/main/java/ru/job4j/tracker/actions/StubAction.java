@@ -1,8 +1,7 @@
-package ru.job4j.tracker.item_actions;
+package ru.job4j.tracker.actions;
 
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
-import ru.job4j.tracker.UserAction;
 
 /**
  * Заглушка - Имитация действий для tracker.items
@@ -12,11 +11,16 @@ import ru.job4j.tracker.UserAction;
  * @since 25.10.19
  **/
 
-public class StubAction implements UserAction {
+public class StubAction extends BaseAction {
     /**
      * переменная отвечает за вызов метода, если он был вызван, то call >> = true
      */
-    private boolean call = false;
+    private boolean call; // по умолчанию должна быть false;
+
+    public StubAction(int key, String name, boolean call) {
+        super(key, name);
+        this.call = call;
+    }
 
 
     @Override

@@ -1,6 +1,14 @@
-package ru.job4j.tracker.item_actions;
+package ru.job4j.tracker.actions;
 
 import ru.job4j.tracker.UserAction;
+
+/**
+ * abstract class - implements UserAction
+ * Реализует общие методы Классов в папке actions.
+ * @author Daniils Loputevs
+ * @version $Id$
+ * @since 17.11.19
+ **/
 
 public abstract class BaseAction implements UserAction {
     private final int key;
@@ -20,5 +28,4 @@ public abstract class BaseAction implements UserAction {
     public String name() {
         return String.format("%s : %s", this.key, this.name);
     }
-
 }

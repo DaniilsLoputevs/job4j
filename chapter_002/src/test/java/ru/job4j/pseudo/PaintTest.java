@@ -49,35 +49,40 @@ public class PaintTest {
         );
     }
 
-//    @Test
-//    public void whenDrawTriangle() {
-//        new Paint().draw(new Triangle());
-//        assertThat(
-//                this.out.toString(),
-//                is(
-//                        new StringJoiner(
-//                                System.lineSeparator(), "",
-//                                System.lineSeparator())
-//                                .add("  ^  ")
-//                                .add(" ^ ^ ")
-//                                .add("^^^^^")
-//                                .toString()
-//                )
-//        );
-//    }
+    @Test // Не работает!!!
+    public void whenDrawTriangle() {
+        new Paint().draw(new Triangle());
+        assertThat(
+                this.out.toString(),
+                is(
+                        new StringJoiner(
+                                System.lineSeparator(), "",
+                                System.lineSeparator())
+                                .add("  ^  ")
+                                .add(" ^ ^ ")
+                                .add("^^^^^")
+                                .toString()
+                )
+        );
+    }
 
 
     @Test
     public void extra() {
         // получаем ссылку на стандартный вывод в консоль.
+        // сохрвняем стандартный вывод
         PrintStream stdout = System.out;
         // Создаем буфур для хранения вывода.
+        // Создаем переменную для теста. Тип данных, что мы будем проверять.
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        //Заменяем стандартный вывод на вывод в пямять для тестирования.
+        // Заменяем стандартный вывод на вывод в пямять для тестирования.
+        // подменяем стандартный вывод на тот, что мы будем сравнивать.
         System.setOut(new PrintStream(out));
         // выполняем действия пишушиее в консоль.
-        new Paint().draw(new Square());
+        new Paint().draw(new Square()); // У сетода должен быть return sout()
         // проверяем результат вычисления
+        // вызываем ByteArray у, Уже заменённого вывода
+        // пишем с чес мы сравниваем
         assertThat(
                 new String(out.toByteArray()),
                 is(
