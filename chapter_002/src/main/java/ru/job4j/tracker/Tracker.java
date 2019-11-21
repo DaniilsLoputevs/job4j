@@ -68,12 +68,14 @@ public class Tracker {
      */
     public void delete(String id) {
         boolean idExist = false;
+        int index = 0;
         for (Item item : items) {
             if (item.getId().equals(id)) {
-                items.remove(findById(id));
+                items.remove(index);
                 idExist = true;
                 break;
             }
+            index++;
         }
         if (!idExist) {
             System.out.println("Такого id не существует.");
