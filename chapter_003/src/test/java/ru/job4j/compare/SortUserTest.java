@@ -32,6 +32,7 @@ public class SortUserTest {
          * Я не мог сравнить напрямую sort и list, поэтому перекинул sort в ArrayList
          */
     }
+
     @Test
     public void sort() {
         List<User> example = new ArrayList<>();
@@ -46,6 +47,36 @@ public class SortUserTest {
         example1.addAll(example);
 
         assertThat(SortUser.sort(example), is(example1)); // 20, 30, 40, 50
+    }
+
+    @Test
+    public void sortNameLength() {
+        List<User> example = new ArrayList<>();
+        User ivan = new User("Иван", 25); // 1
+        User ivan1 = new User("Иван", 30); // 2
+        User sergej = new User("Сергей", 20); // 3
+        User sergej1 = new User("Сергей", 25); // 4
+        example.addAll(Arrays.asList(ivan, sergej, ivan1, sergej1)); // 1, 3, 2, 4
+
+        List<User> test = new ArrayList<>();
+        test.addAll(Arrays.asList(ivan, ivan1, sergej, sergej1)); // 1, 2, 3, 4
+
+        assertThat(SortUser.sortNameLength(example), is(test));
+    }
+
+    @Test
+    public void sortByAllFields() {
+        List<User> example = new ArrayList<>();
+        User ivan = new User("Иван", 25); // 1
+        User ivan1 = new User("Иван", 30); // 2
+        User sergej = new User("Сергей", 20); // 3
+        User sergej1 = new User("Сергей", 25); // 4
+        example.addAll(Arrays.asList(ivan, sergej, ivan1, sergej1)); // 1, 3, 2, 4
+
+        List<User> test = new ArrayList<>();
+        test.addAll(Arrays.asList(ivan, ivan1, sergej, sergej1)); // 1, 2, 3, 4
+
+        assertThat(SortUser.sortByAllFields(example), is(test));
     }
 
 }
