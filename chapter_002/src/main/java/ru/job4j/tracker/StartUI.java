@@ -1,11 +1,6 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.actions.Create;
-import ru.job4j.tracker.actions.ExitOfProgramm;
-import ru.job4j.tracker.actions.FindAll;
-import ru.job4j.tracker.actions.FindById;
-import ru.job4j.tracker.actions.FindByName;
-import ru.job4j.tracker.actions.Replace;
+import ru.job4j.tracker.actions.*;
 
 import java.util.ArrayList;
 
@@ -54,7 +49,7 @@ public class StartUI {
         actions.add(new ExitOfProgramm(0, "=== Exit ===="));
         actions.add(new Create(1, "=== Create a new Item ===="));
         actions.add(new Replace(2, "=== Replace Item ===="));
-//        actions.add(   new DeleteItem(),);
+        actions.add(new DeleteItem(3, "=== Delete Item ===="));
         actions.add(new FindAll(4, "=== Show all Items ===="));
         actions.add(new FindByName(5, "=== Find Item by Name ===="));
         actions.add(new FindById(6,  "=== Find Item by Id ===="));

@@ -52,41 +52,26 @@ public class TrackerTest {
         assertThat(tracker.findById(example.getId()).getName(), is("test"));
     }
 
-    /** НЕ РААБОТАЕТ!!!!!
+    /**
      * delete()
      */
-    @Test // Метод не рпботает корректно!!!!!!!!!!!
+    @Test
     public void delete() {
-        Tracker tracker = new Tracker();
+        Tracker example = new Tracker();
         Item first = new Item("one");
         Item second = new Item("two");
         Item third = new Item("three");
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
+        example.add(first);
+        example.add(second);
+        example.add(third);
 
-        tracker.delete(second.getId());
+        example.delete(second.getId());
 
-        System.out.println(first);
-        System.out.println(second);
-        System.out.println(third);
+        ArrayList<Item> test = new ArrayList();
+        test.add(first);
+        test.add(third);
 
-        Item[] example = new Item[] {
-                first, third
-        };
-
-        assertThat(tracker.findAll(), is(example));
-
-//        Item example = new Item("example");
-        Item test = new Item("test");
-//        tracker.add(example);
-        tracker.add(test);
-        // сохраняем id заявки для удаления
-//        String testId = example.getId();
-//        tracker.delete(testId);
-
-//        assertThat(tracker.findById(testId), is(example));
-
+        assertThat(example.findAll(), is(test));
     }
 
     /**
@@ -97,6 +82,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
+
         tracker.add(example);
         tracker.add(test);
 
@@ -134,11 +120,13 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
+
         tracker.add(example);
         tracker.add(test);
         assertThat(tracker.findById(test.getId()), is(test));
     }
 
+    // Тест Валидации
     @Test
     public void isIdExist() {
         // Подгатовка

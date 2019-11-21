@@ -11,7 +11,7 @@ public class ExitOfProgrammTest {
 
     @Test
     public void exitOfProgrammTestClassTest() {
-        boolean expect = new ru.job4j.tracker.actions.ExitOfProgramm(1, "")
+        boolean expect = new ExitOfProgramm(1, "")
                 .execute(new StubInput(new String[] {" "}), new Tracker());
         assertThat(expect, is(true));
     }

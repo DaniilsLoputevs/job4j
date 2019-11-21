@@ -17,11 +17,6 @@ public class DeleteItem extends BaseAction {
     }
 
     @Override
-    public String name() {
-        return "=== Delete Item ====";
-    }
-
-    @Override
     public boolean execute(Input input, Tracker tracker) {
 //        System.out.print("Enter id: "); // Если нужно вести текст вручную
         String id =  input.askStr("");

@@ -22,7 +22,7 @@ public class CreateTest {
         Tracker tracker = new Tracker();
         String nameCreateItem = "test";
         // Действие
-        new ru.job4j.tracker.actions.Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), tracker);
+        new Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), tracker);
         assertThat(tracker.findAll(), is(tracker.findByName("test")));
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);

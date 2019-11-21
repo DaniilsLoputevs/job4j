@@ -30,7 +30,7 @@ public class FindByIdTest {
         Item item = new Item("example");
         tracker.add(item);
         // Действие
-        new ru.job4j.tracker.actions.FindById(1, "").execute(new StubInput(new String[] {item.getId()}), tracker);
+        new FindById(1, "").execute(new StubInput(new String[] {item.getId()}), tracker);
         // Такая же, строка, что метод кинул в sout();
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(item.getId() + " " + item.getName() + "\r" + "\n").toString();

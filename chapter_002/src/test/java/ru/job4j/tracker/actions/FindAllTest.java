@@ -30,7 +30,7 @@ public class FindAllTest {
         Item example = new Item("example");
         tracker.add(example);
         // Действие
-        new ru.job4j.tracker.actions.FindAll(1, "").execute(new StubInput(new String[] {}), tracker);
+        new FindAll(1, "").execute(new StubInput(new String[] {}), tracker);
         // Такая же, строка, что метод кинул в sout();
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(example.getId() + " " + example.getName() + "\r" + "\n").toString();

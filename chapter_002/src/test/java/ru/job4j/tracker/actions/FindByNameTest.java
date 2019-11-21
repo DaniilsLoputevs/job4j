@@ -32,7 +32,7 @@ public class FindByNameTest {
         tracker.add(test1);
         tracker.add(test2);
         // Действие
-        new ru.job4j.tracker.actions.FindByName(1, "").execute(new StubInput(new String[] {"test"}), tracker);
+        new FindByName(1, "").execute(new StubInput(new String[] {"test"}), tracker);
         // Сравнение
         // Массив ожидаемых строк
         String[] expectArr = new String[] {

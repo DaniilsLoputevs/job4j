@@ -19,7 +19,7 @@ public class ReplaceTest {
         // Основной блок
         tracker.add(example);
         // Обновляем заявку в трекере.
-        new ru.job4j.tracker.actions.Replace(1, "").execute(new StubInput(new String[] {example.getId(), test.getName()}), tracker);
+        new Replace(1, "").execute(new StubInput(new String[] {example.getId(), test.getName()}), tracker);
         // Проверяем, что заявка с таким id имеет новое имя "test"
         assertThat(tracker.findById(example.getId()).getName(), Matchers.is("test"));
     }
