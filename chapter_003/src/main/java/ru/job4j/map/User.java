@@ -1,5 +1,7 @@
 package ru.job4j.map;
 
+import java.util.Objects;
+
 public class User {
     private String id;
     private String name;
@@ -7,6 +9,25 @@ public class User {
 
     public User(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(id, user.id)
+                && Objects.equals(name, user.name)
+                && Objects.equals(city, user.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, city);
     }
 
     // Getters & Setters
