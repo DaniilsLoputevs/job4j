@@ -46,20 +46,8 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void replace(String id, Item item) {
-        boolean idExist = false;
-        int index = 0;
-        for (Item itemInList : items) {
-            if (itemInList.getId().equals(id)) {
-                items.set(index, item);
-                item.setId(id);
-                idExist = true;
-                break;
-            }
-            index++;
-        }
-        if (!idExist) {
-            System.out.println("Такого id не существует.");
-        }
+        item.setId(id);
+        items.set(indexOfId(id), item);
     }
 
     /**
@@ -67,27 +55,16 @@ public class Tracker {
      * @param id id заявки (для удаление).
      */
     public void delete(String id) {
-        boolean idExist = false;
-        int index = 0;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                items.remove(index);
-                idExist = true;
-                break;
-            }
-            index++;
-        }
-        if (!idExist) {
-            System.out.println("Такого id не существует.");
-        }
+        items.remove(indexOfId(id));
     }
 
+    // Методы findBy...
     /**
      * Метод возвращает все заявки.
      * @return Item[] - массив всех заявок.
      */
     public ArrayList<Item> findAll() {
-        return new ArrayList<Item>(items);
+        return new ArrayList<>(items);
     }
 
     /**
@@ -121,5 +98,25 @@ public class Tracker {
             System.out.println("Такого id не существует.");
         }
         return result;
+    }
+
+    public int indexOfId(String id) {
+        int index = 0;
+        for (Item item : items) {
+            if (item.getId().equals(id)) {
+                break;
+            }
+            index++;
+        }
+        return index;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (Item item: items) {
+            result.append(item.getName()).append(", ");
+        }
+        return "Tracker{" + "items = " + result + '}';
     }
 }

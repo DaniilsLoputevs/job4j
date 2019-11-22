@@ -29,10 +29,10 @@ public class TrackerTest {
     public void add() {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
-        tracker.add(example); // при добавлении в tracker, у заявки появляеться id
-        // достаём из массива заявку по id первой
+        tracker.add(example);
+
         Item test = tracker.findById(example.getId());
-        // сравниваем, что привер и вторая заявки одинаковы
+        // сравниваем, что это одна и тажа заявка
         assertThat(example, is(test));
     }
 
@@ -43,11 +43,12 @@ public class TrackerTest {
     public void replace() {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
-        // Добавляем заявку в трекер. Теперь у неё есть свой id (!= null)
+        Item test = new Item("test");
+
         tracker.add(example);
-        Item test = new Item("test"); // Создаем новую заявку.
-        // Обновляем заявку в трекере.
+
         tracker.replace(example.getId(), test);
+
         // Проверяем, что заявка с таким id имеет новое имя "test"
         assertThat(tracker.findById(example.getId()).getName(), is("test"));
     }
@@ -82,13 +83,13 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
-
         tracker.add(example);
         tracker.add(test);
 
         ArrayList<Item> itemsTest = new ArrayList();
         itemsTest.add(example);
         itemsTest.add(test);
+
         assertThat(tracker.findAll(), is(itemsTest));
     }
 
@@ -128,7 +129,7 @@ public class TrackerTest {
 
     // Тест Валидации
     @Test
-    public void isIdExist() {
+    public void findByIdFail() {
         // Подгатовка
         ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
         PrintStream defaultOutput = System.out;
@@ -137,6 +138,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item example = new Item("example");
         tracker.add(example);
+        // Действие
         tracker.findById(tracker.generateId());
         // Сравнение
         MatcherAssert.assertThat(
@@ -145,6 +147,32 @@ public class TrackerTest {
         );
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);
+    }
+
+    @Test
+    public void indexOfId() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("example");
+        Item second = new Item("test");
+
+        tracker.add(first);
+        tracker.add(second);
+
+        assertThat(tracker.indexOfId(second.getId()), is(1));
+    }
+
+    @Test // Ручной тест
+    public void toStringTest() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("example");
+        Item second = new Item("test");
+        Item third = new Item("example");
+
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+
+        System.out.println(tracker.toString());
     }
 
 }
