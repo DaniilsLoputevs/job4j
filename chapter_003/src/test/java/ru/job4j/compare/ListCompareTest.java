@@ -57,4 +57,24 @@ public class ListCompareTest {
         );
         assertThat(rst, lessThan(0));
     }
+
+    @Test
+    public void oneMore() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                "abc",
+                "abcde"
+        );
+        assertThat(rst, lessThan(0));
+    }
+
+    @Test
+    public void twoMore() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                "abcde",
+                "abc"
+        );
+        assertThat(rst, greaterThan(0));
+    }
 }
