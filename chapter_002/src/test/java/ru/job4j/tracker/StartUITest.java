@@ -32,7 +32,7 @@ public class StartUITest {
 //                new ExitOfProgramm(),
 //                new Create(),
 //                new Replace(),
-//                new DeleteItem(),
+//                new Delete(),
 //                new FindAll(),
 //                new FindByName(),
 //                new FindById()

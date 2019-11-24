@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class DeleteItemTest {
+public class DeleteTest {
 
     @Test
     public void deleteItemActionClassTest() {
@@ -29,7 +29,7 @@ public class DeleteItemTest {
         test.add(third);
 
         // Действие
-        new DeleteItem(1, "").execute(new StubInput(new String[] {second.getId() }), example);
+        new Delete(1, "").execute(new StubInput(new String[] {second.getId() }), example);
 
         assertThat(example.findAll(), is(test));
     }

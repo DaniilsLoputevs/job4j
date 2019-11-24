@@ -21,9 +21,11 @@ public class FindById extends BaseAction {
     public boolean execute(Input input, Tracker tracker) {
 //        System.out.print("Enter id: "); // Если нужно вести текст вручную
         String id =  input.askStr("");
-        Item local = tracker.findById(id);
-        System.out.println(String.format("%s %s", local.getId(), local.getName()));
-        System.out.println();
+        if (ValidateEnterData.checkId(id, tracker)) {
+            Item local = tracker.findById(id);
+            System.out.println(String.format("%s %s", local.getId(), local.getName()));
+            System.out.println();
+        }
         return true;
     }
 }

@@ -87,28 +87,27 @@ public class Tracker {
      * @return Item - нужная заявка.
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        if (result == null) {
-            System.out.println("Такого id не существует.");
-        }
-        return result;
+        return items.get(indexOfId(id));
     }
 
     public int indexOfId(String id) {
         int index = 0;
+        boolean change = false;
         for (Item item : items) {
             if (item.getId().equals(id)) {
+                change = true;
                 break;
             }
             index++;
         }
+        index = (change) ? index : -1;
         return index;
+    }
+
+    public boolean contains(String id) {
+        // Особености методов с возвратом boolean
+//        return (findById(id) != null) ? true : false;
+        return findById(id) != null;
     }
 
     @Override

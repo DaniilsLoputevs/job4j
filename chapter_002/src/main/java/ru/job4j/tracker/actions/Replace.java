@@ -22,11 +22,13 @@ public class Replace extends BaseAction {
     public boolean execute(Input input, Tracker tracker) {
 //        System.out.print("Enter id in tracker for replace: "); // Если нужно вести текст вручную
         String id = input.askStr("");
-//        System.out.print("Enter name for new item: ");  // Если нужно вести текст вручную
-        String name =  input.askStr("");
-        Item item = new Item(name);
-        tracker.replace(id, item);
-        System.out.println();
+        if (ValidateEnterData.checkId(id, tracker)) {
+//          System.out.print("Enter name for new item: ");  // Если нужно вести текст вручную
+            String name = input.askStr("");
+            Item item = new Item(name);
+            tracker.replace(id, item);
+            System.out.println();
+        }
         return true;
     }
 }

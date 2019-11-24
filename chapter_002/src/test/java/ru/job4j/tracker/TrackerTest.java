@@ -1,10 +1,8 @@
 package ru.job4j.tracker;
 
-import org.hamcrest.MatcherAssert;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.is;
@@ -127,28 +125,6 @@ public class TrackerTest {
         assertThat(tracker.findById(test.getId()), is(test));
     }
 
-    // Тест Валидации
-    @Test
-    public void findByIdFail() {
-        // Подгатовка
-        ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
-        PrintStream defaultOutput = System.out;
-        System.setOut(new PrintStream(newOutput));
-        // Основной блок
-        Tracker tracker = new Tracker();
-        Item example = new Item("example");
-        tracker.add(example);
-        // Действие
-        tracker.findById(tracker.generateId());
-        // Сравнение
-        MatcherAssert.assertThat(
-                newOutput.toString(),
-                is(String.format("Такого id не существует.%n"))
-        );
-        // Возвращаем стандартный вывод
-        System.setOut(defaultOutput);
-    }
-
     @Test
     public void indexOfId() {
         Tracker tracker = new Tracker();
@@ -175,4 +151,11 @@ public class TrackerTest {
         System.out.println(tracker.toString());
     }
 
+    @Test
+    public void contains() {
+        Tracker tracker = new Tracker();
+        Item first = new Item("example");
+        tracker.add(first);
+        Assert.assertTrue(tracker.contains(first.getId()));
+    }
 }
