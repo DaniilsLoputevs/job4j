@@ -28,6 +28,6 @@ public class PrimeNumbersTest {
     public void when537() {
         PrimeNumbers prime = new PrimeNumbers();
         int count = prime.calc(537);
-        assertThat(count, is(126));
+        assertThat(count, is(99));
     }
 }
