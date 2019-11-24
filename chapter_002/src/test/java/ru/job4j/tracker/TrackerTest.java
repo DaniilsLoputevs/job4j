@@ -50,6 +50,19 @@ public class TrackerTest {
         // Проверяем, что заявка с таким id имеет новое имя "test"
         assertThat(tracker.findById(example.getId()).getName(), is("test"));
     }
+    @Test
+    public void replaceFail() {
+        Tracker tracker = new Tracker();
+        Item example = new Item("example");
+        Item test = new Item("test");
+
+//        tracker.add(example);
+
+        tracker.replace(example.getId(), test);
+
+        // Проверяем, что заявка с таким id имеет новое имя "test"
+        assertThat(tracker.findById(example.getId()).getName(), is("test"));
+    }
 
     /**
      * delete()
@@ -59,19 +72,32 @@ public class TrackerTest {
         Tracker example = new Tracker();
         Item first = new Item("one");
         Item second = new Item("two");
-        Item third = new Item("three");
         example.add(first);
         example.add(second);
-        example.add(third);
 
         example.delete(second.getId());
 
         ArrayList<Item> test = new ArrayList();
         test.add(first);
-        test.add(third);
 
         assertThat(example.findAll(), is(test));
     }
+    @Test
+    public void deleteFail() {
+        Tracker example = new Tracker();
+        Item first = new Item("one");
+        Item second = new Item("two");
+//        example.add(first);
+        example.add(second);
+
+        example.delete(second.getId());
+
+        ArrayList<Item> test = new ArrayList();
+        test.add(first);
+
+        assertThat(example.findAll(), is(test));
+    }
+
 
     /**
      * findAll()
@@ -156,6 +182,6 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item first = new Item("example");
         tracker.add(first);
-        Assert.assertTrue(tracker.contains(first.getId()));
+        Assert.assertTrue(tracker.containsId(first.getId()));
     }
 }

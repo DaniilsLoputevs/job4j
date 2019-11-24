@@ -46,8 +46,10 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void replace(String id, Item item) {
-        item.setId(id);
-        items.set(indexOfId(id), item);
+        if (indexOfId(id) != -1) {
+            item.setId(id);
+            items.set(indexOfId(id), item);
+        }
     }
 
     /**
@@ -55,7 +57,9 @@ public class Tracker {
      * @param id id заявки (для удаление).
      */
     public void delete(String id) {
-        items.remove(indexOfId(id));
+        if (indexOfId(id) != -1) {
+            items.remove(indexOfId(id));
+        }
     }
 
     // Методы findBy...
@@ -104,12 +108,16 @@ public class Tracker {
         return index;
     }
 
-    public boolean contains(String id) {
+    public boolean containsId(String id) {
         // Особености методов с возвратом boolean
 //        return (findById(id) != null) ? true : false;
         return findById(id) != null;
     }
-
+    public boolean containsName(String name) {
+        // Особености методов с возвратом boolean
+//        return findByName(name) != null) ? true : false;
+        return findByName(name) != null;
+    }
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

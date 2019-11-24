@@ -44,7 +44,7 @@ public class FindByNameTest {
                 .toString()
         };
         // Переводим массив в строку + Пустой sout()
-        String expect = expectArr[0] + expectArr[1] + "\r" + "\n";
+        String expect = expectArr[0] + expectArr[1] +  System.lineSeparator();
         assertThat(new String(newOutput.toByteArray()), is(expect));
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);
