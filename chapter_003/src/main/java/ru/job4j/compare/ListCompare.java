@@ -14,6 +14,6 @@ public class ListCompare implements Comparator<String> {
                 break;
             }
         }
-        return ( result == 0 && lengthCompare != 0 ) ? lengthCompare : result;
+        return (result == 0 && lengthCompare != 0) ? lengthCompare : result;
     }
 }
