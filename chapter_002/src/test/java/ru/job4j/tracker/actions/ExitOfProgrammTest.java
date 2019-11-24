@@ -13,6 +13,6 @@ public class ExitOfProgrammTest {
     public void exitOfProgrammTestClassTest() {
         boolean expect = new ExitOfProgramm(1, "")
                 .execute(new StubInput(new String[] {" "}), new Tracker());
-        assertThat(expect, is(true));
+        assertThat(expect, is(false));
     }
 }

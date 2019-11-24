@@ -44,25 +44,6 @@ public class StartUITest {
 
     // Тесты ниже, это тесты Tracker через main (ввод через консоль)
 
-    @Test // delete Item
-    public void deleteV2() {
-        Tracker tracker = new Tracker();
-        Item item1 = new Item("item one");
-        Item item2 = new Item("item two");
-        Item item3 = new Item("item last");
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
-        String[] answers = {
-                item1.getId(), // id сохраненной заявки в объект tracker.
-        };
-        tracker.delete(item1.getId());
-
-        Item[] test = new Item[] {
-                item1, item2
-        };
-        assertThat(tracker.findAll(), is(test));
-    }
 
     @Test // 0. Exit
     public void whenExit() {

@@ -55,12 +55,11 @@ public class PaintTest {
         assertThat(
                 this.out.toString(),
                 is(
-                        new StringJoiner(
-                                System.lineSeparator(), "",
-                                System.lineSeparator())
-                                .add("  ^  ")
-                                .add(" ^ ^ ")
-                                .add("^^^^^")
+                        new StringBuilder()
+                                .append("  ^  ")
+                                .append(" ^ ^ ")
+                                .append("^^^^^")
+                                .append(System.lineSeparator())
                                 .toString()
                 )
         );
