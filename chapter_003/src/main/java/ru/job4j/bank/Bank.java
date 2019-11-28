@@ -70,7 +70,6 @@ public class Bank {
     }
 
 
-
     public User getUserByPassport(String passport) {
         User result = null;
         for (User user : new ArrayList<>(users.keySet())) {
@@ -111,5 +110,4 @@ public class Bank {
             System.out.println(acc.toString());
         }
     }
-
 }

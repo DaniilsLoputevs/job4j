@@ -12,6 +12,9 @@ public class BankTest {
     private User first;
     private User second;
 
+    private User newUser;
+    private Account testAcc;
+
     @Before
     public void init() {
         bank = new Bank();
@@ -23,8 +26,13 @@ public class BankTest {
         bank.addAccountToUser(first.getPassport(), new Account(00.00, "NovoKraj_2"));
         bank.addAccountToUser(second.getPassport(), new Account(00.00, "Sibirsk"));
         bank.addAccountToUser(second.getPassport(), new Account(1000.00, "Sibirsk_2"));
+
+        newUser = new User("Ivan", "Lv_140");
+        testAcc = new Account(1000.00, "Kiriljsk");
+        bank.addUser(newUser);
     }
 
+    // transferMoney - 3 tests
     @Test
     public void transferMoney() {
         bank.transferMoney("Ru_000", "NovoKraj",
@@ -50,9 +58,22 @@ public class BankTest {
     }
 
     @Test
+    public void addUser() {
+        bank.addUser(newUser);
+        Assert.assertNotNull(bank.getUserByPassport(newUser.getPassport()));
+    }
+
+    @Test
     public void deleteUser() {
         bank.deleteUser(first);
         Assert.assertNull(bank.getUserByPassport(first.getPassport()));
+    }
+
+    @Test
+    public void addAccountToUser() {
+        bank.addUser(new User("Nikita", "Ru_890"));
+        bank.addAccountToUser("Ru_890", testAcc);
+        Assert.assertNotNull((bank.getUserAccounts("Ru_890")));
     }
 
     @Test
@@ -61,4 +82,23 @@ public class BankTest {
         Assert.assertNull(bank.getAccountByRequisite("NovoKraj_2"));
     }
 
+    // Technical tests
+    @Test
+    public void getUserByPassport() {
+        Assert.assertEquals(bank.getUserByPassport("Ru_000"), first);
+    }
+    @Test
+    public void getAccountByRequisite() {
+        bank.addAccountToUser("Lv_140", testAcc);
+        Assert.assertEquals(bank.getAccountByRequisite("Kiriljsk"), testAcc);
+    }
+    @Test
+    public void belongAccToUser() {
+        Assert.assertTrue(bank.belongAccToUser(first, bank.getAccountByRequisite("NovoKraj")));
+    }
+    @Test
+    public void showUserAccounts() {
+        bank.showUserAccounts("Ru_170");
+
+    }
 }
