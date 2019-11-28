@@ -23,7 +23,7 @@ public class FindById extends BaseAction {
         String id =  input.askStr("");
         if (ValidateEnterData.checkId(id, tracker)) {
             Item local = tracker.findById(id);
-            System.out.println(String.format("%s %s", local.getId(), local.getName()));
+            System.out.print(String.format("%s %s", local.getId(), local.getName()));
             System.out.println();
         }
         return true;

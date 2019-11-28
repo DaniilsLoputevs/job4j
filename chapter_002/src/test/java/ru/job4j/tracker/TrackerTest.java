@@ -6,9 +6,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
+    private Tracker tracker = new Tracker();
 
     /**
      * generateId()
@@ -25,7 +27,6 @@ public class TrackerTest {
      */
     @Test
     public void add() {
-        Tracker tracker = new Tracker();
         Item example = new Item("example");
         tracker.add(example);
 
@@ -39,7 +40,6 @@ public class TrackerTest {
      */
     @Test
     public void replace() {
-        Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
 
@@ -52,16 +52,10 @@ public class TrackerTest {
     }
     @Test
     public void replaceFail() {
-        Tracker tracker = new Tracker();
         Item example = new Item("example");
-        Item test = new Item("test");
+        tracker.replace(example.getId(), new Item("test"));
 
-//        tracker.add(example);
-
-        tracker.replace(example.getId(), test);
-
-        // Проверяем, что заявка с таким id имеет новое имя "test"
-        assertThat(tracker.findById(example.getId()).getName(), is("test"));
+        assertNull(tracker.findById(example.getId()));
     }
 
     /**
@@ -69,33 +63,29 @@ public class TrackerTest {
      */
     @Test
     public void delete() {
-        Tracker example = new Tracker();
         Item first = new Item("one");
         Item second = new Item("two");
-        example.add(first);
-        example.add(second);
+        tracker.add(first);
+        tracker.add(second);
 
-        example.delete(second.getId());
+        tracker.delete(second.getId());
 
         ArrayList<Item> test = new ArrayList();
         test.add(first);
 
-        assertThat(example.findAll(), is(test));
+        assertThat(tracker.findAll(), is(test));
     }
     @Test
     public void deleteFail() {
-        Tracker example = new Tracker();
         Item first = new Item("one");
-        Item second = new Item("two");
-//        example.add(first);
-        example.add(second);
+        tracker.add(first);
 
-        example.delete(second.getId());
+        tracker.delete(tracker.generateId());
 
         ArrayList<Item> test = new ArrayList();
         test.add(first);
 
-        assertThat(example.findAll(), is(test));
+        assertThat(tracker.findAll(), is(test));
     }
 
 
@@ -104,7 +94,6 @@ public class TrackerTest {
      */
     @Test
     public void findAll() {
-        Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
         tracker.add(example);
@@ -122,7 +111,6 @@ public class TrackerTest {
      */
     @Test
     public void findByName() {
-        Tracker tracker = new Tracker();
         Item first = new Item("example");
         Item second = new Item("test");
         Item third = new Item("example");
@@ -142,7 +130,6 @@ public class TrackerTest {
      */
     @Test
     public void findById() {
-        Tracker tracker = new Tracker();
         Item example = new Item("example");
         Item test = new Item("test");
 
@@ -153,7 +140,6 @@ public class TrackerTest {
 
     @Test
     public void indexOfId() {
-        Tracker tracker = new Tracker();
         Item first = new Item("example");
         Item second = new Item("test");
 
@@ -165,7 +151,6 @@ public class TrackerTest {
 
     @Test // Ручной тест
     public void toStringTest() {
-        Tracker tracker = new Tracker();
         Item first = new Item("example");
         Item second = new Item("test");
         Item third = new Item("example");
@@ -179,7 +164,6 @@ public class TrackerTest {
 
     @Test
     public void contains() {
-        Tracker tracker = new Tracker();
         Item first = new Item("example");
         tracker.add(first);
         Assert.assertTrue(tracker.containsId(first.getId()));

@@ -91,7 +91,8 @@ public class Tracker {
      * @return Item - нужная заявка.
      */
     public Item findById(String id) {
-        return items.get(indexOfId(id));
+        int index = indexOfId(id);
+        return (index != -1) ? items.get(index) : null;
     }
 
     public int indexOfId(String id) {

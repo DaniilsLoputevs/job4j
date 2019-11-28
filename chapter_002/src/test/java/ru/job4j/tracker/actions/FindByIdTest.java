@@ -13,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /** Вот такая должа быть строка у метода
- * System.out.println(String.format("%s %s", item.getId(), item.getName()));
+ * System.out.print(String.format("%s %s", item.getId(), item.getName()));
  * System.out.println();
  */
 
@@ -33,7 +33,7 @@ public class FindByIdTest {
         new FindById(1, "").execute(new StubInput(new String[] {item.getId()}), tracker);
         // Такая же, строка, что метод кинул в sout();
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                .add(item.getId() + " " + item.getName() + "\r" + "\n").toString();
+                .add(item.getId() + " " + item.getName()).toString();
         assertThat(new String(newOutput.toByteArray()), is(expect));
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);

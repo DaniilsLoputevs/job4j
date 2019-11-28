@@ -20,7 +20,7 @@ public class FindAll extends BaseAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         for (Item item : tracker.findAll()) {
-            System.out.println(String.format("%s %s", item.getId(), item.getName()));
+            System.out.print(String.format("%s %s", item.getId(), item.getName()));
             System.out.println();
         }
         return true;
