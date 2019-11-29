@@ -7,7 +7,7 @@ import java.util.Random;
  * Класс менеджер заявок, нужен для создания объектов
  * @author Daniils Loputevs
  * @version $Id$
- * @since 21.11.19
+ * @since 29.11.19
  * Created 15.10.19
  */
 
@@ -46,9 +46,10 @@ public class Tracker {
      * @param item новая заявка.
      */
     public void replace(String id, Item item) {
-        if (indexOfId(id) != -1) {
+        int index = indexOfId(id);
+        if (index != -1) {
             item.setId(id);
-            items.set(indexOfId(id), item);
+            items.set(index, item);
         }
     }
 
@@ -57,8 +58,9 @@ public class Tracker {
      * @param id id заявки (для удаление).
      */
     public void delete(String id) {
-        if (indexOfId(id) != -1) {
-            items.remove(indexOfId(id));
+        int index = indexOfId(id);
+        if (index != -1) {
+            items.remove(index);
         }
     }
 
