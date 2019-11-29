@@ -12,14 +12,14 @@ public class Bank {
      * @param user - Пользоваиеть.
      */
     public void addUser(User user) {
-        users.put(user, new ArrayList<>());
+        this.users.putIfAbsent(user, new ArrayList<>());
     }
 
     /** Удаление пользователя.
      * @param user - Пользоваиеть.
      */
     public void deleteUser(User user) {
-        users.remove(user);
+        this.users.remove(user);
     }
 
     /** Добавить счёт пользователю.
@@ -28,7 +28,7 @@ public class Bank {
      */
     public void addAccountToUser(String passport, Account account) {
         User user = getUserByPassport(passport);
-        users.get(user).add(account);
+        this.users.get(user).add(account);
     }
 
     /** Удалить один счёт пользователя.
@@ -37,14 +37,14 @@ public class Bank {
      */
     public void deleteAccountFromUser(String passport, Account account) {
         User user = getUserByPassport(passport);
-        users.get(user).remove(account);
+        this.users.get(user).remove(account);
     }
 
     /** Получить список счетов для пользователя.
      * @param passport - Пасспорт.
      */
     public List<Account> getUserAccounts(String passport) {
-        return users.get(getUserByPassport(passport));
+        return this.users.get(getUserByPassport(passport));
     }
 
     /** Метод для перечисления денег с одного счёта на другой счёт:
@@ -63,7 +63,8 @@ public class Bank {
         User rightUser = getUserByPassport(dstPassport);
         Account rightAcc = getAccountByRequisite(dstRequisite);
 
-        if (belongAccToUser(leftUser, leftAcc) && belongAccToUser(rightUser, rightAcc)) {
+        if (leftUser != null && leftAcc != null && rightUser != null && rightAcc != null
+                && belongAccToUser(leftUser, leftAcc) && belongAccToUser(rightUser, rightAcc)) {
             result = leftAcc.transferTo(rightAcc, amount);
         }
         return result;
@@ -72,7 +73,7 @@ public class Bank {
 
     public User getUserByPassport(String passport) {
         User result = null;
-        for (User user : new ArrayList<>(users.keySet())) {
+        for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 result = user;
                 break;

@@ -13,7 +13,7 @@ public class Account {
         boolean result = false;
         if (checkAmount(amount)) {
             this.value -= amount;
-            dst.setValue(dst.getValue() + amount);
+            dst.value += amount;
             result = true;
         }
         return result;
