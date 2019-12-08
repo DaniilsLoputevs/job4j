@@ -28,7 +28,9 @@ public class Bank {
      */
     public void addAccountToUser(String passport, Account account) {
         User user = getUserByPassport(passport);
-        this.users.get(user).add(account);
+        if (user != null) {
+            this.users.get(user).add(account);
+        }
     }
 
     /** Удалить один счёт пользователя.
@@ -37,14 +39,21 @@ public class Bank {
      */
     public void deleteAccountFromUser(String passport, Account account) {
         User user = getUserByPassport(passport);
-        this.users.get(user).remove(account);
+        if (user != null) {
+            this.users.get(user).remove(account);
+        }
     }
 
     /** Получить список счетов для пользователя.
      * @param passport - Пасспорт.
      */
     public List<Account> getUserAccounts(String passport) {
-        return this.users.get(getUserByPassport(passport));
+        User user = getUserByPassport(passport);
+        List<Account> result = new ArrayList<>();
+        if (user != null) {
+            result = this.users.get(user);
+        }
+        return result;
     }
 
     /** Метод для перечисления денег с одного счёта на другой счёт:
