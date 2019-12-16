@@ -67,18 +67,13 @@ public class Bank {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String dstPassport, String dstRequisite, double amount) {
         boolean result = false;
-        User leftUser = getUserByPassport(srcPassport);
-        Account leftAcc = getAccountByRequisite(srcRequisite);
-        User rightUser = getUserByPassport(dstPassport);
-        Account rightAcc = getAccountByRequisite(dstRequisite);
-
-        if (leftUser != null && leftAcc != null && rightUser != null && rightAcc != null
-                && belongAccToUser(leftUser, leftAcc) && belongAccToUser(rightUser, rightAcc)) {
-            result = leftAcc.transferTo(rightAcc, amount);
+        Account srcAcc = getUsersAcc(srcPassport, srcRequisite);
+        Account dstAcc = getUsersAcc(dstPassport, dstRequisite);
+        if (srcAcc != null && dstAcc != null) {
+            result = srcAcc.transferTo(dstAcc, amount);
         }
         return result;
     }
-
 
     public User getUserByPassport(String passport) {
         User result = null;
@@ -100,6 +95,20 @@ public class Bank {
                     break;
                 }
             }
+        }
+        return result;
+    }
+
+    /** Метод поиска аккаунта по паспорту и реквизитам
+     * @param passport - пасспорт для поиска user
+     * @param requisite - реквезиты для поиска acc в списке от user
+     * @return Account/null - Есть такой acc у user/ Нету acc у user
+     */
+    public Account getUsersAcc(String passport, String requisite) {
+        Account result = null;
+        Account acc = getAccountByRequisite(requisite);
+        if (getUserAccounts(passport).contains(acc)) {
+        result = acc;
         }
         return result;
     }
