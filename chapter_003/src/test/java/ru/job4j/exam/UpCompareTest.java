@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class SortDepartmentTest {
+public class UpCompareTest {
 
     @Test // TreeSet сам по умолчания сортирует в нужном порядке
     public void sortUp() {
@@ -66,7 +66,7 @@ public class SortDepartmentTest {
                 "K1\\SK1\\SSK2",
                 "K1\\SK1\\SSK1"
         ));
-        test = SortDepartment.sortDown(test);
+        test = UpCompare.sortDown(test);
         assertThat(new ArrayList<>(test), is(expected));
     }
 
@@ -83,7 +83,7 @@ public class SortDepartmentTest {
 
     @Test // Ручная проверка. (в столбик)
     public void jtr() {
-        Set<String> test = new TreeSet<String>(Arrays.asList(
+        Set<String> test = new TreeSet<>(Arrays.asList(
                 "K1\\SK1",  // 5
                 "K1",  // 1
                 "K1\\SK1\\SSK1",  // 10
@@ -96,7 +96,7 @@ public class SortDepartmentTest {
                 "K1\\SK1\\SSK2"
 
         ));
-        test = SortDepartment.sortDown(test);
+        test = UpCompare.sortDown(test);
 
         for (String s : test) {
             System.out.println(s);
