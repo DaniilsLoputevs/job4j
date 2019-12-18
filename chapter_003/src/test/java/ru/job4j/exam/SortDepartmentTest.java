@@ -70,15 +70,52 @@ public class SortDepartmentTest {
         assertThat(new ArrayList<>(test), is(expected));
     }
 
+    @Test
+    public void fillGaps() {
+        Set<String> test = new TreeSet<>(Arrays.asList(
+                "K2\\SK1\\SSK2",
+                "K1\\SK2",
+                "K2",
+                "K2\\SK1",
+                "K1\\SK2",
+                "K2\\SK1\\SSK1",
+                "K1\\SK1\\SSK2"
+
+        ));
+        test.addAll(new ArrayList<>(Arrays.asList(
+                "K1\\SK1",
+                "K1",
+                "K1\\SK1\\SSK1"
+        )));
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList(
+                "K2",
+                "K2\\SK1",
+                "K2\\SK1\\SSK2",
+                "K2\\SK1\\SSK1",
+                "K1",
+                "K1\\SK2",
+                "K1\\SK1",
+                "K1\\SK1\\SSK2",
+                "K1\\SK1\\SSK1"
+        ));
+        test = SortDepartment.sortDown(test);
+        assertThat(new ArrayList<>(test), is(expected));
+    }
+
 
 
     @Test // Проверка индекса символов
     public void saf() {
-        String test = "a\\b\\c";
+//        String test = "a\\b\\c";
+//
+//        for (int i = 0; i < test.length(); i++) {
+//            System.out.println("index: " + i + " value: " + test.charAt(i));
+//        }
+        String a = "aaa";
+        String b = "ccc";
+        System.out.println(a.charAt(0) - b.charAt(1));
 
-        for (int i = 0; i < test.length(); i++) {
-            System.out.println("index: " + i + " value: " + test.charAt(i));
-        }
+
     }
 
     @Test // Ручная проверка. (в столбик)
