@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
-import ru.job4j.tracker.actions.StubAction;
+import ru.job4j.tracker.actions.*;
 
 import java.util.ArrayList;
 
@@ -28,16 +28,15 @@ public class StartUITest {
     @Test
     public void showMenu() {
         // Проверяет, что в списке ВСЕ действия что должы там быть
-//        UserAction[] actions = {
-//                new ExitOfProgramm(),
-//                new Create(),
-//                new Replace(),
-//                new Delete(),
-//                new FindAll(),
-//                new FindByName(),
-//                new FindById()
-//        };
-//        new StartUI().showMenu(actions);
+        ArrayList<UserAction> actions = new ArrayList();
+        actions.add(new ExitOfProgramm(0, "=== Exit ===="));
+        actions.add(new Create(1, "=== Create a new Item ===="));
+        actions.add(new Replace(2, "=== Replace Item ===="));
+        actions.add(new Delete(3, "=== Delete Item ===="));
+        actions.add(new FindAll(4, "=== Show all Items ===="));
+        actions.add(new FindByName(5, "=== Find Item by Name ===="));
+        actions.add(new FindById(6,  "=== Find Item by Id ===="));
+        new StartUI().showMenu(actions);
     }
 
 
