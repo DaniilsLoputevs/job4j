@@ -16,9 +16,10 @@ public class UserConvert {
 
         @Override
         public String toString() {
-            return "User{" +
-                    "name='" + name + '\'' +
-                    '}';
+            return "User{"
+                    + "name='"
+                    + name + '\''
+                    + '}';
         }
     }
 
