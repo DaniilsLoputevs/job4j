@@ -6,9 +6,12 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 import static org.junit.Assert.assertThat;
 
 public class ReplaceTest {
+    Consumer<String> output = System.out::println;
 
     @Test
     public void replaceActionClassTest() {
@@ -19,7 +22,7 @@ public class ReplaceTest {
         // Основной блок
         tracker.add(example);
         // Обновляем заявку в трекере.
-        new Replace(1, "").execute(new StubInput(new String[] {example.getId(), test.getName()}), tracker);
+        new Replace(1, "").execute(new StubInput(new String[] {example.getId(), test.getName()}), tracker, output);
         // Проверяем, что заявка с таким id имеет новое имя "test"
         assertThat(tracker.findById(example.getId()).getName(), Matchers.is("test"));
     }

@@ -3,12 +3,13 @@ package ru.job4j.tracker;
 import ru.job4j.tracker.actions.*;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * Главый класс с main методом
  * @author Daniils Loputevs
  * @version $Id$
- * @since 17.11.19
+ * @since 23.12.19
  **/
 
 public class StartUI {
@@ -19,13 +20,13 @@ public class StartUI {
      * @param tracker - Tracker tracker.
      * @param actions - ArrayList<UserAction> - массив действий с заявками.
      */
-    void init(Input input, Tracker tracker, ArrayList<UserAction> actions) {
+    void init(Input input, Tracker tracker, ArrayList<UserAction> actions, Consumer<String> output) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select: ", actions.size());
             UserAction action = actions.get(select);
-            run = action.execute(input, tracker);
+            run = action.execute(input, tracker, output);
         }
     }
 
@@ -59,9 +60,10 @@ public class StartUI {
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
+        Consumer<String> output = System.out::println;
         Input validate = new ValidateInput(input);
         Tracker tracker = new Tracker();
         ArrayList<UserAction> actions = setActions();
-        new StartUI().init(validate, tracker, actions);
+        new StartUI().init(validate, tracker, actions, output);
     }
 }

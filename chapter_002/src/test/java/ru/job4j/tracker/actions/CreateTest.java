@@ -6,11 +6,13 @@ import ru.job4j.tracker.Tracker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class CreateTest {
+    Consumer<String> output = System.out::println;
 
     @Test
     public void createActionClassTest() {
@@ -22,7 +24,7 @@ public class CreateTest {
         Tracker tracker = new Tracker();
         String nameCreateItem = "test";
         // Действие
-        new Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), tracker);
+        new Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), tracker, output);
         assertThat(tracker.findAll(), is(tracker.findByName("test")));
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);

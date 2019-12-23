@@ -8,6 +8,7 @@ import ru.job4j.tracker.Tracker;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -17,12 +18,14 @@ import static org.junit.Assert.*;
  */
 
 public class FindByNameTest {
+
     @Test
     public void findByNameClassTest() {
         // Подгатовка
         ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
         PrintStream defaultOutput = System.out;
         System.setOut(new PrintStream(newOutput));
+        Consumer<String> output = System.out::println;
         // Основной блок
         Tracker tracker = new Tracker();
         Item example = new Item("example");
@@ -32,7 +35,7 @@ public class FindByNameTest {
         tracker.add(test1);
         tracker.add(test2);
         // Действие
-        new FindByName(1, "").execute(new StubInput(new String[] {"test"}), tracker);
+        new FindByName(1, "").execute(new StubInput(new String[] {"test"}), tracker, output);
         // Сравнение
         // Массив ожидаемых строк
         String[] expectArr = new String[] {

@@ -1,10 +1,12 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Interface для обобщёного обращения к Классас в папке actions.
  * @author Daniils Loputevs
  * @version $Id$
- * @since 17.11.19
+ * @since 23.12.19
  **/
 
 public interface UserAction {
@@ -22,5 +24,5 @@ public interface UserAction {
      * Выполняет основное действие объекта.
      * @return boolean - вызвано действие или нет + Выполнять программу после этого действия или закрыть?
      */
-    boolean execute(Input input, Tracker tracker);
+    boolean execute(Input input, Tracker tracker, Consumer<String> output);
 }

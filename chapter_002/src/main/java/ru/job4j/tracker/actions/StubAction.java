@@ -3,12 +3,14 @@ package ru.job4j.tracker.actions;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Заглушка - Имитация действий для tracker.items
  * Нужна для тестов
  * @author Daniils Loputevs
  * @version $Id$
- * @since 25.10.19
+ * @since 23.12.19
  **/
 
 public class StubAction extends BaseAction {
@@ -29,7 +31,7 @@ public class StubAction extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         call = true;
         return false;
     }

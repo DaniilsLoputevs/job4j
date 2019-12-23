@@ -3,11 +3,13 @@ package ru.job4j.tracker.actions;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Выход из программы
  * @author Daniils Loputevs
  * @version $Id$
- * @since 25.10.19
+ * @since 23.12.19
  **/
 
 public class ExitOfProgramm extends BaseAction {
@@ -17,7 +19,7 @@ public class ExitOfProgramm extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
         return false;
     }
 }

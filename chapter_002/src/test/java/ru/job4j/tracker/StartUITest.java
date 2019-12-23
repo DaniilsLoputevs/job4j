@@ -4,11 +4,13 @@ import org.junit.Test;
 import ru.job4j.tracker.actions.*;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class StartUITest {
+    Consumer<String> output = System.out::println;
 
     @Test
     public void init() {
@@ -21,7 +23,7 @@ public class StartUITest {
         ArrayList arrayList = new ArrayList<UserAction>();
         arrayList.add(action);
         // проверяем метод (действие должно вернуть true, т.к. оно было вызвано)
-        new StartUI().init(input, new Tracker(), arrayList);
+        new StartUI().init(input, new Tracker(), arrayList, output);
         assertThat(action.isCall(), is(true));
     }
 
@@ -53,7 +55,7 @@ public class StartUITest {
         ArrayList arrayList = new ArrayList<UserAction>();
         arrayList.add(action);
 
-        new StartUI().init(input, new Tracker(), arrayList);
+        new StartUI().init(input, new Tracker(), arrayList, output);
         assertThat(action.isCall(), is(true));
     }
 

@@ -8,6 +8,7 @@ import ru.job4j.tracker.Tracker;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -25,12 +26,13 @@ public class FindAllTest {
         ByteArrayOutputStream newOutput = new ByteArrayOutputStream();
         PrintStream defaultOutput = System.out;
         System.setOut(new PrintStream(newOutput));
+        Consumer<String> output = System.out::println;
         // Основной блок
         Tracker tracker = new Tracker();
         Item example = new Item("example");
         tracker.add(example);
         // Действие
-        new FindAll(1, "").execute(new StubInput(new String[] {}), tracker);
+        new FindAll(1, "").execute(new StubInput(new String[] {}), tracker, output);
         // Такая же, строка, что метод кинул в sout();
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(example.getId() + " " + example.getName()).toString();

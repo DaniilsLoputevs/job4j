@@ -4,11 +4,13 @@ import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Создание заявки и добавление в tracker.items
  * @author Daniils Loputevs
  * @version $Id$
- * @since 25.10.19
+ * @since 23.12.19
  **/
 
 public class Create extends BaseAction {
@@ -18,9 +20,8 @@ public class Create extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
-//        System.out.print("Enter name: "); // Если нужно вести текст вручную
-//        String name = input.askStr("");
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
+//        output.accept("Enter name: "); // Если нужно вести текст вручную - v2
         tracker.add(new Item(input.askStr("")));
         System.out.println();
         return true;

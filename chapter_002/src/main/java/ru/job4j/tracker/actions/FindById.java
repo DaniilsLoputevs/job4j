@@ -4,11 +4,13 @@ import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Вернуть заявку по id из tracker.items
  * @author Daniils Loputevs
  * @version $Id$
- * @since 25.10.19
+ * @since 23.12.19
  **/
 
 public class FindById extends BaseAction {
@@ -18,13 +20,12 @@ public class FindById extends BaseAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Tracker tracker, Consumer<String> output) {
 //        System.out.print("Enter id: "); // Если нужно вести текст вручную
         String id =  input.askStr("");
         if (ValidateEnterData.checkId(id, tracker)) {
             Item local = tracker.findById(id);
-            System.out.print(String.format("%s %s", local.getId(), local.getName()));
-            System.out.println();
+            output.accept((String.format("%s %s", local.getId(), local.getName())));
         }
         return true;
     }

@@ -6,11 +6,13 @@ import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class DeleteTest {
+    Consumer<String> output = System.out::println;
 
     @Test
     public void deleteItemActionClassTest() {
@@ -29,7 +31,7 @@ public class DeleteTest {
         test.add(third);
 
         // Действие
-        new Delete(1, "").execute(new StubInput(new String[] {second.getId() }), example);
+        new Delete(1, "").execute(new StubInput(new String[] {second.getId() }), example, output);
 
         assertThat(example.findAll(), is(test));
     }
