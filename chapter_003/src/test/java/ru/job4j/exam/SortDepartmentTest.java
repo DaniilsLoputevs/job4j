@@ -15,27 +15,27 @@ public class SortDepartmentTest {
     @Test // TreeSet сам по умолчания сортирует в нужном порядке
     public void sortUp() {
         Set<String> test = new TreeSet<String>(Arrays.asList(
-                "K1\\SK1",  // 5
+                "K1/SK1",  // 5
                 "K1",  // 1
-                "K1\\SK1\\SSK1",  // 10
-                "K2\\SK1\\SSK2",
-                "K1\\SK2",
+                "K1/SK1/SSK1",  // 10
+                "K2/SK1/SSK2",
+                "K1/SK2",
                 "K2",
-                "K2\\SK1",
-                "K1\\SK2",
-                "K2\\SK1\\SSK1",
-                "K1\\SK1\\SSK2"
+                "K2/SK1",
+                "K1/SK2",
+                "K2/SK1/SSK1",
+                "K1/SK1/SSK2"
         ));
         Set<String> compare = new TreeSet<String>(Arrays.asList(
                 "K1",
-                "K1\\SK1",
-                "K1\\SK1\\SSK1",
-                "K1\\SK1\\SSK2",
-                "K1\\SK2",
+                "K1/SK1",
+                "K1/SK1/SSK1",
+                "K1/SK1/SSK2",
+                "K1/SK2",
                 "K2",
-                "K2\\SK1",
-                "K2\\SK1\\SSK1",
-                "K2\\SK1\\SSK2"
+                "K2/SK1",
+                "K2/SK1/SSK1",
+                "K2/SK1/SSK2"
         ));
         assertThat(test, is(compare));
     }
@@ -43,28 +43,28 @@ public class SortDepartmentTest {
     @Test
     public void sortDown() {
         Set<String> test = new TreeSet<>(Arrays.asList(
-                "K1\\SK1",  // 5
+                "K1/SK1",  // 5
                 "K1",  // 1
-                "K1\\SK1\\SSK1",  // 10
-                "K2\\SK1\\SSK2",
-                "K1\\SK2",
+                "K1/SK1/SSK1",  // 10
+                "K2/SK1/SSK2",
+                "K1/SK2",
                 "K2",
-                "K2\\SK1",
-                "K1\\SK2",
-                "K2\\SK1\\SSK1",
-                "K1\\SK1\\SSK2"
+                "K2/SK1",
+                "K1/SK2",
+                "K2/SK1/SSK1",
+                "K1/SK1/SSK2"
 
         ));
         ArrayList<String> expected = new ArrayList<>(Arrays.asList(
                 "K2",
-                "K2\\SK1",
-                "K2\\SK1\\SSK2",
-                "K2\\SK1\\SSK1",
+                "K2/SK1",
+                "K2/SK1/SSK2",
+                "K2/SK1/SSK1",
                 "K1",
-                "K1\\SK2",
-                "K1\\SK1",
-                "K1\\SK1\\SSK2",
-                "K1\\SK1\\SSK1"
+                "K1/SK2",
+                "K1/SK1",
+                "K1/SK1/SSK2",
+                "K1/SK1/SSK1"
         ));
         test = SortDepartment.sortDown(test);
         assertThat(new ArrayList<>(test), is(expected));
@@ -73,35 +73,23 @@ public class SortDepartmentTest {
     @Test
     public void fillGaps() {
         Set<String> test = new TreeSet<>(Arrays.asList(
-                "K2\\SK1\\SSK2",
-                "K1\\SK2",
-                "K2",
-                "K2\\SK1",
-                "K1\\SK2",
-                "K2\\SK1\\SSK1",
-                "K1\\SK1\\SSK2"
-
+                "K1/SK1"
         ));
-        test.addAll(new ArrayList<>(Arrays.asList(
-                "K1\\SK1",
-                "K1",
-                "K1\\SK1\\SSK1"
-        )));
+        test.addAll(SortDepartment.fillGaps(new ArrayList<>(Arrays.asList(
+                "K2/SK1/SSK1",
+                "K1/SK1/SSK1"
+        ))));
         ArrayList<String> expected = new ArrayList<>(Arrays.asList(
                 "K2",
-                "K2\\SK1",
-                "K2\\SK1\\SSK2",
-                "K2\\SK1\\SSK1",
+                "K2/SK1",
+                "K2/SK1/SSK1",
                 "K1",
-                "K1\\SK2",
-                "K1\\SK1",
-                "K1\\SK1\\SSK2",
-                "K1\\SK1\\SSK1"
+                "K1/SK1",
+                "K1/SK1/SSK1"
         ));
         test = SortDepartment.sortDown(test);
         assertThat(new ArrayList<>(test), is(expected));
     }
-
 
 
     @Test // Проверка индекса символов
@@ -114,30 +102,26 @@ public class SortDepartmentTest {
         String a = "aaa";
         String b = "ccc";
         System.out.println(a.charAt(0) - b.charAt(1));
-
-
     }
 
     @Test // Ручная проверка. (в столбик)
     public void jtr() {
         Set<String> test = new TreeSet<>(Arrays.asList(
-                "K1\\SK1",  // 5
+                "K1/SK1",  // 5
                 "K1",  // 1
-                "K1\\SK1\\SSK1",  // 10
-                "K2\\SK1\\SSK2",
-                "K1\\SK2",
+                "K1/SK1/SSK1",  // 10
+                "K2/SK1/SSK2",
+                "K1/SK2",
                 "K2",
-                "K2\\SK1",
-                "K1\\SK2",
-                "K2\\SK1\\SSK1",
-                "K1\\SK1\\SSK2"
-
+                "K2/SK1",
+                "K1/SK2",
+                "K2/SK1/SSK1",
+                "K1/SK1/SSK2"
         ));
         test = SortDepartment.sortDown(test);
 
         for (String s : test) {
             System.out.println(s);
-
         }
     }
 
