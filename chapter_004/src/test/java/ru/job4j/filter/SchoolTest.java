@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -33,26 +32,23 @@ public class SchoolTest {
 
     @Test // from 70 to 100
     public void classA() {
-       List<Student> test = initCase.stream().filter(
-                student ->  student.getScore() >= 70
-        ).collect(Collectors.toList());
-
-       assertThat(test, is(Arrays.asList(e, f)));
+        List<Student> test = School.collect(initCase,
+                student -> student.getScore() >= 70
+        );
+        assertThat(test, is(Arrays.asList(e, f)));
     }
     @Test // from 50 to 70
     public void classB() {
-        List<Student> test = initCase.stream().filter(
-                student ->  student.getScore() >= 50 && student.getScore() < 70
-        ).collect(Collectors.toList());
-
+        List<Student> test = School.collect(initCase,
+                student -> student.getScore() >= 50 && student.getScore() < 70
+        );
         assertThat(test, is(Arrays.asList(c, d)));
     }
     @Test // from 0 to 50
     public void classC() {
-        List<Student> test = initCase.stream().filter(
-                student ->  student.getScore() < 50
-        ).collect(Collectors.toList());
-
+        List<Student> test = School.collect(initCase,
+                student -> student.getScore() < 50
+        );
         assertThat(test, is(Arrays.asList(a, b)));
     }
 }
