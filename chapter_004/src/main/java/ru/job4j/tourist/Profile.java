@@ -22,7 +22,7 @@ public class Profile {
         List<Address> result = profiles.stream().map(
                 Profile::getAddress
         ).collect(Collectors.toList());
-        result.sort(new CityCompare());
+        result.stream().sorted(new CityCompare());
         return result.stream().distinct().collect(Collectors.toList());
     }
 }
