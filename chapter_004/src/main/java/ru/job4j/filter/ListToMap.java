@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class ListToMap {
 
-    public static Map<Student, String> convert (List<Student> list) {
+    public static Map<Student, String> convert(List<Student> list) {
 
         return list.stream().distinct().collect(
                 Collectors.toMap(

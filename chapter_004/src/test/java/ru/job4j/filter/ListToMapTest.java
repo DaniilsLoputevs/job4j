@@ -27,7 +27,7 @@ public class ListToMapTest {
     }
 
     @Test
-    public void ListToMap() {
+    public void listToMap() {
         Map<Student, String> test = ListToMap.convert(initCase);
 
         assertThat(test, is(expectedCase));
