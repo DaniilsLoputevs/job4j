@@ -29,7 +29,7 @@ public class ProfileTest {
     @Test
     public void addresses() {
         List<Address> test = Profile.collect(initCase);
-        test.sort(new CityCompare());
+
         assertThat(test, is(Arrays.asList(e, c, b, a)));
     }
 }
