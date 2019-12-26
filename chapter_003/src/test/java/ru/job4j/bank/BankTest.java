@@ -93,6 +93,12 @@ public class BankTest {
         Assert.assertEquals(bank.getAccountByRequisite("Kiriljsk"), testAcc);
     }
     @Test
+    public void getUsersAcc() {
+        bank.addAccountToUser("Lv_140", testAcc);
+
+        Assert.assertEquals(bank.getUsersAcc("Lv_140", "Kiriljsk"), testAcc);
+    }
+    @Test
     public void showUserAccounts() {
         bank.showUserAccounts("Ru_170");
 

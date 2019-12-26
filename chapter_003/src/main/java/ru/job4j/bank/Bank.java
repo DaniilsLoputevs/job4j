@@ -82,6 +82,7 @@ public class Bank {
      * @return User - Пользователь.
      */
     public User getUserByPassport(String passport) {
+        // Пример для большего понимания
         // return list.stream().distinct().collect(
         //                Collectors.toMap(
         //                        student -> student,
@@ -89,16 +90,78 @@ public class Bank {
         //                ));
         //    }
 
-//        Stream.of(users).collect(Collectors.)
+        // Пример из инета.
+////Map -> Stream -> Filter -> String
+//        String result = map.entrySet().stream()
+//                .filter(x -> "something".equals(x.getValue()))
+//                .map(x->x.getValue())
+//                .collect(Collectors.joining());
 
-        User result = null;
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-                break;
-            }
+        User test = null;
+        List<User> result = (passport == null) ? null : users.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .collect(Collectors.toList());
+
+
+        // for each сдесь нужен т.к. используя .get(0); вылетал тест на deleteUser() с исключением:
+        // java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+        // Без понятия, почему это работает, позже придумаю, как испривиль этот кастыль.
+        for (User user : result) {
+            test = user;
         }
-        return result;
+        return test;
+
+//        return new List<User>(result) ;
+
+//        return (result != null) ? result.get(0) : null;
+
+
+        // Попытка v3
+//        List<User> result = Stream.of(users).
+//                filter(((user, accounts) -> ) )
+
+
+
+        // Итог
+//        List<User> result = Stream.of(users)
+//                .map(userListMap -> {
+//                    return (userListMap.keySet().iterator().next().getPassport() == passport);
+//                }
+//        { }
+//            userListMap.keySet()
+//
+//        ).stream()
+//                .collect(Collectors.toList());
+
+        // Попытка сделать прямым спосабом
+//        User test = Stream.of(users).forEach(
+//                userListMap ->  userListMap.forEach(
+//                (user, accounts) -> {
+//                    if (user.getPassport().equals(passport)) {
+//                       test = user;
+//                    }
+//                }
+//                )
+//        );
+        // попытка v2
+//         User test = Stream.of(users).forEach(
+//                userListMap ->  userListMap.forEach(
+//                (user, accounts) -> {
+//                    return (user.getPassport().equals(passport)) ? user : null
+//                }
+//                )
+//        );
+
+        // Базовая версия
+//        User result = null;
+//        for (User user : users.keySet()) {
+//            if (user.getPassport().equals(passport)) {
+//                result = user;
+//                break;
+//            }
+//        }
+
+//        return result.get(0);
     }
 
     /**Поиск Account по Реквизитам.
@@ -124,12 +187,28 @@ public class Bank {
      * @return Account/null - Есть такой Account у user/ Нету acc у user
      */
     public Account getUsersAcc(String passport, String requisite) {
-        Account result = null;
-        Account acc = getAccountByRequisite(requisite);
-        if (getUserAccounts(passport).contains(acc)) {
-        result = acc;
-        }
-        return result;
+        // пример перед глазами.
+//         List<User> result = users.keySet().stream()
+//                .filter(user -> user.getPassport().equals(passport))
+//                .collect(Collectors.toList());
+//        return result.get(0);
+
+
+            return (passport == null || requisite == null) ? null :
+                    users.get(this.getUserByPassport(passport)).stream()
+                    .filter(account -> account.equals(this.getAccountByRequisite(requisite)))
+                    .collect(Collectors.toList()).get(0);
+
+
+//        List<User> test = users.get(passport).contains(this.getAccountByRequisite(requisite))
+
+        // Базовая версия
+//        Account result = null;
+//        Account acc = getAccountByRequisite(requisite);
+//        if (getUserAccounts(passport).contains(acc)) {
+//        result = acc;
+//        }
+//        return result;
     }
 
     public void showUserAccounts(String passport) {
