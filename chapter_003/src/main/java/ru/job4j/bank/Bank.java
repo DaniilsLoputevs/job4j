@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Bank {
     private final Map<User, List<Account>> users = new HashMap();
@@ -75,7 +77,20 @@ public class Bank {
         return result;
     }
 
+    /** Поиск User по паспорту.
+     * @param passport - Пасспорт.
+     * @return User - Пользователь.
+     */
     public User getUserByPassport(String passport) {
+        // return list.stream().distinct().collect(
+        //                Collectors.toMap(
+        //                        student -> student,
+        //                        Student::getName
+        //                ));
+        //    }
+
+//        Stream.of(users).collect(Collectors.)
+
         User result = null;
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -86,6 +101,10 @@ public class Bank {
         return result;
     }
 
+    /**Поиск Account по Реквизитам.
+     * @param requisite - Реквизиты.
+     * @return Account - Счёт.
+     */
     public Account getAccountByRequisite(String requisite) {
         Account result = null;
         for (List<Account> accounts : new ArrayList<>(users.values())) {
@@ -99,27 +118,16 @@ public class Bank {
         return result;
     }
 
-    /** Метод поиска аккаунта по паспорту и реквизитам
+    /** Поиск Account по паспорту && реквизитам
      * @param passport - пасспорт для поиска user
-     * @param requisite - реквезиты для поиска acc в списке от user
-     * @return Account/null - Есть такой acc у user/ Нету acc у user
+     * @param requisite - реквезиты для поиска Account у User
+     * @return Account/null - Есть такой Account у user/ Нету acc у user
      */
     public Account getUsersAcc(String passport, String requisite) {
         Account result = null;
         Account acc = getAccountByRequisite(requisite);
         if (getUserAccounts(passport).contains(acc)) {
         result = acc;
-        }
-        return result;
-    }
-
-    public boolean belongAccToUser(User user, Account account) {
-        boolean result = false;
-        for (Account acc : users.get(user)) {
-            if (acc.equals(account)) {
-                result = true;
-                break;
-            }
         }
         return result;
     }

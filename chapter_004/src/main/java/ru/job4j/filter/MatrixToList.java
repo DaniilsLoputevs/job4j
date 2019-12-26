@@ -10,11 +10,14 @@ public class MatrixToList {
 
     public static List convert(int[][] matrix) {
 
-        return Stream.of(matrix).flatMapToInt(Arrays::stream).collect(Collectors.toList());
+//        return Stream.of(matrix).flatMapToInt(Arrays::stream).collect(Collectors.toList());
 
 //        return matrix.stream().flatMap(List::stream).collect(Collectors.toList());
 
 // matrix.stream().flatMap(e -> e.stream()).collect(Collectors.toList())
+
+        // заглушка
+        return new ArrayList();
 
     }
 }

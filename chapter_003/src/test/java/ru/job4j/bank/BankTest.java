@@ -93,10 +93,6 @@ public class BankTest {
         Assert.assertEquals(bank.getAccountByRequisite("Kiriljsk"), testAcc);
     }
     @Test
-    public void belongAccToUser() {
-        Assert.assertTrue(bank.belongAccToUser(first, bank.getAccountByRequisite("NovoKraj")));
-    }
-    @Test
     public void showUserAccounts() {
         bank.showUserAccounts("Ru_170");
 

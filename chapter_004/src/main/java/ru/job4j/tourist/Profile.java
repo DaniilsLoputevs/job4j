@@ -22,7 +22,8 @@ public class Profile {
         List<Address> result = profiles.stream().map(
                 Profile::getAddress
         ).collect(Collectors.toList());
-        result.stream().sorted(new CityCompare());
-        return result.stream().distinct().collect(Collectors.toList());
+        return result.stream()
+                .sorted(new CityCompare())
+                .distinct().collect(Collectors.toList());
     }
 }
