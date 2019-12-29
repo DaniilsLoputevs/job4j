@@ -1,9 +1,8 @@
 package ru.job4j.filter;
 
 public class Student {
-   private int score;
    private String name;
-
+   private int score;
 
     public Student(int score) {
         this.score = score;
@@ -11,6 +10,11 @@ public class Student {
     public Student(String name) {
         this.name = name;
     }
+    public Student(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
     public int getScore() {
         return score;
     }

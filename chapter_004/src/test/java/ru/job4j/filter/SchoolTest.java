@@ -51,6 +51,19 @@ public class SchoolTest {
         );
         assertThat(test, is(Arrays.asList(a, b)));
     }
+
+    @Test // List of (more then bound)
+    public void levelOf() {
+        Student a = new Student("Григорий", 70);
+        Student b = new Student("Анатолий", 40);
+        Student c = new Student("Владимир", 80);
+
+        List<Student> initCase = new ArrayList<>(Arrays.asList(
+                a, null, b, null, c
+        ));
+        List<Student> test = School.levelOf(initCase, 50);
+        assertThat(test, is(Arrays.asList(a, c)));
+    }
 }
 
 
