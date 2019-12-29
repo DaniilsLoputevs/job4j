@@ -12,21 +12,12 @@ public class User {
         this.passport = passport;
     }
 
-    // Getters & Setters
+    // Getters
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassport() {
         return passport;
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
     }
 
     @Override
@@ -41,7 +32,6 @@ public class User {
         return Objects.equals(name, user.name)
                 && Objects.equals(passport, user.passport);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name, passport);
