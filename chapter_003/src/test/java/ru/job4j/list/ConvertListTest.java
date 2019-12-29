@@ -13,14 +13,14 @@ public class ConvertListTest {
 
     @Test
     public void convertList() {
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[]{1, 2});
-        list.add(new int[]{3, 4, 5, 6});
-        List<Integer> example = ConvertList.convert(list);
-
-        List<Integer> test = Arrays.asList(
+        List<int[]> initCase = List.of(
+                new int[]{1, 2},
+                new int[]{3, 4, 5, 6}
+        );
+        List<Integer> test = ConvertList.convert(initCase);
+        List<Integer> expectedCase = Arrays.asList(
                 1, 2, 3, 4, 5, 6
         );
-        assertThat(example, is(test));
+        assertThat(test, is(expectedCase));
     }
 }

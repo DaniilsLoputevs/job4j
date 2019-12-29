@@ -19,8 +19,7 @@ public class AccountTest {
     public void transferTo() {
         Account test = new Account(0.00, "Kirovsk");
         acc.transferTo(test, 500);
-        assertThat(acc.getValue(),
-                is(test.getValue()));
+        assertThat(acc.getValue(), is(test.getValue()));
     }
 
     @Test
