@@ -194,8 +194,8 @@ public class Bank {
 //        return result.get(0);
 
 
-            return (passport == null || requisite == null) ? null :
-                    users.get(this.getUserByPassport(passport)).stream()
+            return (passport == null || requisite == null)
+                    ? null : users.get(this.getUserByPassport(passport)).stream()
                     .filter(account -> account.equals(this.getAccountByRequisite(requisite)))
                     .collect(Collectors.toList()).get(0);
 

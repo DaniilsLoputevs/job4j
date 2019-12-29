@@ -19,11 +19,10 @@ public class Profile {
     // 3. Метод Stream.map - принимает элемент потока и возвращает другой элемент.
 
     public static List<Address> collect(List<Profile> profiles) {
-        List<Address> result = profiles.stream().map(
-                Profile::getAddress
-        ).collect(Collectors.toList());
-        return result.stream()
+        return profiles.stream()
+                .map(Profile::getAddress)
                 .sorted(new CityCompare())
-                .distinct().collect(Collectors.toList());
+                .distinct()
+                .collect(Collectors.toList());
     }
 }
