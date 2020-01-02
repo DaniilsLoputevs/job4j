@@ -11,12 +11,12 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class MatrixToListTest {
-    private int[][] initCase;
+    private Integer[][] initCase;
     private List expectedCase;
 
     @Before
     public void init() {
-        initCase = new int[][] {
+        initCase = new Integer[][] {
                 {1}, {2},
                 {3}, {4},
                 {5}, {6}};
