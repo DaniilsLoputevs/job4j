@@ -79,16 +79,10 @@ public class Bank {
      * @return User - Пользователь.
      */
     public User getUserByPassport(String passport) {
-        User result = null;
-        if (passport != null) {
-            Optional<User> resultList = users.keySet().stream()
-                    .filter(user -> user.getPassport().equals(passport))
-                    .findFirst();
-            if (resultList.isPresent()) {
-                result = resultList.get();
-            }
-        }
-        return result;
+        return users.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**Поиск Account по Реквизитам.
@@ -114,16 +108,11 @@ public class Bank {
      * @return Account/null - Есть такой Account у user/ Нету acc у user
      */
     public Account getUsersAcc(String passport, String requisite) {
-        Account result = null;
-        if (passport != null && requisite != null) {
-            Optional<Account> resultList = users.get(this.getUserByPassport(passport)).stream()
-                    .filter(account -> account.equals(this.getAccountByRequisite(requisite)))
-                    .findFirst();
-            if (resultList.isPresent()) {
-                result = resultList.get();
-            }
-        }
-        return result;
+
+        return users.get(this.getUserByPassport(passport)).stream()
+                .filter(account -> account.equals(this.getAccountByRequisite(requisite)))
+                .findFirst()
+                .orElse(null);
     }
 
     public void showUserAccounts(String passport) {

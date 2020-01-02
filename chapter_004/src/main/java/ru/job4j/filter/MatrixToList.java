@@ -15,7 +15,8 @@ public class MatrixToList {
 
       return List.of(Arrays.stream(matrix)
               .flatMapToInt(Arrays::stream)
-//              .collect(Collectors.toList());
+//              .iterator().next().byteValue()
+//              .collect(Collectors.toList());/
               .toArray());
 
 //        return result;
