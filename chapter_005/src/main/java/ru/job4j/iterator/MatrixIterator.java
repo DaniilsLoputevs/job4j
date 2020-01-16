@@ -16,7 +16,6 @@ public class MatrixIterator implements Iterator {
     @Override
     public boolean hasNext() {
         return matrix.length > indexRow + 1 || matrix[indexRow].length > indexCell + 1;
-
     }
 
     @Override
@@ -26,11 +25,5 @@ public class MatrixIterator implements Iterator {
             indexCell = 0;
         }
         return  matrix[indexRow][indexCell++];
-    }
-
-    // В задании не сказано что нужно это реализовывать.
-    @Override
-    public void remove() {
-
     }
 }
