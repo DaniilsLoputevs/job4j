@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Класс менеджер заявок, нужен для создания объектов
+ * Класс менеджер заявок.
  * @author Daniils Loputevs
  * @version $Id$
  * @since 29.11.19
@@ -18,8 +18,8 @@ public class Tracker {
     private final ArrayList<Item> items = new ArrayList();
 
     /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
+     * Генерирует уникальный ключ для заявки.
+     * Т.к. у заявки нет уникального поля. Для идентификации нам нужен уникальный ключ.
      * @return Уникальный ключ. (далее присваивается заявке(Item item), как id).
      */
     String generateId() {
@@ -30,7 +30,7 @@ public class Tracker {
 
     // Методы на которых основаны все клаасы в пакете actions
     /**
-     * Метод реализаущий добавление заявки в хранилище.
+     * Добавить заявку в tracker
      * + Присваивает id для новой заявки.
      * @param item новая заявка.
      */
@@ -40,7 +40,7 @@ public class Tracker {
     }
 
     /**
-     * Метод ищет ячейку по указаному @param id и заменяет её содержимое на @param item.
+     * Замена старой заявки по её id, новый завкой(item).
      * После замены, ячейка имее старый id.
      * @param id id старой заявки (для удаление).
      * @param item новая заявка.
@@ -54,8 +54,9 @@ public class Tracker {
     }
 
     /**
-     * Метод принимает id зайавки которую нужно удалить, после двигает все след. ячейки в лево.
-     * @param id id заявки (для удаление).
+     * Удалить завку по id.
+     * после сдвигает все след. ячейки ближе к началу коллекции.
+     * @param id - id заявки для удаление.
      */
     public void delete(String id) {
         int index = indexOfId(id);
@@ -66,7 +67,7 @@ public class Tracker {
 
     // Методы findBy...
     /**
-     * Метод возвращает все заявки.
+     * Найти все заявки.
      * @return Item[] - массив всех заявок.
      */
     public ArrayList<Item> findAll() {
@@ -74,7 +75,8 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращает все заявки совпадающие с указаным именем.
+     * Поиск заявки по имени.
+     * Т.к. заявок может быть много, метод возвращает ArrayList.
      * @return Item[] - массив всех заявок с одинаковыми именами.
      */
     public ArrayList<Item> findByName(String key) {
@@ -88,7 +90,7 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращает заявку по указанному id.
+     * Поиск заявки по id.
      * @param id id заявки для возврата.
      * @return Item - нужная заявка.
      */
@@ -97,6 +99,11 @@ public class Tracker {
         return (index != -1) ? items.get(index) : null;
     }
 
+    /**
+     * Поиск индекса заявки, по указаному id.
+     * @param id - id заявки.
+     * @return - индекс заявки.
+     */
     public int indexOfId(String id) {
         int index = 0;
         boolean change = false;
@@ -111,16 +118,26 @@ public class Tracker {
         return index;
     }
 
+    // Особености методов с возвратом boolean
+    //   return (findById(id) != null) ? true : false;
+
+    /**
+     * Проверка: Есть ли заявка с таким id в tracker.
+     * @param id - id для поиска.
+     * @return - true/false
+     */
     public boolean containsId(String id) {
-        // Особености методов с возвратом boolean
-//        return (findById(id) != null) ? true : false;
         return findById(id) != null;
     }
+    /**
+     * Проверка: Есть ли заявка с таким name в tracker.
+     * @param name - name для поиска.
+     * @return - true/false
+     */
     public boolean containsName(String name) {
-        // Особености методов с возвратом boolean
-//        return findByName(name) != null) ? true : false;
         return findByName(name) != null;
     }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

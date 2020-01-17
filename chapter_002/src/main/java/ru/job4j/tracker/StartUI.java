@@ -42,7 +42,7 @@ public class StartUI {
     }
 
     /**
-     * Мнтод для заполнения списка с возможными действиями.
+     * Заполняет список с возможными действиями.
      * @return actions - задаёт содержимое массива.
      */
     private static ArrayList setActions() {
