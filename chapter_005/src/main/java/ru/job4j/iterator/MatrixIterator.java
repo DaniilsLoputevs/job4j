@@ -21,12 +21,12 @@ public class MatrixIterator implements Iterator {
 
     @Override
     public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         if (matrix[indexRow].length == indexCell) {
             indexRow++;
             indexCell = 0;
-        }
-        if (!hasNext()) {
-            throw new NoSuchElementException();
         }
         return matrix[indexRow][indexCell++];
     }
