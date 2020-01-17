@@ -6,7 +6,14 @@ public class IteratorsConvert {
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<>() {
 
+
             private Iterator<Integer> insideIterator = it.next();
+
+            private void skipEmpty() {
+                while (condition()) {
+                    insideIterator = it.next();
+                }
+            }
 
             private boolean condition() {
                 return !insideIterator.hasNext();
@@ -20,6 +27,7 @@ public class IteratorsConvert {
 
             @Override
             public Integer next() {
+                skipEmpty();
                 insideIterator = (condition()) ? it.next() : insideIterator;
                 return insideIterator.hasNext() ? insideIterator.next() : -1;
             }

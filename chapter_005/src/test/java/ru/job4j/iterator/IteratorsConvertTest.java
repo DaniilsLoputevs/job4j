@@ -98,4 +98,61 @@ public class IteratorsConvertTest {
         assertThat(it.next(), is(3));
         it.next();
     }
+
+    @Test
+    public void whenEmptyIterator() {
+        Iterator<Integer> it1 = Arrays.asList(1, 2, 3).iterator();
+        Iterator<Integer> it2 = new Iterator<Integer>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Integer next() {
+                return null;
+            }
+        };
+        Iterator<Integer> it3 = Arrays.asList(7, 8, 9).iterator();
+        Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3).iterator();
+        IteratorsConvert iteratorOfIterators = new IteratorsConvert();
+        it = iteratorOfIterators.convert(its);
+
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+
+        assertThat(it.next(), is(7));
+        assertThat(it.next(), is(8));
+        assertThat(it.next(), is(9));
+
+
+    }
+
+    @Test // Проверял, можно ли использовать next() в условии if() => Нет
+    public void ter() {
+        class A {
+            private int i = 100;
+            int nextTest() {
+                this.i = i + 10;
+                return i;
+            }
+            int getI() {
+                return this.i;
+            }
+        }
+
+        boolean run = true;
+        A example = new A();
+        System.out.println(example.getI());
+        example.nextTest();
+        System.out.println(example.getI());
+
+        if (example.nextTest() == 120) {
+            System.out.println(example.getI());
+        }
+
+
+
+    }
 }
