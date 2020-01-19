@@ -14,6 +14,10 @@ public class SimpleStack<T> {
         this.size--;
         return collection.delete();
     }
+    public T peek() {
+        this.size--;
+        return collection.get(size);
+    }
     public int getSize() {
         return this.size;
     }

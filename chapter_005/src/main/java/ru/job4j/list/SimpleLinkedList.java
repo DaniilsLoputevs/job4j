@@ -87,8 +87,9 @@ public class SimpleLinkedList<E> implements Iterable<E>  {
         }
 
         void checkForModification() {
-            if (modCount != expectedModCount)
+            if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
+            }
         }
     }
 

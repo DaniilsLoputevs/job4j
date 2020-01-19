@@ -14,7 +14,7 @@ public class DymArrayList<E> implements Iterable<E> {
         this.container = new Object[size];
     }
 
-    public void add(E value){
+    public void add(E value) {
         this.container[size++] = value;
         modCount++;
         if (container.length == size - 1) {
@@ -59,8 +59,9 @@ public class DymArrayList<E> implements Iterable<E> {
         }
 
         void checkForModification() {
-            if (modCount != expectedModCount)
+            if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
+            }
         }
     }
 
