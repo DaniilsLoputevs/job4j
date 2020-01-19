@@ -22,6 +22,23 @@ public class SimpleLinkedList<E> implements Iterable<E>  {
         }
         return result.data;
     }
+    public E delete() {
+        // Сохраняем данные из first
+        Node<E> firstOne = first;
+        if (firstOne == null) {
+            throw new NoSuchElementException();
+        }
+        // Сохраняем возвращаемый результат
+        E result = firstOne.data;
+        // Сохраняем ссылку на след. Node
+        Node<E> nextLink = firstOne.next;
+
+        // Переназначаем first, След. Node
+        first = nextLink;
+
+        this.size--;
+        return result;
+    }
     public int getSize() {
         return this.size;
     }

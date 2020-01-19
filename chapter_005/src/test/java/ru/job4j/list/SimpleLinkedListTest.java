@@ -29,6 +29,10 @@ public class SimpleLinkedListTest {
     public void get() {
         assertThat(list.get(1), is(2));
     }
+    @Test
+    public void delete() {
+        assertThat(list.delete(), is(3));
+    }
 
     @Test
     public void iteratorHasNext() {
