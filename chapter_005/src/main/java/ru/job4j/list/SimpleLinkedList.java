@@ -23,7 +23,7 @@ public class SimpleLinkedList<E> implements Iterable<E>  {
         return result.data;
     }
     public E delete() {
-        // Сохраняем данные из first
+        // Копируем first
         Node<E> firstOne = first;
         if (firstOne == null) {
             throw new NoSuchElementException();

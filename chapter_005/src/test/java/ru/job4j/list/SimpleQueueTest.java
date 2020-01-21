@@ -27,7 +27,7 @@ public class SimpleQueueTest {
     }
 
     @Test
-    public void get() {
+    public void peek() {
         assertThat(list.peek(), is(1));
     }
 

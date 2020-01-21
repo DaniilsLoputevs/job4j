@@ -5,49 +5,30 @@ public class SimpleQueue<T> {
     private SimpleStack<T> input = new SimpleStack<>();
     private SimpleStack<T> output = new SimpleStack<>();
     private int size = 0;
-    private int modCount = 0;
-    private int expectedModCount = -1;
+    private int expectedSize = -1;
 
     public void push(T value) {
         input.push(value);
         this.size++;
-        this.modCount++;
     }
 
+    /** Забирает последние добоалениое значение и возвращает.
+     * @return T
+     */
     public T poll() {
-        if (modCount != expectedModCount) {
-            for (int i = -1; i <= input.getSize(); i++) {
+        if (size != expectedSize - 1) {
+            for (int i = 0; i <= input.getSize() + 1; i++) {
                 output.push(input.peek());
             }
-
-//
-//            var e = input.poll();
-
-//            while (e != null) {
-//                output.push(e);
-//                e = input.poll();
-//            }
-
-//
-//            int i = 0;
-//            while (i < input.getSize()) {
-//                output.push(e);
-//                e = input.poll();
-//
-//
-//                i++;
-//            }
-
-
-
-
-
-            expectedModCount = modCount;
+            expectedSize = size;
         }
         this.size--;
         return output.peek();
     }
 
+    /** Копирует последние добоалениое значение и возвращает.
+     * @return T
+     */
     public T peek() {
         return input.peek();
     }
