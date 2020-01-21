@@ -11,18 +11,17 @@ public class EvenIterator<Integer> implements Iterator {
     public EvenIterator(int[] arr) {
         int[] buffer = new int[arr.length];
         var count = 0;
-        for (int anArr : arr) {
-            if (anArr % 2 == 0) {
-                buffer[count] = anArr;
-                count++;
+        for (int num : arr) {
+            if (num % 2 == 0) {
+                buffer[count++] = num;
             }
         }
         this.array = Arrays.copyOf(buffer, count);
     }
 
-        @Override
+    @Override
     public boolean hasNext() {
-        return check() != -1;
+        return index < array.length;
     }
 
     @Override
@@ -30,35 +29,7 @@ public class EvenIterator<Integer> implements Iterator {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        int result = check();
-        index = (result != -1) ? index + 1 : index;
-        return result;
-
+        return array[index++];
     }
-
-    private int check() {
-        var result = -1;
-        for (int i = index; i < this.array.length; i++) {
-            if (this.array[i] % 2 == 0) {
-                result = this.array[i];
-                break;
-            }
-        }
-        return result;
-    }
-
-
-    // Альтернатива
-//    @Override
-//    public boolean hasNext() {
-//        return array.length > index;
-//    }
-//
-//    // сдесь hasNext() т.к. я не хотел повторять код, а собирался писать тоже самое.
-//    @Override
-//    public Object next() {
-//        return (hasNext()) ? array[index++] : new NoSuchElementException();
-//    }
-
 
 }
