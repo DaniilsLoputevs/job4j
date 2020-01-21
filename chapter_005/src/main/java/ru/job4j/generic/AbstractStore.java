@@ -1,6 +1,6 @@
 package ru.job4j.generic;
 
-public abstract class AbstractStore<Y extends Base> implements Store {
+public abstract class AbstractStore<Y extends Base> implements Store<Y> {
 
     protected AbstractStore(SimpleArray<Y> store) {
         this.store = store;
@@ -19,27 +19,18 @@ public abstract class AbstractStore<Y extends Base> implements Store {
     @Override
     public boolean replace(String id, Base model) {
         var result = false;
-        for (int i = 0; i < index; i++) {
-            if (this.store.get(i).getId().equals(id)) {
-                this.store.set(i, (Y) model);
-                result = true;
-                break;
-            }
-        }
+        this.store.set(findIndexById(id), (Y) model);
+        result = true;
+        // Можно просто - return true, но думается что это не очень вырно.
         return result;
     }
 
     @Override
     public boolean delete(String id) {
-        // Сдесь Имеенно for() и get() т.к. Через forEach() обращение идёт как, к Object, а не как, к User
         var result = false;
-        for (int i = 0; i < index; i++) {
-            if (this.store.get(i).getId().equals(id)) {
-                this.store.remove(i);
-                result = true;
-                break;
-            }
-        }
+        this.store.remove(findIndexById(id));
+        result = true;
+        // Можно просто - return true, но думается что это не очень вырно.
         return result;
     }
 
@@ -51,6 +42,16 @@ public abstract class AbstractStore<Y extends Base> implements Store {
             hold = this.store.get(i);
             if (hold.getId().equals(id)) {
                 result = hold;
+                break;
+            }
+        }
+        return result;
+    }
+    private int findIndexById(String id) {
+        var result = -1;
+        for (int i = 0; i < index; i++) {
+            if (this.store.get(i).getId().equals(id)) {
+                result = i;
                 break;
             }
         }

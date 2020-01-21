@@ -1,40 +1,31 @@
 package ru.job4j.generic;
 
-public class RoleStore<Role extends Base> implements Store {
+public class RoleStore implements Store<Role>  {
 
     private SimpleArray<Role> store = new SimpleArray<>(100);
     private int index = 0;
 
     @Override
-    public void add(Base model) {
-        this.store.add((Role) model);
+    public void add(Role model) {
+        this.store.add(model);
         index++;
     }
 
     @Override
-    public boolean replace(String id, Base model) {
+    public boolean replace(String id, Role model) {
         var result = false;
-        for (int i = 0; i < index; i++) {
-            if (this.store.get(i).getId().equals(id)) {
-                this.store.set(i, (Role) model);
-                result = true;
-                break;
-            }
-        }
+        this.store.set(findIndexById(id), model);
+        result = true;
+        // Можно просто - return true, но думается что это не очень вырно.
         return result;
     }
 
     @Override
     public boolean delete(String id) {
-        // Сдесь Имеенно for() и get() т.к. Через forEach() обращение идёт как, к Object, а не как, к User
         var result = false;
-        for (int i = 0; i < index; i++) {
-            if (this.store.get(i).getId().equals(id)) {
-                this.store.remove(i);
-                result = true;
-                break;
-            }
-        }
+        this.store.remove(findIndexById(id));
+        result = true;
+        // Можно просто - return true, но думается что это не очень вырно.
         return result;
     }
 
@@ -46,6 +37,18 @@ public class RoleStore<Role extends Base> implements Store {
             hold = this.store.get(i);
             if (hold.getId().equals(id)) {
                 result = hold;
+                break;
+            }
+        }
+        return result;
+    }
+
+
+    private int findIndexById(String id) {
+        var result = -1;
+        for (int i = 0; i < index; i++) {
+            if (this.store.get(i).getId().equals(id)) {
+                result = i;
                 break;
             }
         }
