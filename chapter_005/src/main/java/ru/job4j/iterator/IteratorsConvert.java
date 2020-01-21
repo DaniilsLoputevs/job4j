@@ -1,52 +1,38 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class IteratorsConvert {
-    Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
+    Iterator<Integer> convert(Iterator<Iterator<Integer>> globalIterator) {
         return new Iterator<>() {
 
 
-            private Iterator<Integer> insideIterator = it.next();
+            private Iterator<Integer> insideIterator = globalIterator.next();
 
-            private void skipEmpty() {
-                while (condition()) {
-                    insideIterator = it.next();
-                }
-            }
-
-            private boolean condition() {
-                return !insideIterator.hasNext();
-            }
             @Override
             public boolean hasNext() {
-                insideIterator = (condition() && it.hasNext())
-                        ? it.next() : insideIterator;
-                return insideIterator.hasNext();
+                boolean result = false;
+                if (globalIterator.hasNext() || insideIterator.hasNext()) {
+                    while (!insideIterator.hasNext()) {
+                        insideIterator = globalIterator.next();
+                    }
+                    result = insideIterator.hasNext();
+                }
+                return result;
             }
 
             @Override
             public Integer next() {
-                skipEmpty();
-                insideIterator = (condition()) ? it.next() : insideIterator;
-                return insideIterator.hasNext() ? insideIterator.next() : -1;
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return insideIterator.next();
             }
 
 
-            // Первая рабочая версия с Малым мульти-ретурном.
-//            @Override
-//            public boolean hasNext() {
-//                var condition = !insideIterator.hasNext();
-//                if (!it.hasNext() && condition) {
-//                    return false;
-//                }
-//                insideIterator = (condition) ? it.next() : insideIterator;
-//                return insideIterator.hasNext();
-//            }
-
-
         };
+
+
     }
-
-
 }
