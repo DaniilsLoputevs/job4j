@@ -14,7 +14,7 @@ public class RoleStoreTest {
 
     @Before
     public void init() {
-        collection = new RoleStore();
+        collection = new RoleStore(100);
         role0 = new Role("0");
         role1 = new Role("1");
         collection.add(role0);

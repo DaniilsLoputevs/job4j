@@ -18,20 +18,16 @@ public abstract class AbstractStore<Y extends Base> implements Store<Y> {
 
     @Override
     public boolean replace(String id, Base model) {
-        var result = false;
         this.store.set(findIndexById(id), (Y) model);
-        result = true;
         // Можно просто - return true, но думается что это не очень вырно.
-        return result;
+        return true;
     }
 
     @Override
     public boolean delete(String id) {
-        var result = false;
         this.store.remove(findIndexById(id));
-        result = true;
         // Можно просто - return true, но думается что это не очень вырно.
-        return result;
+        return true;
     }
 
     @Override

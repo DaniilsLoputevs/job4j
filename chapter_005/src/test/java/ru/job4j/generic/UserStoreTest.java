@@ -14,7 +14,7 @@ public class UserStoreTest {
 
     @Before
     public void init() {
-        collection = new UserStore();
+        collection = new UserStore(100);
         user0 = new User("0");
         user1 = new User("1");
         collection.add(user0);
