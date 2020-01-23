@@ -10,16 +10,19 @@ public class IteratorsConvert {
 
             private Iterator<Integer> insideIterator = globalIterator.next();
 
+            /** Для себя в будущем. (ДСВБ)
+             * while - меняет внутрений итератор(ВИ) Если ВИ кончился.
+             * Именно while т.к. могут быть пустые ВИ после нынешнего ВИ.
+             *
+             * последовательно возвращае все занчения из всех ВИ. Пропускает пкстые ВИ.
+             * @return true/false
+             */
             @Override
             public boolean hasNext() {
-                boolean result = false;
-                if (globalIterator.hasNext() || insideIterator.hasNext()) {
-                    while (!insideIterator.hasNext()) {
-                        insideIterator = globalIterator.next();
-                    }
-                    result = insideIterator.hasNext();
+                while (!insideIterator.hasNext()) {
+                    insideIterator = globalIterator.next();
                 }
-                return result;
+                return insideIterator.hasNext();
             }
 
             @Override

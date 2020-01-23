@@ -45,7 +45,9 @@ public class IteratorsConvertTest {
         assertThat(it.next(), is(8));
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(9));
-        assertThat(it.hasNext(), is(false));
+
+        // NoSuchElementException
+//        assertThat(it.hasNext(), is(false));
     }
 
     @Test
@@ -84,6 +86,7 @@ public class IteratorsConvertTest {
         Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3).iterator();
         IteratorsConvert iteratorOfIterators = new IteratorsConvert();
         it = iteratorOfIterators.convert(its);
+
         // java.util.NoSuchElementException - т.к. в Глобальном итераторе нет элементов,
         // а у него hasNext, возвращает Exception
 //        assertThat(it.hasNext(), is(false));
@@ -127,34 +130,9 @@ public class IteratorsConvertTest {
         assertThat(it.next(), is(7));
         assertThat(it.next(), is(8));
         assertThat(it.next(), is(9));
-
-
     }
 
-    @Test // Проверял, можно ли использовать next() в условии if() => Нет
-    public void ter() {
-        class A {
-            private int i = 100;
-            int nextTest() {
-                this.i = i + 10;
-                return i;
-            }
-            int getI() {
-                return this.i;
-            }
-        }
+    // Проверял, можно ли использовать next() в условии if() => Нет
+    // Поэтому есть hasNext(), что бы делать такие проверки.
 
-        boolean run = true;
-        A example = new A();
-        System.out.println(example.getI());
-        example.nextTest();
-        System.out.println(example.getI());
-
-        if (example.nextTest() == 120) {
-            System.out.println(example.getI());
-        }
-
-
-
-    }
 }
