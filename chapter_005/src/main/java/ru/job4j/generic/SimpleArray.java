@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class SimpleArray<T> implements Iterable {
+public class SimpleArray<T> implements Iterable<T> {
 
     /**
      * add(T model) - добавляет указанный элемент (model) в первую свободную ячейку;
@@ -36,7 +36,8 @@ public class SimpleArray<T> implements Iterable {
         if (index < position) {
             this.objects[index] = value;
         } else {
-            System.out.println("В массиве нет такой ячейки");
+            throw new IndexOutOfBoundsException();
+//            System.out.println("В массиве нет такой ячейки");
         }
     }
     public void remove(int index) {
@@ -54,6 +55,6 @@ public class SimpleArray<T> implements Iterable {
     }
     @Override
     public Iterator iterator() {
-      return new SimpleArrayIterator(Arrays.copyOf(objects, position));
+      return new SimpleArrayIterator<>(Arrays.copyOf(objects, position));
     }
 }
