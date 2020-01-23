@@ -5,7 +5,6 @@ public class SimpleQueue<T> {
     private SimpleStack<T> input = new SimpleStack<>();
     private SimpleStack<T> output = new SimpleStack<>();
     private int size = 0;
-    private int expectedSize = -1;
 
     public void push(T value) {
         input.push(value);
@@ -16,11 +15,10 @@ public class SimpleQueue<T> {
      * @return T
      */
     public T poll() {
-        if (size != expectedSize - 1) {
+        if (input.getSize() != 0) {
             for (int i = 0; i <= input.getSize() + 1; i++) {
                 output.push(input.peek());
             }
-            expectedSize = size;
         }
         this.size--;
         return output.peek();
@@ -37,7 +35,4 @@ public class SimpleQueue<T> {
         return this.size;
     }
 
-//    private boolean checkForModification() {
-//        return modCount != expectedModCount;
-//    }
 }
