@@ -28,6 +28,17 @@ public class DymArrayList<E> implements Iterable<E> {
     public int getSize() {
         return this.size;
     }
+
+    public boolean contains(E value) {
+        var result = false;
+        for (int i = 0; i < this.size; i++) {
+            if (container[i].equals(value)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new LocalIterator();
