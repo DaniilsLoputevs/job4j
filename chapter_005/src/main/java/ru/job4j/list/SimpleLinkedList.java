@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -39,6 +40,14 @@ public class SimpleLinkedList<E> implements Iterable<E>  {
         this.size--;
         return result;
     }
+
+    public void addAll(Collection<? extends E> c) {
+        Object[] array = c.toArray();
+        for (Object element : array) {
+            this.add((E) element);
+        }
+    }
+
     public int getSize() {
         return this.size;
     }

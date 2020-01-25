@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -32,6 +33,11 @@ public class SimpleLinkedListTest {
     @Test
     public void delete() {
         assertThat(list.delete(), is(3));
+    }
+    @Test
+    public void addAll() {
+        list.addAll(List.of(4, 5, 6, 7, 8, 9));
+        assertThat(list.getSize(), is(9));
     }
 
     @Test
