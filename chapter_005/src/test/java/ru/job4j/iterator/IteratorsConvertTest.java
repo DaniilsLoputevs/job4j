@@ -132,6 +132,48 @@ public class IteratorsConvertTest {
         assertThat(it.next(), is(9));
     }
 
+    @Test
+    public void whenEmptyIterator2() {
+        var emptyIterator = new Iterator<Integer>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Integer next() {
+                return null;
+            }
+        };
+        Iterator<Integer> it1 = emptyIterator;
+        Iterator<Integer> it2 = emptyIterator;
+        Iterator<Integer> it3 = emptyIterator;
+        Iterator<Integer> it4 = Arrays.asList(1, 2, 3).iterator();
+        Iterator<Integer> it5 = Arrays.asList(4, 5, 6).iterator();
+        Iterator<Integer> it6 = emptyIterator;
+        Iterator<Integer> it7 = emptyIterator;
+        Iterator<Integer> it8 = Arrays.asList(7, 8, 9).iterator();
+        Iterator<Integer> it9 = emptyIterator;
+        Iterator<Iterator<Integer>> its = Arrays.asList(it1, it2, it3, it4, it5, it6, it7, it8, it9).iterator();
+        IteratorsConvert iteratorOfIterators = new IteratorsConvert();
+        it = iteratorOfIterators.convert(its);
+
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(6));
+
+        assertThat(it.next(), is(7));
+        assertThat(it.next(), is(8));
+        assertThat(it.next(), is(9));
+    }
+
+
+
+
     // Проверял, можно ли использовать next() в условии if() => Нет
     // Поэтому есть hasNext(), что бы делать такие проверки.
 

@@ -19,7 +19,9 @@ public class IteratorsConvert {
              */
             @Override
             public boolean hasNext() {
-                while (!insideIterator.hasNext()) {
+                while (!insideIterator.hasNext() && globalIterator.hasNext()) {
+                    //  globalIterator.hasNext() - здесь нужен т.к. в методе происходит вызов next(), перед ним
+                    // Обязательно! должен быть вызов hasNext()
                     insideIterator = globalIterator.next();
                 }
                 return insideIterator.hasNext();
