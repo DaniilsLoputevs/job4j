@@ -26,11 +26,6 @@ public class SimpleQueueTest {
         assertThat(list.getSize(), is(0));
     }
 
-    @Test
-    public void peek() {
-        assertThat(list.peek(), is(1));
-    }
-
     @Test // LIFO
     public void combinePushAndPoll() {
         assertThat(list.poll(), is(1));

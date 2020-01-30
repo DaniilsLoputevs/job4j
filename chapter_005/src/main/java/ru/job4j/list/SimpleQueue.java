@@ -24,13 +24,6 @@ public class SimpleQueue<T> {
         return output.peek();
     }
 
-    /** Копирует последние добоалениое значение и возвращает.
-     * @return T
-     */
-    public T peek() {
-        return input.peek();
-    }
-
     public int getSize() {
         return this.size;
     }

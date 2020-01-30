@@ -10,10 +10,17 @@ public class SimpleStack<T> {
         this.size++;
     }
 
+    /** Забирает последние добоалениое значение и возвращает.
+     * @return T
+     */
     public T poll() {
         this.size--;
         return collection.delete();
     }
+
+    /** Копирует последние добоалениое значение и возвращает.
+     * @return T
+     */
     public T peek() {
         this.size--;
         return collection.get(size);
