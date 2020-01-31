@@ -44,4 +44,11 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, children);
     }
+
+    // метод для SimpleMap
+    @Override
+    public String toString() {
+        return  "{ " + children + " }";
+    }
+
 }
