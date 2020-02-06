@@ -1,9 +1,7 @@
 package ru.job4j.exam;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /** Нужно понять:
  * Сколько добавлено новых пользователей.
@@ -43,24 +41,6 @@ public class Analize {
         }
         return result;
     }
-
-//    public Info diff(List<User> previous, List<User> current) {
-//        Info temp = new Info();
-//        Map<Integer, User> mPre = previous.stream().collect(Collectors.toMap(User::getId, e -> e));
-//        Map<Integer, User> mCur = current.stream().collect(Collectors.toMap(User::getId, e -> e));
-//        for (var e : mPre.keySet()) {
-//            if (mCur.containsKey(e)) {
-//                if (!mPre.get(e).equals(mCur.get(e))) {
-//                    temp.changed++;
-//                }
-//            } else {
-//                temp.deleted++;
-//            }
-//        }
-//        temp.added = mCur.size() - (mPre.size() - temp.deleted);
-//        return temp;
-//
-//    }
 
 
     public static class Info {
