@@ -26,13 +26,4 @@ public class SimpleStackTest {
         assertThat(list.getSize(), is(0));
     }
 
-    @Test
-    public void peek() {
-        assertThat(list.peek(), is(1));
-    }
-
-    @Test
-    public void get() {
-        assertThat(list.peek(), is(1));
-    }
 }

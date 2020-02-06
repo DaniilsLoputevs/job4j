@@ -18,13 +18,6 @@ public class SimpleStack<T> {
         return collection.delete();
     }
 
-    /** Копирует последние добоалениое значение и возвращает.
-     * @return T
-     */
-    public T peek() {
-        this.size--;
-        return collection.get(size);
-    }
     public int getSize() {
         return this.size;
     }

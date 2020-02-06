@@ -15,13 +15,13 @@ public class SimpleQueue<T> {
      * @return T
      */
     public T poll() {
-        if (input.getSize() != 0) {
+        if (output.getSize() == 0) {
             for (int i = 0; i <= input.getSize() + 1; i++) {
-                output.push(input.peek());
+                output.push(input.poll());
             }
         }
         this.size--;
-        return output.peek();
+        return output.poll();
     }
 
     public int getSize() {
