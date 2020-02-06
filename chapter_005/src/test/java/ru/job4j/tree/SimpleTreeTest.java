@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
  */
 public class SimpleTreeTest {
     SimpleTree<Integer> tree = new SimpleTree<>(1);
+    SimpleTree<Integer> biTree = new SimpleTree<>(1);
 
     @Before
     public void setUp() {
@@ -24,6 +25,13 @@ public class SimpleTreeTest {
         tree.add(6, 10);
         tree.add(6, 11);
         tree.add(6, 12);
+
+        biTree.add(1, 10);
+        biTree.add(1, 20);
+        biTree.add(10, 30);
+        biTree.add(20, 40);
+        biTree.add(30, 50);
+        biTree.add(40, 60);
     }
 
     @Test
@@ -69,7 +77,12 @@ public class SimpleTreeTest {
         assertThat(iterator.hasNext(), is(true));
         assertThat(iterator.next(), is(12));
         assertThat(iterator.hasNext(), is(false));
-
-
     }
+
+    @Test
+    public void isBinary() {
+        assertThat(tree.isBinary(), is(false));
+        assertThat(biTree.isBinary(), is(true));
+    }
+
 }

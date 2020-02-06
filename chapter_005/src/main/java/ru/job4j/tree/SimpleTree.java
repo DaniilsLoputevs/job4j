@@ -48,6 +48,19 @@ public class SimpleTree<E extends Comparable<E>> implements TreeInterface<E> {
         return rsl;
     }
 
+    public boolean isBinary() {
+       var queue = new LinkedList<>(List.of(root));
+       Node<E> current = queue.poll();
+       for (Node<E> child : current.leaves()) {
+           queue.offer(child);
+           if (current.leaves().size() > 2) {
+               return false;
+           }
+           current = queue.poll();
+       }
+       return true;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new LocalIterator(root);
@@ -81,6 +94,10 @@ public class SimpleTree<E extends Comparable<E>> implements TreeInterface<E> {
             return this.children;
         }
 
+        /** Сравнивает value с that
+         * @param that E object
+         * @return boolean
+         */
         public boolean eqValue(E that) {
             return this.value.compareTo(that) == 0;
         }
