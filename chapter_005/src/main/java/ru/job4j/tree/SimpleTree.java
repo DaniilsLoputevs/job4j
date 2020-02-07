@@ -12,7 +12,7 @@ public class SimpleTree<E extends Comparable<E>> implements TreeInterface<E> {
 
     /**
      * Добавить элемент child в parent.
-     * Parent может иметь список child.
+     * *Если child уже есть в дереве, то return = false
      * *Если Parent == null >> child пойдёт к root в children.
      * @param parent parentValue - ключ для поиска в дереве.
      * @param child childValue - Вставляемое значение.
@@ -20,16 +20,26 @@ public class SimpleTree<E extends Comparable<E>> implements TreeInterface<E> {
      */
     @Override
     public boolean add(E parent, E child) {
-        Node<E> parentNode = (findBy(parent).isPresent()) ? findBy(parent).get() : null;
-        if (parentNode != null) {
-            parentNode.add(new Node<>(child));
-        } else {
-            this.root.add(new Node<>(child));
+        var result = false;
+        if (!findBy(child).isPresent()) {
+            var parentOptional = findBy(parent);
+
+            if (parentOptional.isPresent()) {
+                parentOptional.get().add(new Node<>(child));
+            } else {
+                this.root.add(new Node<>(child));
+            }
+            modCount++;
+            result = true;
         }
-        modCount++;
-        return true;
+        return result;
     }
 
+    /** поиск node<E> в дереве, по value.
+     * Если value нет в дереве, то return = Optional.empty();
+     * @param value - значение для поиска.
+     * @return  Optional<Node<E>>
+     */
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> rsl = Optional.empty();
