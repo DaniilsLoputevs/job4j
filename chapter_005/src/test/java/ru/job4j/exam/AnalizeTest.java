@@ -49,7 +49,7 @@ public class AnalizeTest {
 
         var analise = new Analize().diff(initList, newList);
 
-        System.out.println("info: " + info.toString());
+        System.out.println("info:    " + info.toString());
         System.out.println("analise: " + analise.toString());
 
         assertThat(analise.equals(info), is(true));
