@@ -38,7 +38,6 @@ public class Analizy {
             }
         }
         Helper.writeListToFile(target, fileContent);
-
     }
 
     public static void main(String[] args) {
