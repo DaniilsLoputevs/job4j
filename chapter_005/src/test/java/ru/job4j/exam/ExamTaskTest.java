@@ -20,7 +20,7 @@ public class ExamTaskTest {
     @Test
     public void test2Negative() {
         var obj = new ExamTask();
-        assertThat(obj.contains2("mama", "mama"), is(false));
+        assertThat(obj.contains2("mama", "mamak"), is(false));
     }
 
 
