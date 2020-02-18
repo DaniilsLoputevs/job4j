@@ -13,13 +13,12 @@ public class AnalizyTest {
 
     @Test
     public void unavailable() {
-        var analise = new Analizy();
-        analise.unavailable(sourcePath, targetPath);
+        new Analizy().unavailable(sourcePath, targetPath);
         var expectedList = List.of(
                 "10:57:01 - 10:59:01",
                 "11:01:02 - 11:02:02"
         );
-        assertThat(analise.compareInfoFromFileWithList(targetPath, expectedList), is(true));
+        assertThat(Helper.compareInfoFromFileWithList(targetPath, expectedList), is(true));
 
     }
 
