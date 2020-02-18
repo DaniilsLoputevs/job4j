@@ -18,14 +18,15 @@ public class AnalizeTest {
         initList.addAll(List.of(
                 new User(1, "One"),
                 new User(2, "Two"),
-                new User(3, "three"),
+                new User(3, "Three"),
                 new User(4, "Four"),
                 new User(5, "Five"),
                 new User(6, "Six")
         ));
     }
 
-    /** Разные коллекции:
+    /**
+     * Разные коллекции:
      * размер: 6 - 6
      * Добавлено: 2
      * Изменено: 2
@@ -36,10 +37,10 @@ public class AnalizeTest {
         newList.addAll(List.of(
                 new User(1, "One"),
                 new User(2, "Two"),
-                new User(3, "Four"), // change
-                new User(4, "Five"), // change
-                new User(8, "Five"), // add
-                new User(9, "Six")   // add
+                new User(3, "Ten"),     // change
+                new User(4, "Twenty"),  // change
+                new User(15, "Five"),   // add
+                new User(25, "Six")     // add
         ));
 
         var info = new Analize.Info();
@@ -56,7 +57,8 @@ public class AnalizeTest {
     }
 
 
-    /** Разные коллекции:
+    /**
+     * Разные коллекции:
      * размер: 6 - 4
      * Добавлено: 0
      * Изменено: 2
@@ -67,8 +69,8 @@ public class AnalizeTest {
         newList.addAll(List.of(
                 new User(1, "One"),
                 new User(2, "Two"),
-                new User(3, "Four"),  // change
-                new User(4, "Five")   // change
+                new User(3, "Thousand"),  // change
+                new User(4, "Hundred")    // change
         ));
 
         var info = new Analize.Info();
@@ -78,7 +80,7 @@ public class AnalizeTest {
 
         var analise = new Analize().diff(initList, newList);
 
-        System.out.println("info: " + info.toString());
+        System.out.println("info:    " + info.toString());
         System.out.println("analise: " + analise.toString());
 
         assertThat(analise.equals(info), is(true));

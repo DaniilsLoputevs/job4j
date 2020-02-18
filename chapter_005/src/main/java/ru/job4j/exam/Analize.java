@@ -1,8 +1,8 @@
 package ru.job4j.exam;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /** Нужно понять:
@@ -20,12 +20,12 @@ public class Analize {
      */
     public Info diff(List<User> previous, List<User> current) {
         var info = new Info();
-        Set<Integer> idSet = current.stream().map(User::getId).collect(Collectors.toSet());
+        Map<Integer, String> currentData = current.stream().collect(Collectors.toMap(User::getId, User::getName));
 
         for (User left : previous) {
-            if (!idSet.contains(left.getId())) {
+            if (!currentData.containsKey(left.getId())) {
                 info.deleted++;
-            } else if (current.contains(left)) {
+            } else if (!currentData.containsValue(left.getName())) {
                 info.changed++;
             }
         }
