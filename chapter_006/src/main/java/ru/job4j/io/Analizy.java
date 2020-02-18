@@ -1,6 +1,5 @@
 package ru.job4j.io;
 
-import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class Analizy {
     /** Анализ времени работы сервера.
      * Считывает по пути source и записывает в файл по пути target.
-     *
+     * Делает понятное оформление текста для послед. записи.
      * @param source Путь источника.
      * @param target Путь для запичи.
      */
@@ -38,14 +37,5 @@ public class Analizy {
             }
         }
         Helper.writeListToFile(target, fileContent);
-    }
-
-    public static void main(String[] args) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream("unavailable.csv"))) {
-            out.println("15:01:30;15:02:32");
-            out.println("15:10:30;23:12:32");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

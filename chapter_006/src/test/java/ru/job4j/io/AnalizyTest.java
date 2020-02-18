@@ -4,12 +4,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -32,7 +29,7 @@ public class AnalizyTest {
     }
 
     @Test
-    public void wheWeTryWithTemp() throws IOException {
+    public void tryWithTempFolder() throws IOException {
         var testFile = tempFolder.newFile("test.check");
         var answerFile = tempFolder.newFile("answer.check");
 
