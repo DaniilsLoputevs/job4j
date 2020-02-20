@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Класс содержащий универсальные и вспомогательные методы для IO.
+ * Класс содержащий универсальные и вспомогательные методы для  работы с IO.
  */
 public class Helper {
     /** Преобразовать файл в List и далее работать с List.
-     * @param path Путь файла.
+     * @param path - Путь файла.
      * @return List<String> Все строчки из файла.
      */
     public static List<String> readFileToList(String path) {
@@ -18,15 +18,15 @@ public class Helper {
         try (var bufferedReader = new BufferedReader(new FileReader(path))) {
             fileLines = bufferedReader.lines().collect(Collectors.toCollection(LinkedList::new));
         } catch (IOException e) {
-            System.out.println("IOException - something wrong!");
+            System.out.println("IOHelper - read File to List!");
             e.printStackTrace();
         }
         return fileLines;
     }
 
     /** Записать List в файл по пути path
-     * @param path Путь запичи.
-     * @param content Содержимое.
+     * @param path - Путь запичи.
+     * @param content - Содержимое.
      */
     public static void writeListToFile(String path, List<String> content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
@@ -34,7 +34,7 @@ public class Helper {
                 writer.write(contentLine);
             }
         } catch (IOException e) {
-            System.out.println("IOException - something wrong!");
+            System.out.println("IOHelper - write List to File!");
             e.printStackTrace();
         }
     }
@@ -42,12 +42,19 @@ public class Helper {
 
     /** Сравнивает содержимое файла с List ожидания
      * Метод написан для тестов.
-     * @param sourcePath исходник для сравнения.
-     * @param expected Ожидание.
+     * @param sourcePath - исходник для сравнения.
+     * @param expected - Ожидание.
      * @return true/false
      */
     public static boolean compareInfoFromFileWithList(String sourcePath, List expected) {
         List<String> fileLines = readFileToList(sourcePath);
         return fileLines.containsAll(expected);
+    }
+
+    /** Очистить файл под ноль.
+     * @param sourcePath - путь файла.
+     */
+    public static void clearFile(String sourcePath) {
+        Helper.writeListToFile(sourcePath, List.of(""));
     }
 }
