@@ -5,4 +5,7 @@
 # Более мение основной проект сдесь, это Tracker
 Chapter_001 - Base syntaxis
 Chapter_002 - OOP (Tracker)
-Chapter_003 - Java Collections
+Chapter_003 - Java Collections Lite
+Chapter_004 - Lambda, Strea API, JDK 8,9
+Chapter_005 - Java Collections Pro (Advanced)
+Chapter_005 - IO
