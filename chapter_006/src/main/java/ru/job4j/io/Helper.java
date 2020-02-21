@@ -61,7 +61,7 @@ public class Helper {
     /** Создать новый файл.
      * @param path Путь.
      */
-    public static File createNewFile(String path, boolean makeDir) {
+    public static File createFile(String path, boolean makeDir) {
         File file = new File(path);
         if (makeDir) {
             file.mkdir();
@@ -69,5 +69,10 @@ public class Helper {
             Helper.clearFile(file.getPath());
         }
         return file;
+    }
+
+
+    public static String getExt(File file) {
+        return file.getName().substring(file.getName().lastIndexOf(".") + 1);
     }
 }
