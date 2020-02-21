@@ -63,9 +63,6 @@ public class Helper {
      */
     public static File createNewFile(String path, boolean makeDir) {
         File file = new File(path);
-
-//        file.mkdir();
-
         if (makeDir) {
             file.mkdir();
         } else {
