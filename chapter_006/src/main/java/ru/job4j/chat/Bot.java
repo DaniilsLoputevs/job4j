@@ -59,13 +59,13 @@ public class Bot {
      * @param says Фраза пользователя. (input.next() )
      */
     private void botExercise(String says) {
-        if (says.equals("стоп")) {
+        if ("стоп".equals(says)) {
             this.speak = false;
             botAnswer();
-        } else if (says.equals("продолжить")) {
+        } else if ("продолжить".equals(says)) {
             this.speak = true;
             botAnswer();
-        } else if (says.equals("закончить")) {
+        } else if ("закончить".equals(says)) {
             saveLog();
         } else {
             botAnswer();
