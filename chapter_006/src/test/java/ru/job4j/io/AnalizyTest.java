@@ -12,11 +12,11 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class AnalizyTest {
-    private final String sourcePath = "./src/main/java/ru/job4j/io/analise_input.txt";
-    private final String targetPath = "./src/main/java/ru/job4j/io/analise_answers.txt";
+    private String sourcePath = "./src/main/java/ru/job4j/io/analise_input.txt";
+    private String targetPath = "./src/main/java/ru/job4j/io/analise_answers.txt";
 
     @Rule
-    public TemporaryFolder tempFolder  = new TemporaryFolder();
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Test
     public void unavailable() {
@@ -34,12 +34,12 @@ public class AnalizyTest {
         var answerFile = tempFolder.newFile("answer.check");
 
         Helper.writeListToFile(testFile.getPath(), List.of(
-                "200 10:56:01", "\n",
-                "500 10:57:01", "\n",
-                "400 10:58:01", "\n",
-                "200 10:59:01", "\n",
-                "500 11:01:02", "\n",
-                "200 11:02:02", "\n"
+                "200 10:56:01\n",
+                "500 10:57:01\n",
+                "400 10:58:01\n",
+                "200 10:59:01\n",
+                "500 11:01:02\n",
+                "200 11:02:02\n"
         ));
 
         new Analizy().unavailable(testFile.getPath(), answerFile.getPath());

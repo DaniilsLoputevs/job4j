@@ -57,4 +57,20 @@ public class Helper {
     public static void clearFile(String sourcePath) {
         Helper.writeListToFile(sourcePath, List.of(""));
     }
+
+    /** Создать новый файл.
+     * @param path Путь.
+     */
+    public static File createNewFile(String path, boolean makeDir) {
+        File file = new File(path);
+
+//        file.mkdir();
+
+        if (makeDir) {
+            file.mkdir();
+        } else {
+            Helper.clearFile(file.getPath());
+        }
+        return file;
+    }
 }
