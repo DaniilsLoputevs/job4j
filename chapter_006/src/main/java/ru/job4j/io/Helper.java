@@ -71,7 +71,10 @@ public class Helper {
         return file;
     }
 
-
+    /** Получить расширение файла.
+     * @param file файл.
+     * @return расширение.
+     */
     public static String getExt(File file) {
         return file.getName().substring(file.getName().lastIndexOf(".") + 1);
     }
