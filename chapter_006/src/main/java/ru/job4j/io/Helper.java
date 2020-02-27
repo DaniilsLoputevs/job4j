@@ -78,4 +78,22 @@ public class Helper {
     public static String getExt(File file) {
         return file.getName().substring(file.getName().lastIndexOf(".") + 1);
     }
+
+    /** Получить дерикторию в формате dir + \
+     * Нужен для простоты кода.
+     * @param file - файл.
+     * @return dir + \
+     */
+    public static String getDir(File file) {
+        return file.getParent() + "\\";
+    }
+    /** Получить имя родительской папки
+     * Нужен для простоты кода.
+     * @param file - файл.
+     * @return parentName
+     */
+    public static String getParentName(File file) {
+        var temp = file.getParent();
+        return temp.substring(temp.lastIndexOf("\\") + 1);
+    }
 }

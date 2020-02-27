@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,5 +49,15 @@ public class AnalizyTest {
         assertEquals(fileLines.removeFirst(), "10:57:01 - 10:59:01");
         assertEquals(fileLines.removeFirst(), "11:01:02 - 11:02:02");
     }
+
+    @Test
+    public void twesgdfgn() {
+        ArrayList newList = new ArrayList();
+        newList.add(1);
+        newList.add("qwfsd");
+        System.out.println(newList.toString());
+        System.out.println(newList.get(0));
+    }
+
 
 }
