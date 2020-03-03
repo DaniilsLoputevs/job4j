@@ -3,9 +3,12 @@ package ru.job4j.io;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import ru.job4j.helpers.IOHelper;
+import ru.job4j.helpers.StringHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class AnalizyTest {
                 "10:57:01 - 10:59:01",
                 "11:01:02 - 11:02:02"
         );
-        assertThat(Helper.compareInfoFromFileWithList(targetPath, expectedList), is(true));
+        assertThat(IOHelper.compareInfoFromFileWithList(targetPath, expectedList), is(true));
     }
 
     @Test
@@ -34,30 +37,20 @@ public class AnalizyTest {
         var testFile = tempFolder.newFile("test.check");
         var answerFile = tempFolder.newFile("answer.check");
 
-        Helper.writeListToFile(testFile.getPath(), List.of(
-                "200 10:56:01" + System.lineSeparator(),
-                "500 10:57:01" + System.lineSeparator(),
-                "400 10:58:01" + System.lineSeparator(),
-                "200 10:59:01" + System.lineSeparator(),
-                "500 11:01:02" + System.lineSeparator(),
-                "200 11:02:02" + System.lineSeparator()
-        ));
+        IOHelper.writeListToFile(testFile.getPath(), List.of(
+                StringHelper.separateLines(
+                "200 10:56:01",
+                "500 10:57:01",
+                "400 10:58:01",
+                "200 10:59:01",
+                "500 11:01:02",
+                "200 11:02:02"
+        )));
 
         new Analizy().unavailable(testFile.getPath(), answerFile.getPath());
-        var fileLines = (LinkedList) Helper.readFileToList(answerFile.getPath());
+        var fileLines = (LinkedList) IOHelper.readFileToList(answerFile.getPath());
 
         assertEquals(fileLines.removeFirst(), "10:57:01 - 10:59:01");
         assertEquals(fileLines.removeFirst(), "11:01:02 - 11:02:02");
     }
-
-    @Test
-    public void twesgdfgn() {
-        ArrayList newList = new ArrayList();
-        newList.add(1);
-        newList.add("qwfsd");
-        System.out.println(newList.toString());
-        System.out.println(newList.get(0));
-    }
-
-
 }

@@ -1,4 +1,4 @@
-package ru.job4j.io;
+package ru.job4j.helpers;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Класс содержащий универсальные и вспомогательные методы для  работы с IO.
+ * Класс содержащий универсальные и вспомогательные методы для работы с IO.
  */
-public class Helper {
+public class IOHelper {
     /** Преобразовать файл в List и далее работать с List.
      * @param path - Путь файла.
      * @return List<String> Все строчки из файла.
@@ -55,7 +55,7 @@ public class Helper {
      * @param sourcePath - путь файла.
      */
     public static void clearFile(String sourcePath) {
-        Helper.writeListToFile(sourcePath, List.of(""));
+        IOHelper.writeListToFile(sourcePath, List.of(""));
     }
 
     /** Создать новый файл.
@@ -66,7 +66,7 @@ public class Helper {
         if (makeDir) {
             file.mkdir();
         } else {
-            Helper.clearFile(file.getPath());
+            IOHelper.clearFile(file.getPath());
         }
         return file;
     }
@@ -87,6 +87,7 @@ public class Helper {
     public static String getDir(File file) {
         return file.getParent() + "\\";
     }
+
     /** Получить имя родительской папки
      * Нужен для простоты кода.
      * @param file - файл.
