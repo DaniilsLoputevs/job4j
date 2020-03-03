@@ -1,5 +1,7 @@
 package ru.job4j.io;
 
+import ru.job4j.helpers.IOHelper;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
@@ -23,7 +25,7 @@ public class Config {
      * Значение настроек - Значение.
      */
     public void load() {
-        List<String> fileLines = Helper.readFileToList(path);
+        List<String> fileLines = IOHelper.readFileToList(path);
 
         values.putAll(fileLines.stream()
                 .filter(line -> !line.startsWith("//"))

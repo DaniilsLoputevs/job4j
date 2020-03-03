@@ -1,5 +1,7 @@
 package ru.job4j.io;
 
+import ru.job4j.helpers.IOHelper;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Analizy {
 //        а держать его просто так открытым плохая идея
 
 
-        List<String> fileLines = Helper.readFileToList(source);
+        List<String> fileLines = IOHelper.readFileToList(source);
         List<String> fileContent = new LinkedList<>();
 
         var workTime = true;
@@ -36,6 +38,6 @@ public class Analizy {
                 workTime = true;
             }
         }
-        Helper.writeListToFile(target, fileContent);
+        IOHelper.writeListToFile(target, fileContent);
     }
 }
