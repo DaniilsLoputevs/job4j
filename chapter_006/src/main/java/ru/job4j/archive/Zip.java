@@ -1,12 +1,15 @@
 package ru.job4j.archive;
 
-import ru.job4j.io.Helper;
+import ru.job4j.helpers.IOHelper;
 
 import java.io.*;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Класс для врхивации дерикторий.
+ */
 public class Zip {
 
     /** Рахивировать 1 файл. (не работает с директориями)
@@ -25,14 +28,14 @@ public class Zip {
     }
 
     /** Архивировать директорию. (поиск по корню, директории)
-     * Создаёт архив в той же, папке где и корень.
+     * Создаёт архив по пути zipPath.
      *
      * @param root - корнь директории.
-     * @param exts - List<String> расширения, что будут игнорироваться.
-     * @param zipName - название архива.
+     * @param exts - Set<String> расширения, что будут игнорироваться.
+     * @param zipPath - название архива.
      */
-    public void zipTo(File root, Set<String> exts, String zipName) throws Exception {
-        var targetPath = Helper.getDir(root) + zipName;
+    public void zipTo(File root, Set<String> exts, String zipPath) throws Exception {
+        var targetPath = zipPath;
         try (var zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(targetPath)))) {
             addElement(zip, root, exts, root.getName());
         }
@@ -43,11 +46,11 @@ public class Zip {
      * 1) фильтрует файлы по расширениям.
      * 2) добавляет файлы по их Пути(см. getCorrectFilePath() )
      * Таким образом, создаётся верная архитектура.
-     ***Если file является директорией, то рекурсивно вызываем метод addElement
-     * @param zos - ZipOutputStream запись в Zip архив
-     * @param root - корень и послед папки.
+     ***Если file является директорией, то рекурсивно вызываем метод addElement()
+     * @param zos - ZipOutputStream запись в Zip архив.
+     * @param root - корень и след. папки.
      * @param exts - ИГНОРТРУЕМЫЕ расширения. (Предпологаеться исп. Set.of() )
-     * @param rootName - Имя апки где создастья Zip архив. (Нужно для правильного распределения файлов по папкам.)
+     * @param rootName - Имя папки где создастья Zip архив. (Нужно для правильного распределения файлов по папкам.)
      * @throws IOException -
      */
     private void addElement(ZipOutputStream zos, File root, Set<String> exts, String rootName) throws IOException {
@@ -75,57 +78,23 @@ public class Zip {
 
     }
 
-//    List<File> seekBy(String root, Set<String> ext) {
-//        var current = new File(root);
-//        var base = new LinkedList<>(List.of(current));
-//        var result = new HashSet<File>();
-//
-//        if (current.isDirectory()) {
-//            base.add(current);
-//        }
-//        while (!base.isEmpty()) {
-//            current = base.removeFirst();
-//            if (current.isDirectory()) {
-//                var rightFiles = List.of(current.listFiles(file -> !ext.contains(Helper.getExt(file))));
-//                result.addAll(rightFiles);
-//                base.addAll(Arrays.asList(current.listFiles()));
-//            }
-//        }
-//        return List.copyOf(result);
-//    }
-
     /** Провекра: у файла подходящие расщирений.
-     * Вниамательно смотреть addElement().
+     **** Вниамательно смотреть addElement().
      * @param file - файл на проверку.
      * @param exts - Set<String> расширения.
      * @return true/false.
      */
     private boolean checkExts(File file, Set<String> exts) {
-        return exts.contains(Helper.getExt(file));
+        return exts.contains(IOHelper.getExt(file));
     }
 
     /** Находит превильный Path для создания фалй в Zip.
-     * Исп. rootName, для поиска поиска
+     * Исп. rootName, для создания Верного пути.
      * @param file - файл.
      * @param rootName - Имя папки где находиться Zip.
      * @return Путь создания файла.
      */
     private String getCorrectFilePath(File file, String rootName) {
-        return file.getPath().substring(file.getParent().indexOf(
-                rootName
-        ));
-    }
-
-
-
-    public static void main(String[] args) throws Exception {
-        var thisFolderPath = "./chapter_006/src/main/java/ru/job4j/archive";
-        var root = new File(thisFolderPath + "/testP");
-        new Zip().zipTo(root, Set.of("txt"),  "arch.zip");
-
-        System.out.println(thisFolderPath);
-        System.out.println(root.getParent());
-        System.out.println(Helper.getParentName(root)); // testP
-
+        return file.getPath().substring(file.getParent().indexOf(rootName));
     }
 }

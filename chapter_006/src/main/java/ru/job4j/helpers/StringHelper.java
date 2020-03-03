@@ -23,6 +23,11 @@ public class StringHelper {
         return tmp;
     }
 
+    /** преобразует строки в List<String>
+     * через ',' добавляем строки. Аналог List.of()
+     * @param lines - строки. (через ',' добавляем строки)
+     * @return List<String>
+     */
     public static List<String> linesToList(String... lines) {
         return Arrays.stream(lines).collect(Collectors.toList());
     }
