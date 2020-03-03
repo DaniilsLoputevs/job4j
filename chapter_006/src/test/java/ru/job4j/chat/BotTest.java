@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.io.Helper;
+import ru.job4j.helpers.IOHelper;
+import ru.job4j.helpers.StringHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,19 +38,19 @@ public class BotTest {
 
     @Before
     public void sSetUp() {
-        answerList = List.of(
-                "Я знаю тебя?\n",
-                "Ты кто?\n",
-                "Что, жабу съел?\n",
-                "Почему молчишь?\n",
-                "Почему молчишь? Ты тролишь меня?!\n",
-                "Ты просто дурак...\n",
-                "Есть трава?\n",
-                "Есть трава? А если найду?\n",
-                "Я дудь! Не хочешь вдудь?\n",
-                "Шутка, я просто под прикьытием )).\n",
-                "Кажеться... Я... Слышу голоса в голове... нет, жто я просто перепила вчера.\n"
-        );
+        answerList = List.of(StringHelper.separateLines(
+                "Я знаю тебя?",
+                "Ты кто?",
+                "Что, жабу съел?",
+                "Почему молчишь?",
+                "Почему молчишь? Ты тролишь меня?!",
+                "Ты просто дурак...",
+                "Есть трава?",
+                "Есть трава? А если найду?",
+                "Я дудь! Не хочешь вдудь?",
+                "Шутка, я просто под прикьытием )).",
+                "Кажеться... Я... Слышу голоса в голове... нет, жто я просто перепила вчера."
+        ));
         input = new StubInput(new String[] {
                 "Привет!",
                 "Как тебя зовут?",
@@ -63,7 +64,7 @@ public class BotTest {
                 "У тебя есть паспорт?",
                 "закончить",
         });
-        Helper.writeListToFile(botAnswer, answerList);
+        IOHelper.writeListToFile(botAnswer, answerList);
 
         bot = new Bot(botAnswer, input, testOutput::add, log);
         bot.clearLog();
@@ -75,7 +76,7 @@ public class BotTest {
         bot.startSpeech();
 
         var realLog = (ArrayList) bot.getLogAsList();
-        var expectedLog = Helper.readFileToList(log);
+        var expectedLog = IOHelper.readFileToList(log);
 
         assertThat(realLog, is(expectedLog));
 
@@ -88,7 +89,7 @@ public class BotTest {
     public void testByTempFolder() throws IOException {
         var answers = tempFolder.newFile("bot_answers.txt");
         var chatLog = tempFolder.newFile("chat_log.txt");
-        Helper.writeListToFile(answers.getPath(), answerList);
+        IOHelper.writeListToFile(answers.getPath(), answerList);
         var tempOutput = new Output();
 
 
@@ -99,7 +100,7 @@ public class BotTest {
 
         // Сравниваем Лого настоящие и внутри чата.
         ArrayList realLog = (ArrayList) tempChat.getLogAsList();
-        var expectedLog = Helper.readFileToList(chatLog.getPath());
+        var expectedLog = IOHelper.readFileToList(chatLog.getPath());
 
 
         assertThat(realLog, is(expectedLog));

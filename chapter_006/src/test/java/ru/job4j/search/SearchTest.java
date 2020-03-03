@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.io.Helper;
+import ru.job4j.helpers.IOHelper;
 
 import java.util.List;
 
@@ -17,34 +17,34 @@ public class SearchTest {
     @Before
     public void setUp() {
         path = tempFolder.getRoot().getPath() + "/root";
-        Helper.createFile(path, true); // 0 - root
+        IOHelper.createFile(path, true); // 0 - root
 
         // (n) - это номер папки - исп. для понимания где что заполняетсья.
         // заполнение папки: {0}
-        Helper.createFile(path + "/fileOne", true); // 0 - 1 (1)
-        Helper.createFile(path + "/fileTwo", true); // 0 - 2 (2)
-        Helper.createFile(path + "/extra_one.txt", false);
+        IOHelper.createFile(path + "/fileOne", true); // 0 - 1 (1)
+        IOHelper.createFile(path + "/fileTwo", true); // 0 - 2 (2)
+        IOHelper.createFile(path + "/extra_one.txt", false);
 
         // заполнение папки: {1}
-        Helper.createFile(path + "/fileOne/file_three.check", false);
-        Helper.createFile(path + "/fileOne/file_four", true); // 0 - 1 - 1 (3)
-        Helper.createFile(path + "/fileOne/file_five.pom", false);
+        IOHelper.createFile(path + "/fileOne/file_three.check", false);
+        IOHelper.createFile(path + "/fileOne/file_four", true); // 0 - 1 - 1 (3)
+        IOHelper.createFile(path + "/fileOne/file_five.pom", false);
 
         // заполнение папки: {2}
-        Helper.createFile(path + "/fileTwo/file_six", true); // 0 - 2 - 1 (4)
-        Helper.createFile(path + "/fileTwo/file_seven.txt", false);
-        Helper.createFile(path + "/fileTwo/file_eight", true); // 0 - 2 - 2 (5)
+        IOHelper.createFile(path + "/fileTwo/file_six", true); // 0 - 2 - 1 (4)
+        IOHelper.createFile(path + "/fileTwo/file_seven.txt", false);
+        IOHelper.createFile(path + "/fileTwo/file_eight", true); // 0 - 2 - 2 (5)
 
         // заполнение папки: {3}
-        Helper.createFile(path + "/fileOne/file_four/file_nine.pom", false);
-        Helper.createFile(path + "/fileOne/file_four/file_ten.check", false);
+        IOHelper.createFile(path + "/fileOne/file_four/file_nine.pom", false);
+        IOHelper.createFile(path + "/fileOne/file_four/file_ten.check", false);
 
         // заполнение папки: {4}
-        Helper.createFile(path + "/fileTwo/file_six/file_eleven.txt", false);
-        Helper.createFile(path + "/fileTwo/file_six/file_twelve.pom", false);
+        IOHelper.createFile(path + "/fileTwo/file_six/file_eleven.txt", false);
+        IOHelper.createFile(path + "/fileTwo/file_six/file_twelve.pom", false);
 
         // заполнение папки: {5}
-        Helper.createFile(path + "/fileTwo/file_eight/file_thirteen.xml", false);
+        IOHelper.createFile(path + "/fileTwo/file_eight/file_thirteen.xml", false);
     }
 
     @Rule

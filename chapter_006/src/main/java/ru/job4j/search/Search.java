@@ -1,6 +1,6 @@
 package ru.job4j.search;
 
-import ru.job4j.io.Helper;
+import ru.job4j.helpers.IOHelper;
 
 import java.io.File;
 import java.util.*;
@@ -28,7 +28,7 @@ public class Search {
         while (!base.isEmpty()) {
             current = base.removeFirst();
             if (current.isDirectory()) {
-                var rightFiles = List.of(current.listFiles(file -> exts.contains(Helper.getExt(file))));
+                var rightFiles = List.of(current.listFiles(file -> exts.contains(IOHelper.getExt(file))));
                 result.addAll(rightFiles);
                 base.addAll(Arrays.asList(current.listFiles()));
             }

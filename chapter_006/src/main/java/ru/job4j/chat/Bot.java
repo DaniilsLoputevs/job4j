@@ -1,6 +1,6 @@
 package ru.job4j.chat;
 
-import ru.job4j.io.Helper;
+import ru.job4j.helpers.IOHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Bot {
 
 
     public Bot(String botAnswerPath, Input input, Consumer<String> output, String logPath) {
-        this.phrase = Helper.readFileToList(botAnswerPath);
+        this.phrase = IOHelper.readFileToList(botAnswerPath);
         this.input = input;
         this.output = output;
         this.logPath = logPath;
@@ -90,10 +90,10 @@ public class Bot {
     /** ----------------- Log methods ----------------- */
 
     public void saveLog() {
-        Helper.writeListToFile(logPath, sessionLog);
+        IOHelper.writeListToFile(logPath, sessionLog);
     }
     public void clearLog() {
-        Helper.clearFile(logPath);
+        IOHelper.clearFile(logPath);
     }
     public List getLogAsList() {
         return sessionLog.stream()
