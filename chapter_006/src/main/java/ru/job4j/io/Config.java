@@ -8,25 +8,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /** Читаем файл конфигурации.
- * Задача: Чситать содержимое файла configuration.properties и сохранить Настройки во внутрению карту.
+ * Задача: Считать содержимое файла configuration.properties.
+ * и сохранить "Настройки" во внутреннюю map<String, String>.
+ *
+ * @author Daniils Loputevs
+ * @version 1.0
+ * @since 16.02.20.
+ * Last upd:  03.03.20.
+ * Last JavaDoc upd:  05.03.20.
  */
 public class Config {
-    private final String path;
-    private final Map<String, String> values = new HashMap<>();
+    private String path;
+    private Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
     }
 
-    /** Загружает настройки из файла по пути path(инит. через конструктор).
-     * через stream фильтруем от комментов и т.д.
-     * Собираем карту:
+    /** Загружает настройки из файла по пути path(path initialize. через конструктор).
+     * Фильтруем через stream от комментариев и пустых строк.
+     * Собираем в карту:
      * Тип настроек      - Ключ.
      * Значение настроек - Значение.
      */
     public void load() {
         List<String> fileLines = IOHelper.readFileToList(path);
-
         values.putAll(fileLines.stream()
                 .filter(line -> !line.startsWith("//"))
                 .filter(line -> !line.startsWith("#"))
@@ -57,9 +63,5 @@ public class Config {
             e.printStackTrace();
         }
         return out.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Config("app.properties"));
     }
 }

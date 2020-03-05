@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * Класс содержащий универсальные и вспомогательные методы для работы со String.
+/** Класс содержащий универсальные и вспомогательные методы для работы со String.
+ *
+ * @author Daniils Loputevs
+ * @version 1.0
+ * @since 03.03.20.
+ * Last upd:  03.03.20.
+ * Last JavaDoc upd:  05.03.20.
  */
 public class StringHelper {
 
-    /** добавляет в конец каждой строки "Строчный разделитель".
+    /** Добавляет в конец каждой строки "Строчный разделитель".
      *** Метод создан на основе List.of(...).
      * @param input строки.
      * @return массив из этих строк с разделителями.
@@ -23,8 +28,8 @@ public class StringHelper {
         return tmp;
     }
 
-    /** преобразует строки в List<String>
-     * через ',' добавляем строки. Аналог List.of()
+    /** Преобразует строки в List<String>
+     * Через ',' добавляем строки. Аналог List.of()
      * @param lines - строки. (через ',' добавляем строки)
      * @return List<String>
      */

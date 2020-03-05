@@ -8,13 +8,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Класс для врхивации дерикторий.
+ * Класс для архивации дерикторий.
+ *
+ * @author Daniils Loputevs
+ * @version 1.0
+ * @since 27.02.20.
+ * Last upd:  05.03.20.
+ * Last JavaDoc upd:  05.03.20.
  */
 public class Zip {
 
     /** Рахивировать 1 файл. (не работает с директориями)
      * @param source - содержимое для архива.
-     * @param target - файл, куда будет заарвивировано source
+     * @param target - указание куда будет заархивирован source.
      */
     public void pack(File source, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
@@ -30,27 +36,27 @@ public class Zip {
     /** Архивировать директорию. (поиск по корню, директории)
      * Создаёт архив по пути zipPath.
      *
-     * @param root - корнь директории.
-     * @param exts - Set<String> расширения, что будут игнорироваться.
-     * @param zipPath - название архива.
+     * @param root - Корнь архивируемой директории.
+     * @param exts - Set<String> Игнорируемые расширения.
+     * @param zipPath - Пусть где будет создан архив.
      */
     public void zipTo(File root, Set<String> exts, String zipPath) throws Exception {
-        var targetPath = zipPath;
-        try (var zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(targetPath)))) {
+        try (var zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipPath)))) {
             addElement(zip, root, exts, root.getName());
         }
     }
 
     /** Добавить Файл в Создоваемый Zip
-     * Проходит по всем файлам что есть в корне:
+     ** Проходит по всем файлам что есть в корне:
      * 1) фильтрует файлы по расширениям.
      * 2) добавляет файлы по их Пути(см. getCorrectFilePath() )
-     * Таким образом, создаётся верная архитектура.
-     ***Если file является директорией, то рекурсивно вызываем метод addElement()
+     * Таким образом, создаётся верная архитектура. (файлы с пвпками в своем Path, создают все папки из директории)
+     *** Если file является директорией, то рекурсивно вызывается метод addElement()
+     *
      * @param zos - ZipOutputStream запись в Zip архив.
      * @param root - корень и след. папки.
-     * @param exts - ИГНОРТРУЕМЫЕ расширения. (Предпологаеться исп. Set.of() )
-     * @param rootName - Имя папки где создастья Zip архив. (Нужно для правильного распределения файлов по папкам.)
+     * @param exts - ИГНОРИРУЕМЫЕ расширения. (Предпологаеться исп. Set.of() )
+     * @param rootName - Имя папки где создастся Zip архив. (Нужно для правильного распределения файлов по папкам)
      * @throws IOException -
      */
     private void addElement(ZipOutputStream zos, File root, Set<String> exts, String rootName) throws IOException {
@@ -79,18 +85,18 @@ public class Zip {
     }
 
     /** Провекра: у файла подходящие расщирений.
-     **** Вниамательно смотреть addElement().
-     * @param file - файл на проверку.
-     * @param exts - Set<String> расширения.
+     *** Вниамательно смотреть addElement().
+     * @param file - Файл на проверку.
+     * @param exts - Set<String> Подходящие расширения.
      * @return true/false.
      */
     private boolean checkExts(File file, Set<String> exts) {
         return exts.contains(IOHelper.getExt(file));
     }
 
-    /** Находит превильный Path для создания фалй в Zip.
-     * Исп. rootName, для создания Верного пути.
-     * @param file - файл.
+    /** Задать правильный Path для создания файл в Zip архиве.
+     *** Исп. rootName, для создания Верного пути.
+     * @param file - Файл.
      * @param rootName - Имя папки где находиться Zip.
      * @return Путь создания файла.
      */

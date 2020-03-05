@@ -5,11 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Класс содержащий универсальные и вспомогательные методы для работы с IO.
+/** Класс содержащий универсальные и вспомогательные методы для работы с IO.
+ *
+ * @author Daniils Loputevs
+ * @version 1.0
+ * @since 18.02.20.
+ * Last upd:  03.03.20.
+ * Last JavaDoc upd:  05.03.20.
  */
 public class IOHelper {
-    /** Преобразовать файл в List и далее работать с List.
+
+    /** Преобразовать содержимое файла в List, далее работать текстом в виде List.
      * @param path - Путь файла.
      * @return List<String> Все строчки из файла.
      */
@@ -18,15 +24,15 @@ public class IOHelper {
         try (var bufferedReader = new BufferedReader(new FileReader(path))) {
             fileLines = bufferedReader.lines().collect(Collectors.toCollection(LinkedList::new));
         } catch (IOException e) {
-            System.out.println("IOHelper - read File to List!");
+            System.out.println("IOException: IOHelper - read File to List!");
             e.printStackTrace();
         }
         return fileLines;
     }
 
-    /** Записать List в файл по пути path
-     * @param path - Путь запичи.
-     * @param content - Содержимое.
+    /** Записать List в файл по пути path.
+     * @param path - Путь записи.
+     * @param content - List для записи.
      */
     public static void writeListToFile(String path, List<String> content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
@@ -34,16 +40,15 @@ public class IOHelper {
                 writer.write(contentLine);
             }
         } catch (IOException e) {
-            System.out.println("IOHelper - write List to File!");
+            System.out.println("IOException: IOHelper - write List to File!");
             e.printStackTrace();
         }
     }
 
 
-    /** Сравнивает содержимое файла с List ожидания
-     * Метод написан для тестов.
-     * @param sourcePath - исходник для сравнения.
-     * @param expected - Ожидание.
+    /** Сравнивает текстовое содержимое из файла с List expected.
+     * @param sourcePath - Путь к файлу для сравнения.
+     * @param expected - Ожидаемое содержимое.
      * @return true/false
      */
     public static boolean compareInfoFromFileWithList(String sourcePath, List expected) {
@@ -51,7 +56,7 @@ public class IOHelper {
         return fileLines.containsAll(expected);
     }
 
-    /** Очистить файл под ноль.
+    /** Полностью очистить текстовой файл.
      * @param sourcePath - путь файла.
      */
     public static void clearFile(String sourcePath) {
@@ -59,6 +64,7 @@ public class IOHelper {
     }
 
     /** Создать новый файл.
+     ** Можно сразу сделать его директорией.
      * @param path Путь.
      */
     public static File createFile(String path, boolean makeDir) {
@@ -79,19 +85,10 @@ public class IOHelper {
         return file.getName().substring(file.getName().lastIndexOf(".") + 1);
     }
 
-    /** Получить дерикторию в формате dir + \
+    /** Получить имя родительской папки.
      * Нужен для простоты кода.
      * @param file - файл.
-     * @return dir + \
-     */
-    public static String getDir(File file) {
-        return file.getParent() + "\\";
-    }
-
-    /** Получить имя родительской папки
-     * Нужен для простоты кода.
-     * @param file - файл.
-     * @return parentName
+     * @return имя родительской папки.
      */
     public static String getParentName(File file) {
         var temp = file.getParent();

@@ -5,6 +5,8 @@ package ru.job4j.chat;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 20.02.20.
+ * Last upd:  20.02.20.
+ * Last JavaDoc upd:  05.03.20.
  */
 public interface Input {
 

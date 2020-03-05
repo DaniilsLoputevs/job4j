@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import ru.job4j.helpers.IOHelper;
 
-import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -51,9 +51,9 @@ public class SearchTest {
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Test
-    public void whenWeTryFindTXT() {
-        var firstList = new Search().files(path, List.of("pom"));
-        var secondList = new Search().files(path, List.of("pom", "txt"));
+    public void whenWeTryFindTXTAndPom() {
+        var firstList = new Search().files(path, Set.of("pom"));
+        var secondList = new Search().files(path, Set.of("pom", "txt"));
 
         assertThat(firstList.size(), is(3));
         assertThat(secondList.size(), is(6));
