@@ -91,7 +91,7 @@ public class Bot {
     /** ----------------- Log methods ----------------- */
 
     public void saveLog() {
-        IOHelper.writeListToFile(logPath, sessionLog);
+        IOHelper.writeListToFile(logPath, sessionLog, "");
     }
     public void clearLog() {
         IOHelper.clearFile(logPath);

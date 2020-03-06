@@ -40,6 +40,6 @@ public class Analizy {
                 workTime = true;
             }
         }
-        IOHelper.writeListToFile(target, fileContent);
+        IOHelper.writeListToFile(target, fileContent, "");
     }
 }

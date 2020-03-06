@@ -31,13 +31,15 @@ public class IOHelper {
     }
 
     /** Записать List в файл{@code path}.
+     ** Если не нужно разделять строки >> sysSeparator = "";
      * @param path - Путь записи.
      * @param content - List для записи.
+     * @param sysSeparator - Разделитель строки.
      */
-    public static void writeListToFile(String path, List<String> content) {
+    public static void writeListToFile(String path, List<String> content, String sysSeparator) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             for (String contentLine : content) {
-                writer.write(contentLine + System.lineSeparator());
+                writer.write(contentLine + sysSeparator);
             }
         } catch (IOException e) {
             System.out.println("IOException: IOHelper - write List to File!");
@@ -49,8 +51,8 @@ public class IOHelper {
      * @param source - Оригинал.
      * @param targetPath - Копия.
      */
-    public static void writeFileToFile(File source, String targetPath) {
-        writeListToFile(targetPath, readFileToList(source.getPath()));
+    public static void writeFileToFile(File source, String targetPath, String sysSeparator) {
+        writeListToFile(targetPath, readFileToList(source.getPath()), sysSeparator);
     }
 
     /** Сравнивает текстовое содержимое из файла{@code sourcePath} с {@code List expected}.
@@ -67,7 +69,7 @@ public class IOHelper {
      * @param sourcePath - путь файла.
      */
     public static void clearFile(String sourcePath) {
-        IOHelper.writeListToFile(sourcePath, List.of(""));
+        IOHelper.writeListToFile(sourcePath, List.of(""), "");
     }
 
     /** Создать новый файл.

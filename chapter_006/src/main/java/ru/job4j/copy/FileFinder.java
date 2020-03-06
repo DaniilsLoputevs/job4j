@@ -54,6 +54,6 @@ public class FileFinder {
                     fileName -> fileName.matches(findParam));
         }
 
-        IOHelper.writeFileToFile(sourceFile, targetPath);
+        IOHelper.writeFileToFile(sourceFile, targetPath, System.lineSeparator());
     }
 }

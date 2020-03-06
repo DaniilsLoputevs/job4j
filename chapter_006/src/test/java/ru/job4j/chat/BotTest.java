@@ -38,7 +38,7 @@ public class BotTest {
 
     @Before
     public void sSetUp() {
-        answerList = List.of(StringHelper.separateLines(
+        answerList = List.of(
                 "Я знаю тебя?",
                 "Ты кто?",
                 "Что, жабу съел?",
@@ -50,7 +50,7 @@ public class BotTest {
                 "Я дудь! Не хочешь вдудь?",
                 "Шутка, я просто под прикьытием )).",
                 "Кажеться... Я... Слышу голоса в голове... нет, жто я просто перепила вчера."
-        ));
+        );
         input = new StubInput(new String[] {
                 "Привет!",
                 "Как тебя зовут?",
@@ -64,7 +64,7 @@ public class BotTest {
                 "У тебя есть паспорт?",
                 "закончить",
         });
-        IOHelper.writeListToFile(botAnswer, answerList);
+        IOHelper.writeListToFile(botAnswer, answerList, "");
 
         bot = new Bot(botAnswer, input, testOutput::add, log);
         bot.clearLog();
@@ -89,7 +89,7 @@ public class BotTest {
     public void testByTempFolder() throws IOException {
         var answers = tempFolder.newFile("bot_answers.txt");
         var chatLog = tempFolder.newFile("chat_log.txt");
-        IOHelper.writeListToFile(answers.getPath(), answerList);
+        IOHelper.writeListToFile(answers.getPath(), answerList, "");
         var tempOutput = new Output();
 
 

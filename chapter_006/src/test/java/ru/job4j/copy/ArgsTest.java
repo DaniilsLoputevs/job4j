@@ -9,34 +9,43 @@ import static org.junit.Assert.*;
 public class ArgsTest {
     private Args args;
 
+    /* Изначальные параметы задачи:
+     *  -d c:/ -n *.txt -m -o log.txt
+     *    "-d",
+     *    "c:/",
+     *    "-n",
+     *    "*.txt",
+     *    "-o",
+     *    "log.txt"
+     */
     @Before
     public void setUp() {
         args = new Args(new String[] {
                 "-d",
-                "c:/",
+                "./src/test/java/ru/job4j/archive",
                 "-n",
-                "*.txt",
+                "-f",
+                "test_copy_file.txt",
                 "-o",
-                "log.txt"
+                "./src/test/java/ru/job4j/copy" + "/log.txt"
         });
-//        -d c:/ -n *.txt -m -o log.txt
     }
 
     @Test
-    public void directory() {
-        var expected = "c:/";
+    public void rootPath() {
+        var expected = "./src/test/java/ru/job4j/archive";
         assertThat(args.rootPath(), is(expected));
     }
 
     @Test
-    public void excule() {
-        var expected = "*.txt";
+    public void findParamValue() {
+        var expected = "test_copy_file.txt";
         assertThat(args.findParamValue(), is(expected));
     }
 
     @Test
-    public void output() {
-        var expected = "log.txt";
+    public void target() {
+        var expected =  "./src/test/java/ru/job4j/copy" + "/log.txt";
         assertThat(args.target(), is(expected));
     }
 
