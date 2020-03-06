@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 18.02.20.
- * Last upd:  03.03.20.
- * Last JavaDoc upd:  05.03.20.
+ * Last upd:  06.03.20.
+ * Last JavaDoc upd:  06.03.20.
  */
 public class IOHelper {
 
@@ -30,14 +30,14 @@ public class IOHelper {
         return fileLines;
     }
 
-    /** Записать List в файл по пути path.
+    /** Записать List в файл{@code path}.
      * @param path - Путь записи.
      * @param content - List для записи.
      */
     public static void writeListToFile(String path, List<String> content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             for (String contentLine : content) {
-                writer.write(contentLine);
+                writer.write(contentLine + System.lineSeparator());
             }
         } catch (IOException e) {
             System.out.println("IOException: IOHelper - write List to File!");
@@ -45,8 +45,15 @@ public class IOHelper {
         }
     }
 
+    /** Переписать Текст из {@code source} в файл по {@code targetPath}.
+     * @param source - Оригинал.
+     * @param targetPath - Копия.
+     */
+    public static void writeFileToFile(File source, String targetPath) {
+        writeListToFile(targetPath, readFileToList(source.getPath()));
+    }
 
-    /** Сравнивает текстовое содержимое из файла с List expected.
+    /** Сравнивает текстовое содержимое из файла{@code sourcePath} с {@code List expected}.
      * @param sourcePath - Путь к файлу для сравнения.
      * @param expected - Ожидаемое содержимое.
      * @return true/false

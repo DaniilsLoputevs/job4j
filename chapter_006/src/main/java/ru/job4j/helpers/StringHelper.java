@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 03.03.20.
- * Last upd:  03.03.20.
- * Last JavaDoc upd:  05.03.20.
+ * Last upd:  06.03.20.
+ * Last JavaDoc upd:  06.03.20.
  */
 public class StringHelper {
 
@@ -37,5 +37,12 @@ public class StringHelper {
         return Arrays.stream(lines).collect(Collectors.toList());
     }
 
+    /** Добавляет в конец каждой строки "Строчный разделитель".
+     * @param list List<String> для разделения строк.
+     * @return тот же, List<String>, с разделёнными строчками.
+     */
+    public static List<String> separateLines(List<String> list) {
+        return list.stream().map(string -> string + System.lineSeparator()).collect(Collectors.toList());
+    }
 
 }
