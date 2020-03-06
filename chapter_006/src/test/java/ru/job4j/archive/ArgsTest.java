@@ -15,17 +15,19 @@ public class ArgsTest {
     public void setUp() {
         args = new Args(new String[] {
                 "-d",
-                "c:/Danik/job4j",
+                "./src/test/java/ru/job4j/archive",
                 "-e",
                 "*.java",
                 "-o",
-                "project.zip"
+                "src/test/java/ru/job4j/copy/log.txt"
         });
     }
 
     @Test
     public void directory() {
-        var expected = "c:/Danik/job4j";
+        var expected =  "./src/test/java/ru/job4j/archive";
+        System.out.println(args.directory());
+        System.out.println(expected);
         assertThat(args.directory(), is(expected));
     }
 
@@ -38,7 +40,7 @@ public class ArgsTest {
 
     @Test
     public void output() {
-        var expected = "project.zip";
+        var expected = "src/test/java/ru/job4j/copy/log.txt";
         assertThat(args.output(), is(expected));
     }
 

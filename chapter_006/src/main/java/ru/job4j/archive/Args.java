@@ -83,7 +83,7 @@ public class Args {
             arg = args[index++]; // arg = "-o"
             if ("-o".matches(arg)) {
                 arg = args[index++]; // arg = "project.zip"
-                if (!new File(arg).exists()) {
+                if (new File(arg).isFile()) {
                     this.targetPath = arg;
                 } else {
                     System.out.println("args contains wrong \" Output Path\" - this file already exist");
