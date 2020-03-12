@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 18.02.20.
- * Last upd:  06.03.20.
- * Last JavaDoc upd:  06.03.20.
+ * Last upd:  12.03.20.
+ * Last JavaDoc upd:  12.03.20.
  */
 public class IOHelper {
 
@@ -51,7 +51,7 @@ public class IOHelper {
      * @param source - Оригинал.
      * @param targetPath - Копия.
      */
-    public static void writeFileToFile(File source, String targetPath, String sysSeparator) {
+    public static void copyTextToTarget(File source, String targetPath, String sysSeparator) {
         writeListToFile(targetPath, readFileToList(source.getPath()), sysSeparator);
     }
 
@@ -92,15 +92,5 @@ public class IOHelper {
      */
     public static String getExt(File file) {
         return file.getName().substring(file.getName().lastIndexOf(".") + 1);
-    }
-
-    /** Получить имя родительской папки.
-     * Нужен для простоты кода.
-     * @param file - файл.
-     * @return имя родительской папки.
-     */
-    public static String getParentName(File file) {
-        var temp = file.getParent();
-        return temp.substring(temp.lastIndexOf("\\") + 1);
     }
 }

@@ -71,15 +71,16 @@ public class FileFinderTest {
         this.findKey = "-r";
         setUp(findValue, findKey);
 
-        new FileFinder().findAndWrite(args.rootPath(), args.findParamValue(), args.target(), args.findParamKey());
-
+        // Одинаковая часть, но expected разный, перенос будет занимать больше строк, чем так.
+        new FileFinder().copyToPath(args.rootPath(), args.findParamValue(), args.target(), args.findParamKey());
         var expected = new ArrayList<>(List.of("another test file." + System.lineSeparator()));
         var realLog = IOHelper.readFileToList(targetPath + "/log.txt");
         realLog = StringHelper.separateLines(realLog);
         assertThat(realLog, is(expected));
     }
+
     private void modelForFullNameAndMaskTest() {
-        new FileFinder().findAndWrite(args.rootPath(), args.findParamValue(), args.target(), args.findParamKey());
+        new FileFinder().copyToPath(args.rootPath(), args.findParamValue(), args.target(), args.findParamKey());
         var expected = new ArrayList<>(StringHelper.linesToList(StringHelper.separateLines(
                 "111 --- aaa",
                 "222 --- bbb",

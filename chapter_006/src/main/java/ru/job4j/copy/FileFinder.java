@@ -22,22 +22,22 @@ import java.io.File;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 06.03.20.
- * Last upd:  06.03.20.
- * Last JavaDoc upd:  06.03.20.
+ * Last upd:  12.03.20.
+ * Last JavaDoc upd:  12.03.20.
  */
 public class FileFinder {
 
     /** Поиск файла используя ключи{@code findKey} и скопировать его содержимое в файл{@code targetPath}
      *
      *** Из-за, лямбды можно задавать свои проверки на новые ключи.
-     *** Сменой .contains() и .matches - удалось добиться результата, без написания доп. классов.
+     *** Сменой .contains() и .matches() - удалось добиться нужного результата, без написания доп. классов.
      *
      * @param rootDirPath - Корень где начинать поиск.
      * @param findParam - искать по этому совпадению. (шаблон для поиска в форме строки).
      * @param targetPath - путь куда скопировать содержимое.
      * @param findKey - используемый ключ. "-n", "-m", "-f", "-r"
      */
-    public void findAndWrite(String rootDirPath, String findParam, String targetPath, String findKey) {
+    public void copyToPath(String rootDirPath, String findParam, String targetPath, String findKey) {
         File sourceFile = null;
 
         if ("-n".equals(findKey)) {
@@ -54,6 +54,6 @@ public class FileFinder {
                     fileName -> fileName.matches(findParam));
         }
 
-        IOHelper.writeFileToFile(sourceFile, targetPath, System.lineSeparator());
+        IOHelper.copyTextToTarget(sourceFile, targetPath, System.lineSeparator());
     }
 }
