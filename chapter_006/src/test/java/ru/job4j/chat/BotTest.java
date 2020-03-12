@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import ru.job4j.helpers.IOHelper;
-import ru.job4j.helpers.StringHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,20 +24,21 @@ import static org.junit.Assert.*;
  * 2) Так же, но все файлы времянные. + создание альтернативного чата.
  */
 public class BotTest {
-    private String botAnswer = "./src/main/java/ru/job4j/chat/bot_answers.txt";
-    private String log = "./src/main/java/ru/job4j/chat/chat_log.txt";
-    private Bot bot;
+    private String botAnswerPath = "./src/main/java/ru/job4j/chat/bot_answers.txt";
+    private String localLogPath = "./src/main/java/ru/job4j/chat/chat_log.txt";
+    private List<String> answersList;
     private Input input;
-    private Output testOutput = new Output();
+    private Output output;
 
-    private List<String> answerList;
+    private String tempAnswersPath;
+    private String tempLogPath;
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Before
     public void sSetUp() {
-        answerList = List.of(
+        this.answersList = List.of(
                 "Я знаю тебя?",
                 "Ты кто?",
                 "Что, жабу съел?",
@@ -51,7 +51,7 @@ public class BotTest {
                 "Шутка, я просто под прикьытием )).",
                 "Кажеться... Я... Слышу голоса в голове... нет, жто я просто перепила вчера."
         );
-        input = new StubInput(new String[] {
+        this.input = new StubInput(new String[] {
                 "Привет!",
                 "Как тебя зовут?",
                 "Скажи, ты Скайнет?",
@@ -64,50 +64,46 @@ public class BotTest {
                 "У тебя есть паспорт?",
                 "закончить",
         });
-        IOHelper.writeListToFile(botAnswer, answerList, "");
-
-        bot = new Bot(botAnswer, input, testOutput::add, log);
-        bot.clearLog();
+        IOHelper.writeListToFile(botAnswerPath, answersList, "");
+        this.output = new Output();
     }
 
 
     @Test
     public void testByRealFolder() {
-        bot.startSpeech();
-
-        var realLog = (ArrayList) bot.getLogAsList();
-        var expectedLog = IOHelper.readFileToList(log);
-
-        assertThat(realLog, is(expectedLog));
-
-        assertThat(realLog.contains(testOutput.poll()), is(true));
-        assertThat(realLog.contains(testOutput.poll()), is(true));
-        assertThat(realLog.contains(testOutput.poll()), is(true));
+        baseTestModel(botAnswerPath, localLogPath);
     }
 
     @Test
-    public void testByTempFolder() throws IOException {
-        var answers = tempFolder.newFile("bot_answers.txt");
-        var chatLog = tempFolder.newFile("chat_log.txt");
-        IOHelper.writeListToFile(answers.getPath(), answerList, "");
-        var tempOutput = new Output();
-
-
-        // создаём и запускаем чат
-        var tempChat = new Bot(answers.getPath(), input, tempOutput::add, chatLog.getPath());
-        tempChat.startSpeech();
-
-
-        // Сравниваем Лого настоящие и внутри чата.
-        ArrayList realLog = (ArrayList) tempChat.getLogAsList();
-        var expectedLog = IOHelper.readFileToList(chatLog.getPath());
-
-
-        assertThat(realLog, is(expectedLog));
-        assertThat(realLog.contains(tempOutput.poll()), is(true));
-        assertThat(realLog.contains(tempOutput.poll()), is(true));
-        assertThat(realLog.contains(tempOutput.poll()), is(true));
+    public void testByTempFolder() {
+        initTempFolder();
+        baseTestModel(tempAnswersPath, tempLogPath);
     }
 
+    private void baseTestModel(String answersPath, String logPath) {
+        // создаём и запускаем чат
+        var bot = new Bot(answersPath, input, output::add, logPath);
+        bot.startSpeech();
+
+        // инит Логов: настоящий и сессионый.
+        var realLog = (ArrayList) bot.getLogAsList();
+        var expectedLog = IOHelper.readFileToList(logPath);
+
+        // Провера
+        assertThat(realLog, is(expectedLog));
+        assertThat(realLog.contains(output.poll()), is(true));
+        assertThat(realLog.contains(output.poll()), is(true));
+        assertThat(realLog.contains(output.poll()), is(true));
+    }
+
+    private void initTempFolder() {
+        try {
+            this.tempAnswersPath = tempFolder.newFile("bot_answers.txt").getPath();
+            this.tempLogPath = tempFolder.newFile("chat_log.txt").getPath();
+            IOHelper.writeListToFile(tempAnswersPath, answersList, "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package ru.job4j.copy;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -91,10 +92,10 @@ public class FileFinderTest {
 
 
 
-    @Test
-//    @Ignore
+//    @Test
+    @Ignore
     public void tryOne() {
-        // Не хотел строить несколько классов, для обработки ключей и придумал исп. Люмду
+        // Не хотел строить несколько классов, для обработки ключей и придумал исп. Лямбду
         // Тут я тестил, что куда и как.
 
         //  full    =  "test_copy_file.txt";  - contains

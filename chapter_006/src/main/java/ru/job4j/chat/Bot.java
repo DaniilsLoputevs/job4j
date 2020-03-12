@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
  * "продолжить" - Бот снова отвечает, пользователю.
  * "закончить". - Завершить программу, сохранить лог сессии.(перезаписать старый)
  *
- * List<String> phrase - Список фраз для ответа Пользователю.
+ * boolean run - продолжать работу основного цикла или нет? true || false)
+ * boolean speak - отвечать боту на "фразы пользователя" или нет? (true || false)
+ * List<String> phrase - Список фраз для ответа "Бота".
  * List<String> sessionLog - Лог сессии, записывается всё что сказано Обеими сторонами.
  * String logPath - путь лога чата. Сюда сохраняется лог сессии, после окончания.
  * Input input - Интерфейс для ввода, две реализации. 1) ConsoleInput - для ввода через консоль.
@@ -22,12 +24,13 @@ import java.util.stream.Collectors;
  * вывода куда-угодно. (Пример, List для сортировки/сбора статистики ответов)
  *
  * @author Daniils Loputevs
- * @version 1.0
+ * @version 1.1
  * @since 18.02.20.
- * Last upd:  03.03.20.
- * Last JavaDoc upd:  05.03.20.
+ * Last upd:  12.03.20.
+ * Last JavaDoc upd:  12.03.20.
  */
 public class Bot {
+    private boolean run = true;
     private boolean speak = true;
     private List<String> phrase;
     private List<String> sessionLog = new LinkedList<>();
@@ -43,13 +46,21 @@ public class Bot {
         this.logPath = logPath;
     }
 
-    /** Стартовый метод.
-     * При вызове, запускает сессию и вызывает рекурсию.
+    /** Стартовый метод, запускает сессию.
      * Каждую итерация просит ввести 1 строчку, как "ответ пользователя", иначе будет вечное ожидание(заснёт).
      * Обязательный выход через "подачу" команды "закончить".
      *** В такой ситуации Потенциально может быть NPE в тесте из StubInput.next() => return null;
      */
     public void startSpeech() {
+        while (run) {
+            initAndStartSpeech();
+        }
+    }
+
+    /** Подготовка и запуск сессии.
+     * Обновление "фразы пользователя", добавление её в лог, вызов обработки "фразы" ботом.
+     */
+    private void initAndStartSpeech() {
         String userPhrase = input.next();
         sessionLog.add("Какой-то парень : " + userPhrase + "\n");
         botExercise(userPhrase);
@@ -68,23 +79,21 @@ public class Bot {
             botAnswer();
         } else if ("закончить".equals(says)) {
             saveLog();
+            this.run = false;
         } else {
             botAnswer();
         }
     }
 
     /** Повторяющийся блок кода из botExercise()
-     * Ответ Бота, запись ответа в Лог, запись ответа в output, замкнуть рекурсию(снова вызвать startSpeech() )
+     * Ответ Бота, запись ответа в Лог, запись ответа в output.
      */
     private void botAnswer() {
         if (speak) {
             var botSay = phrase.get(choosePhrase());
-            botSay = "Ночьная бабочка: " + botSay + "\n";
+            botSay = "Бот Катя: " + botSay + "\n";
             output.accept(botSay);
             sessionLog.add(botSay);
-            startSpeech();
-        } else {
-            startSpeech();
         }
     }
 
@@ -116,14 +125,14 @@ public class Bot {
 
     /* ------------ Ручной тест, консолью ------------*/
 
-    public static void main(String[] args) {
-
-        var botAnswerPath = "./chapter_006/src/main/java/ru/job4j/chat/bot_answers.txt";
-        var input = new ConsoleInput();
-        Consumer<String> output = System.out::println;
-        var chatLog = "./src/main/java/ru/job4j/chat/chat_log.txt";
-
-        new Bot(botAnswerPath, input, output, chatLog).startSpeech();
-    }
+//    public static void main(String[] args) {
+//
+//        var botAnswerPath = "./chapter_006/src/main/java/ru/job4j/chat/bot_answers.txt";
+//        var input = new ConsoleInput();
+//        Consumer<String> output = System.out::println;
+//        var chatLog = "./src/main/java/ru/job4j/chat/chat_log.txt";
+//
+//        new Bot(botAnswerPath, input, output, chatLog).startSpeech();
+//    }
 
 }
