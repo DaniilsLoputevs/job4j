@@ -62,7 +62,7 @@ public class Bot {
      */
     private void initAndStartSpeech() {
         String userPhrase = input.next();
-        sessionLog.add("Какой-то парень : " + userPhrase + "\n");
+        sessionLog.add("Какой-то парень : " + userPhrase + System.lineSeparator());
         botExercise(userPhrase);
     }
 
@@ -91,7 +91,7 @@ public class Bot {
     private void botAnswer() {
         if (speak) {
             var botSay = phrase.get(choosePhrase());
-            botSay = "Бот Катя: " + botSay + "\n";
+            botSay = "Бот Катя: " + botSay + System.lineSeparator();
             output.accept(botSay);
             sessionLog.add(botSay);
         }
