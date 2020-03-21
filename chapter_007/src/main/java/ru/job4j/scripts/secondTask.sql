@@ -33,17 +33,19 @@ values ('мороженное мясо', 4, '2020-04-19 21:15:58.430634', 70);
 
 
 -- 1) получение всех продуктов с типом "СЫР"
-select * from product where type_id=2;
+select * from product where type_id = (select type.id from type where type.name = 'СЫР');
 -- 2) получения всех продуктов, у кого в имени есть слово "мороженное"
 select * from product where name like '%мороженное%';
 -- 3) который выводит все продукты, срок годности которых заканчивается в следующем месяце.
-select * from product where expired_date between '2020-04-01 00:00:00.430634' and '2020-04-30 00:00:00.430634';
+ select * from product where expired_date >= now() + interval '1 month';
 -- 4) который выводит самый дорогой продукт.
 select name, price from product order by price DESC limit 1;
 -- 5) который выводит количество всех продуктов определенного типа.
-select * from product where type_id=1;  -- тут меняем цыфру, вибираем нужный тип.
+select * from product where type_id = (select type.id from type where type.name = 'МЯСО');
 -- 6) получение всех продуктов с типом "СЫР" и "МОЛОКО"
-select * from product where type_id=1 or type_id=2;
+select * from product where type_id =
+(select type.id from type where type.name = 'МЯСО') or type_id =
+(select type.id from type where type.name = 'МОЛОКО');
 -- 7) который выводит тип продуктов, которых осталось меньше 10 штук. (сделал не 10, а меньше 2)
 select type.name from type, product where product.type_id = type.id group by type.id having count(type.id) < 2;
 -- 8) Вывести все продукты и их тип.
