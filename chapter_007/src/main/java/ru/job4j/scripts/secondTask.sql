@@ -17,7 +17,6 @@ create table product (
 
 insert into type(name) values ('СЫР'), ('МОЛОКО'), ('РЫБА'), ('МЯСО');
 
-
 insert into product(name, type_id, expired_date, price)
 values ('сгущеное молко', 2, '2020-03-19 21:15:58.430634', 70);
 insert into product(name, type_id, expired_date, price)
