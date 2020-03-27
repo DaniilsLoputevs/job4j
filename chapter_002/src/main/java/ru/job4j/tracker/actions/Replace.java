@@ -26,9 +26,10 @@ public class Replace extends BaseAction {
         if (ValidateEnterData.checkId(id, tracker)) {
 //          output.accept(("Enter name for new item: "));    // Если нужно вести текст вручную
             String name = input.askStr("");
-            if (ValidateEnterData.checkName(id, tracker)) {
-                Item item = new Item(name);
-                tracker.replace(id, item);
+            if (!ValidateEnterData.checkName(name, tracker)) {
+                var local = new Item(id, name);
+                tracker.replace(id, local);
+                output.accept((String.format("%s %s", local.getId(), local.getName())));
                 System.out.println();
             }
         }

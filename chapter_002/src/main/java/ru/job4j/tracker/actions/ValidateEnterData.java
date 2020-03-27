@@ -3,7 +3,7 @@ package ru.job4j.tracker.actions;
 import ru.job4j.tracker.Tracker;
 
 /**
- * Проверка существуют ли, такие данные в Tracker tracker.
+ * Проверка существуют ли, такие данные в TrackerLocal tracker.
  * @author Daniils Loputevs
  * @version $Id$
  * @since 24.11.19

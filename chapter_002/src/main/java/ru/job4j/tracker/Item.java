@@ -2,18 +2,22 @@ package ru.job4j.tracker;
 
 /**
  * Класс Класс шаблон: item - (заявки)
- * Все заявк хранятся в ArrayList<Item> items в классе Tracker
+ * Все заявк хранятся в ArrayList<Item> items в классе TrackerLocal
  * @author Daniils Loputevs
- * @version $Id$
- * @since 06.01.20.
+ * @version 1.1
+ * @since 1.1
  **/
 
 public class Item {
     private String id;
     private String name;
 
-    // Constructor
+    // Constructors
     public Item(String name) {
+        this.name = name;
+    }
+    public Item(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 

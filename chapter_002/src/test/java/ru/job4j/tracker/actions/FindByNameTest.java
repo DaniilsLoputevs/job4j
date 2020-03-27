@@ -3,7 +3,7 @@ package ru.job4j.tracker.actions;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.TrackerLocal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -27,15 +27,15 @@ public class FindByNameTest {
         System.setOut(new PrintStream(newOutput));
         Consumer<String> output = System.out::println;
         // Основной блок
-        Tracker tracker = new Tracker();
+        TrackerLocal trackerLocal = new TrackerLocal();
         Item example = new Item("example");
         Item test1 = new Item("test");
         Item test2 = new Item("test");
-        tracker.add(example);
-        tracker.add(test1);
-        tracker.add(test2);
+        trackerLocal.add(example);
+        trackerLocal.add(test1);
+        trackerLocal.add(test2);
         // Действие
-        new FindByName(1, "").execute(new StubInput(new String[] {"test"}), tracker, output);
+        new FindByName(1, "").execute(new StubInput(new String[] {"test"}), trackerLocal, output);
         // Сравнение
         // Массив ожидаемых строк
         String[] expectArr = new String[] {

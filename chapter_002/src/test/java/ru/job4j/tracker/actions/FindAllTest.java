@@ -3,7 +3,7 @@ package ru.job4j.tracker.actions;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.TrackerLocal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -28,11 +28,11 @@ public class FindAllTest {
         System.setOut(new PrintStream(newOutput));
         Consumer<String> output = System.out::println;
         // Основной блок
-        Tracker tracker = new Tracker();
+        TrackerLocal trackerLocal = new TrackerLocal();
         Item example = new Item("example");
-        tracker.add(example);
+        trackerLocal.add(example);
         // Действие
-        new FindAll(1, "").execute(new StubInput(new String[] {}), tracker, output);
+        new FindAll(1, "").execute(new StubInput(new String[] {}), trackerLocal, output);
         // Такая же, строка, что метод кинул в sout();
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add(example.getId() + " " + example.getName()).toString();

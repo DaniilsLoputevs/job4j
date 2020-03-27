@@ -3,7 +3,7 @@ package ru.job4j.tracker.actions;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.StubInput;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.TrackerLocal;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -12,12 +12,12 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class DeleteTest {
-    Consumer<String> output = System.out::println;
+    private Consumer<String> output = System.out::println;
 
     @Test
     public void deleteItemActionClassTest() {
         // Подгатовка
-        Tracker example = new Tracker();
+        TrackerLocal example = new TrackerLocal();
         Item first = new Item("one");
         Item second = new Item("two");
         Item third = new Item("three");
@@ -26,7 +26,7 @@ public class DeleteTest {
         example.add(second);
         example.add(third);
 
-        ArrayList<Item> test = new ArrayList();
+        ArrayList<Item> test = new ArrayList<>();
         test.add(first);
         test.add(third);
 

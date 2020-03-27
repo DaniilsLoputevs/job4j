@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class TrackerSingleAll {
+public class TrackerImplLocalSingleAll {
 
     @Test // V1 - 1. enum.
     public void v1() {

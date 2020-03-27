@@ -3,6 +3,7 @@ package ru.job4j.tracker.actions;
 import org.junit.Test;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.TrackerLocal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class CreateTest {
-    Consumer<String> output = System.out::println;
+    private Consumer<String> output = System.out::println;
 
     @Test
     public void createActionClassTest() {
@@ -21,11 +22,11 @@ public class CreateTest {
         PrintStream defaultOutput = System.out;
         System.setOut(new PrintStream(newOutput));
         // Основной блок
-        Tracker tracker = new Tracker();
+        Tracker trackerLocal = new TrackerLocal();
         String nameCreateItem = "test";
         // Действие
-        new Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), tracker, output);
-        assertThat(tracker.findAll(), is(tracker.findByName("test")));
+        new Create(1, "").execute(new StubInput(new String[] {nameCreateItem}), trackerLocal, output);
+        assertThat(trackerLocal.findAll(), is(trackerLocal.findByName("test")));
         // Возвращаем стандартный вывод
         System.setOut(defaultOutput);
     }

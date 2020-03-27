@@ -17,7 +17,7 @@ public class StartUI {
     /**
      * Метод инициилизации программы
      * @param input - ValidateInput(input).
-     * @param tracker - Tracker tracker.
+     * @param tracker tracker - Менеджер заявок.
      * @param actions - ArrayList<UserAction> - массив действий с заявками.
      */
     void init(Input input, Tracker tracker, ArrayList<UserAction> actions, Consumer<String> output) {
@@ -45,8 +45,8 @@ public class StartUI {
      * Заполняет список с возможными действиями.
      * @return actions - задаёт содержимое массива.
      */
-    private static ArrayList setActions() {
-        ArrayList<UserAction> actions = new ArrayList();
+    private static ArrayList<UserAction> setActions() {
+        ArrayList<UserAction> actions = new ArrayList<>();
         actions.add(new ExitOfProgramm(0, "=== Exit ===="));
         actions.add(new Create(1, "=== Create a new Item ===="));
         actions.add(new Replace(2, "=== Replace Item ===="));
@@ -62,7 +62,7 @@ public class StartUI {
         Input input = new ConsoleInput();
         Consumer<String> output = System.out::println;
         Input validate = new ValidateInput(input);
-        Tracker tracker = new Tracker();
+        Tracker tracker = new TrackerLocal();
         ArrayList<UserAction> actions = setActions();
         new StartUI().init(validate, tracker, actions, output);
     }
