@@ -14,4 +14,12 @@ public class ValidateEnterDataTest {
         Assert.assertTrue(ValidateEnterData.checkId(first.getId(), trackerLocal));
     }
 
+    @Test
+    public void checkName() {
+        TrackerLocal trackerLocal = new TrackerLocal();
+        Item first = new Item("example");
+        trackerLocal.add(first);
+        Assert.assertTrue(ValidateEnterData.checkName(first.getName(), trackerLocal));
+    }
+
 }

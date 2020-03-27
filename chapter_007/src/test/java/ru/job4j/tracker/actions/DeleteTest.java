@@ -3,11 +3,10 @@ package ru.job4j.tracker.actions;
 import org.junit.Test;
 import ru.job4j.tracker.*;
 
-import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DeleteTest {
     private Consumer<String> output = System.out::println;

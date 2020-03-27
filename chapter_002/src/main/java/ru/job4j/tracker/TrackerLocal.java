@@ -128,9 +128,6 @@ public class TrackerLocal implements Tracker {
         return index;
     }
 
-    // Особености методов с возвратом boolean
-    //   return (findById(id) != null) ? true : false;
-
     /**
      * Проверка: Есть ли заявка с таким id в tracker.
      * @param id - id для поиска.
@@ -145,7 +142,7 @@ public class TrackerLocal implements Tracker {
      * @return - true/false
      */
     public boolean containsName(String name) {
-        return findByName(name) != null;
+        return !findByName(name).isEmpty();
     }
 
     @Override

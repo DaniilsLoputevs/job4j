@@ -3,7 +3,10 @@ package ru.job4j.tracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -153,18 +156,8 @@ public class TrackerSQL implements Tracker, AutoCloseable {
 
     @Override
     public boolean containsName(String name) {
-        return findByName(name).size() > 0;
+        return !findByName(name).isEmpty();
     }
-
-//    @Override
-//    public boolean containsId(String id) {
-//        return findById(id).getId() != null;
-//    }
-//
-//    @Override
-//    public boolean containsName(String name) {
-//        return findByName(name).size() > 0;
-//    }
 
     @Override
     public void close() {

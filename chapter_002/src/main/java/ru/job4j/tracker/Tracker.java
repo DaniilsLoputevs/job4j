@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @since 25.03.20
  */
-interface Tracker {
+public interface Tracker {
     Item add(Item item);
     boolean replace(String id, Item item);
     boolean delete(String id);

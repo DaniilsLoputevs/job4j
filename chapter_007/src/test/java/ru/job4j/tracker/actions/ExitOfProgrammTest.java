@@ -2,7 +2,6 @@ package ru.job4j.tracker.actions;
 
 import org.junit.Test;
 import ru.job4j.tracker.StubInput;
-import ru.job4j.tracker.TrackerLocal;
 import ru.job4j.tracker.TrackerSQL;
 
 import java.util.function.Consumer;
