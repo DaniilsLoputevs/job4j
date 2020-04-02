@@ -13,11 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class FileFinderTest {
-    private String sourceFolderPath = "./src/test/java/ru/job4j/archive";
+    private String sourceFolderPath = "./src/main/resources/directoryForSearchFiles";
     private String targetPath;
     private Args args;
 
@@ -30,21 +29,20 @@ public class FileFinderTest {
 
     // Manual Before
     public void setUp(String findValue, String findKey) {
-        targetPath = tempFolder.getRoot().getPath();
         try {
-            tempFolder.newFile("log.txt");
+            this.targetPath = tempFolder.newFile("log.txt").getPath();
         } catch (IOException e) {
             e.printStackTrace();
         }
         // -d c:/ -n *.txt -m -o log.txt
-        this.args = new Args(new String[] {
+        this.args = new Args(new String[]{
                 "-d",
                 sourceFolderPath,
                 "-n",
                 findKey,
                 findValue,
                 "-o",
-                targetPath + "/log.txt"
+                targetPath
         });
     }
 
@@ -65,6 +63,7 @@ public class FileFinderTest {
 
         modelForFullNameAndMaskTest();
     }
+
     @Test
     public void testRegular() {
         this.findValue = ".*txt";
@@ -74,9 +73,9 @@ public class FileFinderTest {
         // Одинаковая часть, но expected разный, перенос будет занимать больше строк, чем так.
         new FileFinder().copyToPath(args.rootPath(), args.findParamValue(), args.target(), args.findParamKey());
         var expected = new ArrayList<>(List.of("another test file." + System.lineSeparator()));
-        var realLog = IOHelper.readFileToList(targetPath + "/log.txt");
+        var realLog = IOHelper.readFileToList(targetPath, ArrayList::new);
         realLog = StringHelper.separateLines(realLog);
-        assertThat(realLog, is(expected));
+        assertEquals(expected, realLog);
     }
 
     private void modelForFullNameAndMaskTest() {
@@ -86,14 +85,13 @@ public class FileFinderTest {
                 "222 --- bbb",
                 "333 --- ccc"
         )));
-        var realLog = IOHelper.readFileToList(targetPath + "/log.txt");
+        var realLog = IOHelper.readFileToList(targetPath, ArrayList::new);
         realLog = StringHelper.separateLines(realLog);
-        assertThat(realLog, is(expected));
+        assertEquals(expected, realLog);
     }
 
 
-
-//    @Test
+    //    @Test
     @Ignore
     public void tryOne() {
         // Не хотел строить несколько классов, для обработки ключей и придумал исп. Лямбду
@@ -115,11 +113,8 @@ public class FileFinderTest {
         System.out.println();
         System.out.println(lambdaFile.getName());
         System.out.println(lambdaFile.getPath());
-        assertThat(lambdaFile.getName(), is("test_copy_file.txt"));
 
-
-
-
+        assertEquals("test_copy_file.txt", lambdaFile.getName());
     }
 
 }

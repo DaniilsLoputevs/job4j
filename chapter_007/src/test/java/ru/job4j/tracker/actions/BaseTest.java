@@ -19,7 +19,7 @@
 //        Item testItem = new Item(itemName);
 //        tracker.add(testItem);
 //        if ("findById".equals(methodName)) {
-//            var temp = tracker.findByName(itemName).get(0);
+//            var temp = tracker.findByName(itemName).load(0);
 //            testItem.setId(temp.getId());
 //           stubInput = new String[] { temp.getId() };
 //            new TrackerSQLTest().cleanBaseTracker(testItem);
@@ -35,8 +35,8 @@
 //        if ("findAll".equals(methodName)) {
 //            result = tracker.findAll();
 //        } else if ("findById".equals(methodName)){
-//            result = List.of(tracker.findByName(itemName).get(0));
-//            var temp = result.get(0);
+//            result = List.of(tracker.findByName(itemName).load(0));
+//            var temp = result.load(0);
 //            result = List.of(temp);
 //        } else {
 //            result = tracker.findByName(itemName);

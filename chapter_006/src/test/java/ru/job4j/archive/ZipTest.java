@@ -13,15 +13,14 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
- *** В main коде, Path начиается с job4j(.)/chapter_N/src/main/...
- *** В test коде, Path начиается с chapter_N(.)/src/test/...
- *** Вместо TemporaryFolder можно использовать Путь: System.getProperty("java.io.tmpdir")
+ * ** В main коде, Path начиается с job4j(.)/chapter_N/src/main/...
+ * ** В test коде, Path начиается с chapter_N(.)/src/test/...
+ * ** Вместо TemporaryFolder можно использовать Путь: System.getProperty("java.io.tmpdir")
  */
 public class ZipTest {
-    private String thisFolderPath = "./src/test/java/ru/job4j/archive";
-    private File root = new File(thisFolderPath + "/testFolder/");
+    private String resourcesPath = "./src/main/resources/directoryForSearchFiles";
+    private File root = new File(resourcesPath);
     private String systemTmpFolderPath = System.getProperty("java.io.tmpdir");
-
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -30,7 +29,7 @@ public class ZipTest {
     @Test
     public void zipToTemp() throws Exception {
 //       testInfo();
-       var targetPath = tempFolder.getRoot().getPath() + "/arch.zip";
+        var targetPath = tempFolder.getRoot().getPath() + "/arch.zip";
 
         new Zip().zipTo(root, Set.of("txt"), targetPath);
 
@@ -40,11 +39,11 @@ public class ZipTest {
     }
 
     private void testInfo() {
-        System.out.println("rootPath:                               " + root.getPath());
-        System.out.println("root.exists:                            " + root.exists());
+        System.out.println("resourcesPath:                             " + root.getPath());
+        System.out.println("root.exists:                               " + root.exists());
 
-        System.out.println("systemTmpFolderPath:                   " + tempFolder.getRoot().getPath());
-        System.out.println("System.getProperty(\"java.io.tmpdir\"):   " + systemTmpFolderPath);
+        System.out.println("systemTmpFolderPath:                       " + tempFolder.getRoot().getPath());
+        System.out.println("System.getProperty(\"java.io.tmpdir\"):    " + systemTmpFolderPath);
     }
 }
 

@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.HashSet;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class ArgsTest {
     private Args args;
@@ -15,7 +15,7 @@ public class ArgsTest {
     public void setUp() {
         args = new Args(new String[] {
                 "-d",
-                "./src/test/java/ru/job4j/archive",
+                "./src/main/resources/",
                 "-e",
                 "*.java",
                 "-o",
@@ -25,7 +25,7 @@ public class ArgsTest {
 
     @Test
     public void directory() {
-        var expected =  "./src/test/java/ru/job4j/archive";
+        var expected =  "./src/main/resources/";
         System.out.println(args.directory());
         System.out.println(expected);
         assertThat(args.directory(), is(expected));

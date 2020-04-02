@@ -45,4 +45,8 @@ public class StringHelper {
         return list.stream().map(string -> string + System.lineSeparator()).collect(Collectors.toList());
     }
 
+    public static  List<String> reformatListString(String newFormat,  List<String> list) {
+        return list.stream().map(string -> String.format(newFormat, string)).collect(Collectors.toList());
+    }
+
 }

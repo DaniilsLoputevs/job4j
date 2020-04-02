@@ -56,7 +56,7 @@ public class Args {
             if (!outputCheck(args)) {
                 break;
             }
-            // Этот break; - тут ОБЯЗАТЕЛЕН!!!
+            // Этот {@code break; } - тут ОБЯЗАТЕЛЕН!!!
             break;
         }
     }
