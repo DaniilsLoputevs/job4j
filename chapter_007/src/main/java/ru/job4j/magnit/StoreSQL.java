@@ -1,6 +1,9 @@
 package ru.job4j.magnit;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,16 @@ public class StoreSQL implements AutoCloseable {
         if (config != null) {
             try {
                 connect = DriverManager.getConnection(this.config.get("url"));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public StoreSQL(Config config, String dbPath) {
+        this.config = config;
+        if (config != null) {
+            try {
+                connect = DriverManager.getConnection(this.config.get("testUrl") + '/' + dbPath);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -51,20 +64,6 @@ public class StoreSQL implements AutoCloseable {
         return tempList;
     }
 
-    public void createNewDatabase(String fileName) {
-        String url = config.get("url") + "/" + fileName;
-
-        try (Connection conn = DriverManager.getConnection(url)) {
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     private void createTableIfNotExists() {
         try (PreparedStatement pst = connect.prepareStatement(
                 "create table if not exists entry (field integer)")) {
@@ -83,15 +82,6 @@ public class StoreSQL implements AutoCloseable {
     public void close() throws Exception {
         if (connect != null) {
             connect.close();
-        }
-    }
-
-    public void cleanBase() {
-        try (PreparedStatement pst = connect.prepareStatement("drop table entry")) {
-            pst.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
