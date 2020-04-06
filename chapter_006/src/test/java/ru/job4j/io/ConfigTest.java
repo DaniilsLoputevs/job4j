@@ -3,20 +3,22 @@ package ru.job4j.io;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class ConfigTest {
+    private String resourcesPath = "./src/main/resources/config";
 
     @Test
     public void whenPairWithoutComment() {
-        String path = "./src/test/java/ru/job4j/io/data/pair_without_comment.properties";
+        String path = resourcesPath + "/pair_without_comment.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("name"), is("Petr Arsentev"));
+        assertEquals("Petr Arsentev", config.value("name"));
     }
     @Test
     public void localTest() {
-        String path = "./src/test/java/ru/job4j/io/data/configuration.properties";
+        String path = resourcesPath + "/configuration.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("hibernate.dialect"), is("org.hibernate.dialect.PostgreSQLDialect"));

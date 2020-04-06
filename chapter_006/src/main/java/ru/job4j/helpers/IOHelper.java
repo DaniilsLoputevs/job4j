@@ -36,6 +36,10 @@ public class IOHelper {
         return fileLines;
     }
 
+    public static List<String> readFileToList(File file, Supplier<List<String>> listConstructor) {
+        return readFileToList(file.getPath(), listConstructor);
+    }
+
     /**
      * Записать List в файл{@code path}.
      * * Если не нужно разделять строки >> sysSeparator = "";
@@ -53,6 +57,10 @@ public class IOHelper {
             System.out.println("IOException: IOHelper - write List to File!");
             e.printStackTrace();
         }
+    }
+
+    public static void writeListToFile(File file, List<String> content, String sysSeparator) {
+        writeListToFile(file.getPath(), content, sysSeparator);
     }
 
     /**

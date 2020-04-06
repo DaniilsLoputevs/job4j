@@ -7,17 +7,16 @@ import ru.job4j.helpers.IOHelper;
 import ru.job4j.helpers.StringHelper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class AnalizyTest {
-    private String sourcePath = "./src/main/java/ru/job4j/io/analise_input.txt";
-    private String targetPath = "./src/main/java/ru/job4j/io/analise_answers.txt";
+    private String sourcePath = "./src/main/resources/analysis/analise_input.txt";
+    private String targetPath = "./src/main/resources/analysis/analise_answers.txt";
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -48,7 +47,7 @@ public class AnalizyTest {
         )), "");
 
         new Analizy().unavailable(testFile.getPath(), answerFile.getPath());
-        var fileLines = (LinkedList) IOHelper.readFileToList(answerFile.getPath());
+        var fileLines = (LinkedList) IOHelper.readFileToList(answerFile.getPath(), LinkedList::new);
 
         assertEquals(fileLines.removeFirst(), "10:57:01 - 10:59:01");
         assertEquals(fileLines.removeFirst(), "11:01:02 - 11:02:02");

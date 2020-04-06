@@ -32,7 +32,7 @@ public class Config {
      * Значение настроек - Значение.
      */
     public void load() {
-        List<String> fileLines = IOHelper.readFileToList(path);
+        List<String> fileLines = IOHelper.readFileToList(path, ArrayList::new);
         values.putAll(fileLines.stream()
                 .filter(line -> !line.startsWith("//"))
                 .filter(line -> !line.startsWith("#"))

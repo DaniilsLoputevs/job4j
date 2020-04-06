@@ -2,32 +2,32 @@ package ru.job4j.chat;
 
 import ru.job4j.helpers.IOHelper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
-/** Задача: сделать консольный чат. ввод от пользователя, - ответ Случайная фраза из файла с Фразами.
+/**
+ * Задача: сделать консольный чат. ввод от пользователя, - ответ Случайная фраза из файла с Фразами.
  * + Поддержка Команд:
  * "стоп" - Бот перестаёт отвечать, пользователю.
  * "продолжить" - Бот снова отвечает, пользователю.
  * "закончить". - Завершить программу, сохранить лог сессии.(перезаписать старый)
- *
+ * <p>
  * boolean run - продолжать работу основного цикла или нет? true || false)
  * boolean speak - отвечать боту на "фразы пользователя" или нет? (true || false)
  * List<String> phrase - Список фраз для ответа "Бота".
  * List<String> sessionLog - Лог сессии, записывается всё что сказано Обеими сторонами.
  * String logPath - путь лога чата. Сюда сохраняется лог сессии, после окончания.
- * Input input - Интерфейс для ввода, две реализации. 1) ConsoleInput - для ввода через консоль.
- *                                                    2) StubInput - для ввода List'ом в @Test'ах.
+ * Input input - Интерфейс для ввода, две реализации.
+ * 1) ConsoleInput - для ввода через консоль.
+ * 2) StubInput - для ввода List'ом в @Test'ах.
  * Consumer<String> output - Метод вывода ответа Пользователю. Есть класс Output, это буфер для приёма и послед.
  * вывода куда-угодно. (Пример, List для сортировки/сбора статистики ответов)
  *
  * @author Daniils Loputevs
- * @version 1.1
- * @since 18.02.20.
- * Last upd:  12.03.20.
- * Last JavaDoc upd:  12.03.20.
+ * @version 1.2
+ * @since 06.04.20.
  */
 public class Bot {
     private boolean run = true;
@@ -39,17 +39,18 @@ public class Bot {
     private Consumer<String> output;
 
 
-    public Bot(String botAnswerPath, Input input, Consumer<String> output, String logPath) {
-        this.phrase = IOHelper.readFileToList(botAnswerPath);
+    public Bot(String botReplicasPath, Input input, Consumer<String> output, String logPath) {
+        this.phrase = IOHelper.readFileToList(botReplicasPath, ArrayList::new);
         this.input = input;
         this.output = output;
         this.logPath = logPath;
     }
 
-    /** Стартовый метод, запускает сессию.
+    /**
+     * Стартовый метод, запускает сессию.
      * Каждую итерация просит ввести 1 строчку, как "ответ пользователя", иначе будет вечное ожидание(заснёт).
      * Обязательный выход через "подачу" команды "закончить".
-     *** В такой ситуации Потенциально может быть NPE в тесте из StubInput.next() => return null;
+     * ** В такой ситуации Потенциально может быть NPE в тесте из StubInput.next() => return null;
      */
     public void startSpeech() {
         while (run) {
@@ -57,7 +58,8 @@ public class Bot {
         }
     }
 
-    /** Подготовка и запуск сессии.
+    /**
+     * Подготовка и запуск сессии.
      * Обновление "фразы пользователя", добавление её в лог, вызов обработки "фразы" ботом.
      */
     private void initAndStartSpeech() {
@@ -66,8 +68,10 @@ public class Bot {
         botExercise(userPhrase);
     }
 
-    /** Обработка, Фразы пользователя Ботом и Ответ на неё.
+    /**
+     * Обработка, Фразы пользователя Ботом и Ответ на неё.
      * реализация "команд" для Бота.
+     *
      * @param says Фраза пользователя. (input.next() )
      */
     private void botExercise(String says) {
@@ -85,7 +89,8 @@ public class Bot {
         }
     }
 
-    /** Повторяющийся блок кода из botExercise()
+    /**
+     * Повторяющийся блок кода из botExercise()
      * Ответ Бота, запись ответа в Лог, запись ответа в output.
      */
     private void botAnswer() {
@@ -97,23 +102,27 @@ public class Bot {
         }
     }
 
-    /** ----------------- Log methods ----------------- */
+    /**
+     * ----------------- Log methods -----------------
+     */
 
     public void saveLog() {
         IOHelper.writeListToFile(logPath, sessionLog, "");
     }
+
     public void clearLog() {
         IOHelper.clearFile(logPath);
     }
-    public List getLogAsList() {
-        return sessionLog.stream()
-                .map(string -> string.substring(0, string.length() - 1))
-                .collect(Collectors.toList());
+
+    public List<String> getLogAsList() {
+        return List.copyOf(sessionLog);
     }
 
 
-    /** Выбирает случайную фразу из файла с фразами.
+    /**
+     * Выбирает случайную фразу из файла с фразами.
      * Путём выбора случайного индекса строки в файле.
+     *
      * @return int - индекс строки.
      */
     private int choosePhrase() {

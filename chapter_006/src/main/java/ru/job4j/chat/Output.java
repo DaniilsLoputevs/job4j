@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @author Daniils Loputevs
  * @version 1.0
  * @since 20.02.20.
- * Last upd:  20.02.20.
+ * Last upd:  24.02.20.
  * Last JavaDoc upd:  05.03.20.
  */
 public class Output {
@@ -20,7 +20,6 @@ public class Output {
     }
 
     public String poll() {
-        var result = container.poll();
-        return result.substring(0, result.length() - 1);
+        return container.poll();
     }
 }
