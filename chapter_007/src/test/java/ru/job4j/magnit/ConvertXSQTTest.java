@@ -22,9 +22,16 @@ public class ConvertXSQTTest {
 
     @Before
     public void setUp() {
+        String tmpPathToBase = null;
+        try {
+            tmpPathToBase = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         var config = new Config();
         config.init();
-        storeSQl = new StoreSQL(config);
+        storeSQl = new StoreSQL(config, tmpPathToBase);
 
         try {
             storeSQl.getConnect().setAutoCommit(false);

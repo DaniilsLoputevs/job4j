@@ -18,6 +18,16 @@ public class StoreSQL implements AutoCloseable {
             }
         }
     }
+    public StoreSQL(Config config, String dbPath) {
+        this.config = config;
+        if (config != null) {
+            try {
+                connect = DriverManager.getConnection(this.config.get("testUrl") + '/' + dbPath);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void generate(int size) {
         createTableIfNotExists();
@@ -51,15 +61,14 @@ public class StoreSQL implements AutoCloseable {
         return tempList;
     }
 
-    public void createNewDatabase(String fileName) {
-        String url = config.get("url") + "/" + fileName;
-
-        try (Connection conn = DriverManager.getConnection(url)) {
+    public static void createNewDatabase(String dbPath) {
+        try (Connection conn = DriverManager.getConnection(dbPath)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
