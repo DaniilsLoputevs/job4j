@@ -23,7 +23,7 @@ public class StoreSQL implements AutoCloseable {
         createTableIfNotExists();
 
         try (PreparedStatement pst = connect.prepareStatement("insert into entry values (?)")) {
-            for (int index = 1; index <= size; ) {
+            for (int index = 1; index <= size;) {
                 pst.setInt(1, index++);
                 pst.addBatch();
             }
