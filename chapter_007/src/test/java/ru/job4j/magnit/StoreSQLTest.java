@@ -1,6 +1,9 @@
 package ru.job4j.magnit;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
@@ -8,7 +11,6 @@ import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
-// todo - разбиение на строки в конечном файле
 public class StoreSQLTest {
     private StoreSQL storeSQl;
 
@@ -54,8 +56,4 @@ public class StoreSQLTest {
         assertEquals(10, temp.size());
     }
 
-    @Ignore
-    public void cleanBases() {
-        storeSQl.cleanBase();
-    }
 }
