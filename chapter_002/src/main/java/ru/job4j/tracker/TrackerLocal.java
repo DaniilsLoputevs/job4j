@@ -30,11 +30,7 @@ public class TrackerLocal implements Tracker {
 
 
     // Методы на которых основаны все клаасы в пакете actions
-    /**
-     * Добавить заявку в tracker
-     * + Присваивает id для новой заявки.
-     * @param item новая заявка.
-     */
+
     @Override
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -42,12 +38,18 @@ public class TrackerLocal implements Tracker {
         return item;
     }
 
-    /**
-     * Замена старой заявки по её id, новый завкой(item).
-     * После замены, ячейка имее старый id.
-     * @param id id старой заявки (для удаление).
-     * @param item новая заявка.
-     */
+    @Override
+    public List<Item> addAll(Item... items) {
+        List<Item> result = new ArrayList<>();
+        for (var item : items) {
+            if (item != null) {
+                this.add(item);
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
     @Override
     public boolean replace(String id, Item item) {
         int index = indexOfId(id);
@@ -58,11 +60,6 @@ public class TrackerLocal implements Tracker {
         return true;
     }
 
-    /**
-     * Удалить завку по id.
-     * после сдвигает все след. ячейки ближе к началу коллекции.
-     * @param id - id заявки для удаление.
-     */
     @Override
     public boolean delete(String id) {
         int index = indexOfId(id);
@@ -73,20 +70,13 @@ public class TrackerLocal implements Tracker {
     }
 
     // Методы findBy...
-    /**
-     * Найти все заявки.
-     * @return Item[] - массив всех заявок.
-     */
+
     @Override
     public List<Item> findAll() {
         return new ArrayList<>(items);
     }
 
-    /**
-     * Поиск заявки по имени.
-     * Т.к. заявок может быть много, метод возвращает ArrayList.
-     * @return Item[] - массив всех заявок с одинаковыми именами.
-     */
+
     @Override
     public List<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
@@ -98,11 +88,7 @@ public class TrackerLocal implements Tracker {
         return result;
     }
 
-    /**
-     * Поиск заявки по id.
-     * @param id id заявки для возврата.
-     * @return Item - нужная заявка.
-     */
+
     @Override
     public Item findById(String id) {
         int index = indexOfId(id);
@@ -128,19 +114,13 @@ public class TrackerLocal implements Tracker {
         return index;
     }
 
-    /**
-     * Проверка: Есть ли заявка с таким id в tracker.
-     * @param id - id для поиска.
-     * @return - true/false
-     */
+
+    @Override
     public boolean containsId(String id) {
         return findById(id) != null;
     }
-    /**
-     * Проверка: Есть ли заявка с таким name в tracker.
-     * @param name - name для поиска.
-     * @return - true/false
-     */
+
+    @Override
     public boolean containsName(String name) {
         return !findByName(name).isEmpty();
     }

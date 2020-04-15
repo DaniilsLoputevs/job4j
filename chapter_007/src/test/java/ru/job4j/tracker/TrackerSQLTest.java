@@ -1,32 +1,53 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.job4j.db.ConnectionRollback;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 public class TrackerSQLTest {
     private Tracker tracker;
+    private String cfgPath = "./src/main/resources/connection_config.properties";
+    private Connection connection;
 
     @Before
     public void setUp() {
-        this.tracker = new TrackerSQL();
+        try {
+            var config = new ConfigLoader(cfgPath);
+            this.connection = DriverManager.getConnection(
+                    config.value("url"),
+                    config.value("username"),
+                    config.value("password")
+            );
+            connection = ConnectionRollback.create(connection);
+
+            this.tracker = new TrackerSQL(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void cleanBaseTracker(Item... items) {
-        //clean database from test records
-        var cleanList = new LinkedList<>(List.of(items));
-        cleanList.forEach(item -> new TrackerSQL().delete(item.getId()));
+    @After
+    public void tearDown() throws Exception {
+        this.connection.close();
     }
+    //    public void cleanBaseTracker(Item... items) {
+//        //clean database from test records
+//        var cleanList = new LinkedList<>(List.of(items));
+//        cleanList.forEach(item -> new TrackerSQL().delete(item.getId()));
+//    }
 
     @Test
     public void add() {
         var clean = tracker.add(new Item("Запись от - add()"));
         assertNotNull(clean);
-        cleanBaseTracker(clean);
+//        cleanBaseTracker(clean);
     }
 
     @Test
@@ -35,7 +56,7 @@ public class TrackerSQLTest {
         var result = tracker.replace(replaceItem.getId(), new Item("Запись от - replace() - замена"));
 
         assertTrue(result);
-        cleanBaseTracker(replaceItem);
+//        cleanBaseTracker(replaceItem);
     }
 
     @Test
@@ -52,7 +73,7 @@ public class TrackerSQLTest {
         var item2 = tracker.add(new Item("Запись от - findAll()"));
         var list = tracker.findAll();
         assertTrue(list.size() >= 2);
-        cleanBaseTracker(item1, item2);
+//        cleanBaseTracker(item1, item2);
     }
 
     @Test
@@ -63,7 +84,7 @@ public class TrackerSQLTest {
 
         assertEquals("Запись от - findByName()", list.get(0).getName());
         assertTrue(list.size() >= 2);
-        cleanBaseTracker(item1, item2);
+//        cleanBaseTracker(item1, item2);
     }
 
     @Test
@@ -72,6 +93,6 @@ public class TrackerSQLTest {
         var result = tracker.findById(itemForFind.getId());
 
         assertEquals("поиск запрос ИД", result.getName());
-        cleanBaseTracker(itemForFind);
+//        cleanBaseTracker(itemForFind);
     }
 }

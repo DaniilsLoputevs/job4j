@@ -28,6 +28,11 @@ public class TrackerSQL implements Tracker, AutoCloseable {
         createTableIfNotExits();
     }
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+        createTableIfNotExits();
+    }
+
     private void initConnection() {
         ConfigLoader config = new ConfigLoader("./src/main/resources/connection_config.properties");
         try {
@@ -67,6 +72,18 @@ public class TrackerSQL implements Tracker, AutoCloseable {
             LOG.error("Exception in - TrackerSQL.add()", e);
         }
         return item;
+    }
+
+    @Override
+    public List<Item> addAll(Item... items) {
+        List<Item> result = new ArrayList<>();
+        for (var item : items) {
+            if (item != null) {
+                this.add(item);
+                result.add(item);
+            }
+        }
+        return result;
     }
 
     @Override

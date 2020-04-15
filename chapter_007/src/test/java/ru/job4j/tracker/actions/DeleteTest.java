@@ -1,42 +1,58 @@
 package ru.job4j.tracker.actions;
 
 import org.junit.Test;
-import ru.job4j.tracker.*;
-
-import java.util.function.Consumer;
+import ru.job4j.tracker.Item;
+import ru.job4j.tracker.StubInput;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DeleteTest {
-    private Consumer<String> output = System.out::println;
-    private Tracker tracker = new TrackerSQL();
-
+public class DeleteTest extends AbstractTests {
+    // 1) init
+    private Item one = new Item("Запись от - actions[Delete.execute()] - 1");
+    private Item two = new Item("Запись от - actions[Delete.execute()] - 2");
+    private Item three = new Item("Запись от - actions[Delete.execute()] - 3");
     private BaseAction action = new Delete(1, "");
 
     @Test
-    public void actionDeleteTest() {
-        // Подгатовка
-        var first = new Item("Запись от - actions[Delete.execute()] - 1");
-        var second = new Item("Запись от - actions[Delete.execute()] - 2");
-        var third = new Item("Запись от - actions[Delete.execute()] - 3");
-        // Основной блок
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
+    public void modelTestDeleteSql() {
+        // 2) prepare
+        tracker.addAll(one, two, three);
+        var stubInput = new StubInput(new String[]{
+                two.getId()
+        });
 
-        // Действие
-        action.execute(
-                new StubInput(new String[] {
-                        second.getId()
-                }),
-                tracker,
-                output);
+        // 3) action
+        modelTestActionsSql(action, stubInput);
 
-        assertFalse(tracker.containsName(second.getName()));
-        assertTrue(tracker.containsName(third.getName()));
+        // ~4) expected
 
-        // Чистим базу
-        new TrackerSQLTest().cleanBaseTracker(first, third);
+        // 5) compare
+        assertFalse(tracker.containsName(two.getName()));
+        assertTrue(tracker.containsName(three.getName()));
+
+        // 6) close
+        close();
     }
+
+    @Test
+    public void modelTestDeleteLocal() {
+        // 2) prepare
+        trackerLocal.addAll(one, two, three);
+        var stubInput = new StubInput(new String[]{
+                two.getId()
+        });
+
+        // 3) action
+        modelTestActionsLocal(action, stubInput);
+
+        // ~4) expected
+
+        // 5) compare
+        assertFalse(trackerLocal.containsName(two.getName()));
+        assertTrue(trackerLocal.containsName(three.getName()));
+
+        // ~6) close
+    }
+
 }

@@ -1,57 +1,57 @@
 package ru.job4j.tracker.actions;
 
 import org.junit.Test;
-import ru.job4j.tracker.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import ru.job4j.tracker.Item;
+import ru.job4j.tracker.StubInput;
 
 import static org.junit.Assert.assertEquals;
 
-//public class FindAllTest extends BaseTest {
-public class FindAllTest {
-    private Tracker tracker = new TrackerSQL();
-    private List<String> actualAnswer = new ArrayList<>();
-    private Consumer<String> output = actualAnswer::add;
-
-    private BaseAction action = new FindAll(1, "");
+public class FindAllTest extends AbstractTests {
+    // 1) init
     private Item testItem = new Item("Запись от - actions[FindAll.execute()]");
+    private BaseAction action = new FindAll(1, "");
 
     @Test
-    public void actionFindAllTest() {
+    public void modelTestFindAllSql() {
+        // 2) prepare
         tracker.add(testItem);
+        var stubInput = new StubInput(new String[]
+                {}
+        );
 
-        // Действие
-        action.execute(
-                new StubInput(new String[]
-                        {}
-                ),
-                tracker,
-                output);
+        // 3) action
+        modelTestActionsSql(action, stubInput);
 
-        List<Item> temp = tracker.findAll();
+        // ~4) expected
+        var tempResult = tracker.findAll();
+        var expected = formatExpected(tempResult);
 
-        List<String> expected = temp.stream()
-                .map(item -> String.format("%s %s", item.getId(), item.getName()))
-                .collect(Collectors.toList());
-
+        // 5) compare
         assertEquals(expected, actualAnswer);
 
-        new TrackerSQLTest().cleanBaseTracker(testItem);
+        // 6) close
+        close();
     }
 
-//    @Test
-//    public void baseTestFindAll() {
-//        this.formOne(action,
-//                "Запись от - actions[FindAll.execute()]",
-//                new String[] {
-//                        "Запись от - actions[FindAll.execute()]"
-//                },
-//                "findAll"
-//        );
-//    }
+    @Test
+    public void modelTestFindAllLocal() {
+        // 2) prepare
+        trackerLocal.add(testItem);
+        var stubInput = new StubInput(new String[]
+                {}
+        );
+
+        // 3) action
+        modelTestActionsLocal(action, stubInput);
+
+        // ~4) expected
+        var tempResult = trackerLocal.findAll();
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // ~6) close
+    }
 
 }

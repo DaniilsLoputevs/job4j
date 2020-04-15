@@ -1,58 +1,60 @@
 package ru.job4j.tracker.actions;
 
 import org.junit.Test;
-import ru.job4j.tracker.*;
+import ru.job4j.tracker.Item;
+import ru.job4j.tracker.StubInput;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-//public class FindByIdTest extends BaseTest {
-public class FindByIdTest {
-    private Tracker tracker = new TrackerSQL();
-    private List<String> actualAnswer = new ArrayList<>();
-    private Consumer<String> output = actualAnswer::add;
-
-    private BaseAction action = new FindById(1, "");
+public class FindByIdTest extends AbstractTests {
+    // 1) init
     private Item testItem = new Item("Запись от - actions[FindById.execute()]");
+    private BaseAction action = new FindById(1, "");
 
     @Test
-    public void actionFindByIdTest() {
+    public void modelTestFindByIdSql() {
+        // 2) prepare
         tracker.add(testItem);
+        var stubInput = new StubInput(new String[]{
+                testItem.getId()
+        });
 
-        // Действие
-        action.execute(
-                new StubInput(new String[] {
-                        testItem.getId()
-                }),
-                tracker,
-                output);
+        // 3) action
+        modelTestActionsSql(action, stubInput);
 
-        List<Item> temp = List.of(testItem);
+        // ~4) expected
+        var tempResult = List.of(testItem);
+        var expected = formatExpected(tempResult);
 
-        List<String> expected = temp.stream()
-                .map(item -> String.format("%s %s", item.getId(), item.getName()))
-                .collect(Collectors.toList());
+        // 5) compare
+        assertEquals(expected, actualAnswer);
 
-        assertEquals(actualAnswer, expected);
-
-        new TrackerSQLTest().cleanBaseTracker(testItem);
+        // 6) close
+//        close(testItem);
+        close();
     }
 
+    @Test
+    public void modelTestFindByIdLocal() {
+        // 2) prepare
+        trackerLocal.add(testItem);
+        var stubInput = new StubInput(new String[]{
+                testItem.getId()
+        });
 
-//    @Test
-//    public void baseTestFindById() {
-//        this.formOne(action,
-//                "Запись от - actions[FindById.execute()]",
-//                new String[] {
-//                        "stubInput"
-//                },
-//                "findById"
-//        );
-//    }
+        // 3) action
+        modelTestActionsLocal(action, stubInput);
+
+        // ~4) expected
+        var tempResult = List.of(testItem);
+        var expected = formatExpected(tempResult);
+
+        // 5) compare
+        assertEquals(expected, actualAnswer);
+
+        // ~6) close
+    }
 
 }

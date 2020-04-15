@@ -20,7 +20,7 @@ public class ConvertXSQTTest {
     private StoreXML storeXML;
     private ConvertXSQT convertXSQT;
     private File xmlTarget;
-    private File xslScheme = new File("./src/test/java/ru/job4j/magnit/xslScheme.xsl");
+    private File xslScheme = new File("./src/test/java/ru/job4j/magnit/xslScheme.xml");
     private File xsltTarget;
 
     @Before
@@ -45,7 +45,6 @@ public class ConvertXSQTTest {
         try {
             xmlTarget = tempFolder.newFile("xmlTarget.xml");
             xsltTarget = tempFolder.newFile("xsltTarget.xml");
-//            xsltTarget = tempFolder.newFile(" = new File(\"./src/test/java/ru/job4j/magnit/target.xslt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,11 +106,11 @@ public class ConvertXSQTTest {
         List<String> xslExpected = List.of(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
                 "        \\<entries>\\",
-                "                <entry href=\"1\"/>\\",
-                "                <entry href=\"2\"/>\\",
-                "                <entry href=\"3\"/>\\",
-                "                <entry href=\"4\"/>\\",
-                "                <entry href=\"5\"/>",
+                "            <entry href=\"1\"/>\\",
+                "            <entry href=\"2\"/>\\",
+                "            <entry href=\"3\"/>\\",
+                "            <entry href=\"4\"/>\\",
+                "            <entry href=\"5\"/>",
                 "        \\</entries>"
         );
         assertEquals(xslExpected, xslResult);
