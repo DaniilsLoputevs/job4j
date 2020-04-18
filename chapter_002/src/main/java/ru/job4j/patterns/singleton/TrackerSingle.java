@@ -1,7 +1,5 @@
 package ru.job4j.patterns.singleton;
 
-import ru.job4j.tracker.Item;
-
 public enum TrackerSingle {
     INSTANCE; // здесь мы указываем перечисления.
 

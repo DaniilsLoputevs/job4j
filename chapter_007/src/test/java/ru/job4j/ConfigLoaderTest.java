@@ -1,4 +1,4 @@
-package ru.job4j.tracker;
+package ru.job4j;
 
 import org.junit.Test;
 
@@ -9,10 +9,10 @@ public class ConfigLoaderTest {
 
     @Test
     public void whenPairWithoutComment() {
-        String path = "./src/main/resources/connection_config.properties";
+        String path = "./src/main/resources/app.properties";
         var config = new ConfigLoader(path);
         config.load();
-        assertThat(config.value("username"), is("postgres"));
+        assertThat(config.value("username"), is("java"));
     }
 
 }
