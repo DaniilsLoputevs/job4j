@@ -39,6 +39,7 @@ public class ArgsTest {
         assertEquals(expected, args.getTarget());
         assertEquals(expected, "test repair");
         assertEquals(expected, "Gir repair");
+        assertEquals(expected, "Gir repair");
     }
 
 }
