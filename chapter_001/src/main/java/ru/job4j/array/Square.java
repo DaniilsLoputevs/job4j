@@ -6,7 +6,7 @@ public class Square {
         int[] rst = new int[bound];
         int index = 0;
         for (int i = 1; i <= bound; i++) {
-            rst [index] = i * i;
+            rst[index] = i * i;
             index++;
         }
         return rst;

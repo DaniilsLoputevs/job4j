@@ -1,12 +1,17 @@
 package ru.job4j.exam;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Group {
 
-    /** Метод групперует студентов по секциям.
+    /**
+     * Метод групперует студентов по секциям.
+     *
      * @param students - List<Student> - Лист студентов.
      * @return Map<String, Set<String>> - Секция, Сет имён студентов(посещающие эту секцию).
      * P.s. написано с попытки 9-11-ой, Благодаря помощи из чата (Maksim Tiunchik)
@@ -28,17 +33,17 @@ public class Group {
                                 Collector.of(
                                         HashSet::new,
                                         (set, holder) -> set.add(holder.value),
-                                        (left, right) -> { left.addAll(right); return left; }
-                                        )
-                       )
+                                        (left, right) -> {
+                                            left.addAll(right);
+                                            return left;
+                                        }
+                                )
+                        )
 
                 );
     }
 
 }
-
-
-
 
 
 //    public static Map<String, Set<String>> sections(List<Student> students) {

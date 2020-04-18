@@ -37,9 +37,6 @@ public class ArgsTest {
     public void getTarget() {
         var expected = "./src/test/java/ru/job4j/copy" + "/log.txt";
         assertEquals(expected, args.getTarget());
-        assertEquals(expected, "test repair");
-        assertEquals(expected, "Gir repair");
-        assertEquals(expected, "Gir repair");
     }
 
 }

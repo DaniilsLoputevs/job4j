@@ -12,7 +12,7 @@ public class ConfigLoaderTest {
         String path = "./src/main/resources/app.properties";
         var config = new ConfigLoader(path);
         config.load();
-        assertThat(config.value("username"), is("postgres"));
+        assertThat(config.value("username"), is("java"));
     }
 
 }

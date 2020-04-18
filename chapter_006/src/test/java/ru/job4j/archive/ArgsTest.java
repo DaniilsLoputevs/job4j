@@ -26,8 +26,6 @@ public class ArgsTest {
     @Test
     public void directory() {
         var expected =  "./src/main/resources/";
-        System.out.println(args.directory());
-        System.out.println(expected);
         assertThat(args.directory(), is(expected));
     }
 

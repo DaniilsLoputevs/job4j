@@ -1,7 +1,5 @@
 package ru.job4j.patterns.singleton;
 
-import ru.job4j.tracker.Item;
-
 public class TrackerSingleV2 {
     private static TrackerSingleV2 instance;
 
