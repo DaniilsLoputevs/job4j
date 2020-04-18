@@ -11,7 +11,7 @@ import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /** Вот такая должа быть строка у метода
  * System.out.println(String.format("%s %s", item.getId(), item.getName()));
