@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/** Класс содержащий универсальные и вспомогательные методы для работы со String.
+/**
+ * Класс содержащий универсальные и вспомогательные методы для работы со String.
  *
  * @author Daniils Loputevs
  * @version 1.0
@@ -15,8 +16,10 @@ import java.util.stream.Collectors;
  */
 public class StringHelper {
 
-    /** Добавляет в конец каждой строки "Строчный разделитель".
-     *** Метод создан на основе List.of(...).
+    /**
+     * Добавляет в конец каждой строки "Строчный разделитель".
+     * ** Метод создан на основе List.of(...).
+     *
      * @param input строки.
      * @return массив из этих строк с разделителями.
      */
@@ -28,8 +31,10 @@ public class StringHelper {
         return tmp;
     }
 
-    /** Преобразует строки в List<String>
+    /**
+     * Преобразует строки в List<String>
      * Через ',' добавляем строки. Аналог List.of()
+     *
      * @param lines - строки. (через ',' добавляем строки)
      * @return List<String>
      */
@@ -37,7 +42,9 @@ public class StringHelper {
         return Arrays.stream(lines).collect(Collectors.toList());
     }
 
-    /** Добавляет в конец каждой строки "Строчный разделитель".
+    /**
+     * Добавляет в конец каждой строки "Строчный разделитель".
+     *
      * @param list List<String> для разделения строк.
      * @return тот же, List<String>, с разделёнными строчками.
      */
@@ -45,7 +52,7 @@ public class StringHelper {
         return list.stream().map(string -> string + System.lineSeparator()).collect(Collectors.toList());
     }
 
-    public static  List<String> reformatListString(String newFormat,  List<String> list) {
+    public static List<String> reformatListString(String newFormat, List<String> list) {
         return list.stream().map(string -> String.format(newFormat, string)).collect(Collectors.toList());
     }
 
