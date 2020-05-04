@@ -37,7 +37,6 @@ public class ConvertXSQTTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         storeXML = new StoreXML(xmlTarget);
         convertXSQT = new ConvertXSQT();
     }
@@ -93,7 +92,6 @@ public class ConvertXSQTTest {
                 "        \\</entries>"
         );
         assertEquals(xslExpected, xslResult);
-
     }
 
 
@@ -101,15 +99,12 @@ public class ConvertXSQTTest {
         try {
             var config = new Config();
             config.init();
-
             var dbPath = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
-
             var connect = DriverManager.getConnection(
                     config.get("testUrl") + '/' + dbPath);
 
             // just make a comment line below if you don't need a rollback connection
             connect = ConnectionRollback.create(connect);
-
             this.storeSQl = new StoreSQL(connect);
 
         } catch (SQLException | IOException e) {
