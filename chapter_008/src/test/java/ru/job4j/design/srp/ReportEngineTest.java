@@ -1,8 +1,9 @@
 package ru.job4j.design.srp;
 
+import daniils.DateHelper;
+import daniils.StringHelper;
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.helpers.StringHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;

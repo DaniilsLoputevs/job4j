@@ -1,6 +1,6 @@
 package ru.job4j;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

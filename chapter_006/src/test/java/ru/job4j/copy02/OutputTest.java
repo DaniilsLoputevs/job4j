@@ -1,9 +1,9 @@
 package ru.job4j.copy02;
 
+import daniils.IOHelper;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
 
 import java.io.IOException;
 import java.nio.file.Path;

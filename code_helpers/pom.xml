@@ -9,15 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chapter_08</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>ru.job4j</groupId>
-            <artifactId>chapter_006</artifactId>
-            <version>3.0</version>
-        </dependency>
-    </dependencies>
+    <artifactId>code_helpers</artifactId>
 
 
 </project>

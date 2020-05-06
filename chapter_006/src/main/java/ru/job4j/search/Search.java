@@ -1,13 +1,10 @@
 package ru.job4j.search;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 
 import java.io.File;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 /** Класс для поиска файлов в Файловой Системе по его расширению.
  * Задача: Написать метод, который возвращает список всех файлов с конкретным расширением.

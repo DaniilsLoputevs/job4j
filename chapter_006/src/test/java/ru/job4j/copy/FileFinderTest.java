@@ -1,11 +1,11 @@
 package ru.job4j.copy;
 
+import daniils.IOHelper;
+import daniils.StringHelper;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
-import ru.job4j.helpers.StringHelper;
 import ru.job4j.search.Search;
 
 import java.io.File;
