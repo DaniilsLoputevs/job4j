@@ -1,6 +1,6 @@
 package ru.job4j.copy;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 import ru.job4j.search.Search;
 
 import java.io.File;

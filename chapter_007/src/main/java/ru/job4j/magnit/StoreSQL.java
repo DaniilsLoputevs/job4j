@@ -11,15 +11,10 @@ public class StoreSQL implements AutoCloseable {
     private final Config config;
     private Connection connect;
 
-    public StoreSQL(Config config) {
-        this.config = config;
-        if (config != null) {
-            try {
-                connect = DriverManager.getConnection(this.config.get("url"));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+    public StoreSQL(Connection connect) {
+        this.config = new Config();
+        this.connect = connect;
+
     }
     public StoreSQL(Config config, String dbPath) {
         this.config = config;

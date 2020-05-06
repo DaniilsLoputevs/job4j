@@ -1,6 +1,6 @@
 package ru.job4j.archive;
 
-import ru.job4j.helpers.StringHelper;
+import daniils.StringHelper;
 
 import java.io.File;
 import java.util.HashSet;

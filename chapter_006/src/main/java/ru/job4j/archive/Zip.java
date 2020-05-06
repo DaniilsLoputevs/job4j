@@ -1,9 +1,9 @@
 package ru.job4j.archive;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 
 import java.io.*;
-import java.util.*;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
