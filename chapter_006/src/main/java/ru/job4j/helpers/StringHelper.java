@@ -56,4 +56,12 @@ public class StringHelper {
         return list.stream().map(string -> String.format(newFormat, string)).collect(Collectors.toList());
     }
 
+    public static String mergeToOne(List<String> list) {
+        StringBuilder result = new StringBuilder();
+        for (var string : list) {
+            result.append(string);
+        }
+        return result.toString();
+    }
+
 }
