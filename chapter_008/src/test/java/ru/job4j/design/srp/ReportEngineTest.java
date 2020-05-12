@@ -1,5 +1,6 @@
 package ru.job4j.design.srp;
 
+import com.google.gson.JsonObject;
 import daniils.DateHelper;
 import daniils.StringHelper;
 import org.junit.Before;
@@ -76,6 +77,69 @@ public class ReportEngineTest {
         tempList.add("</html>");
         var temp = StringHelper.separateLines(tempList);
         var expected = StringHelper.mergeToOne(temp);
+        // 5) compare
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void xmlGenerator() {
+        // 3) action
+        var result = new ReportEngine(store).generateXml(employee -> true);
+        // 4) expected
+        List<String> list = List.of(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+        );
+        var tempList = new ArrayList<>(list);
+        for (Employee employee : store.findBy(employee -> true)) {
+            var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getHired());
+            var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getFired());
+            List<String> loopList = List.of(
+                    "<employee>",
+                    "    <name>" + employee.getName() + "</name>",
+                    "    <hired>" + tempHired + "</hired>",
+                    "    <fired>" + tempFired + "</fired>",
+                    "    <salary>" + employee.getSalary() + "</salary>",
+                    "</employee>"
+            );
+            tempList.addAll(loopList);
+        }
+        var temp = StringHelper.separateLines(tempList);
+        var expected = StringHelper.mergeToOne(temp);
+
+        // 5) compare
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void jsonGenerator() {
+        // 3) action
+        var result = new ReportEngine(store).generateJson(employee -> true);
+        // 4) expected
+        List<String> list = List.of(
+        );
+        var tempList = new ArrayList<>(list);
+        for (Employee employee : store.findBy(employee -> true)) {
+            var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getHired());
+            var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getFired());
+
+            JsonObject person = new JsonObject();
+            person.addProperty("name", employee.getName());
+            person.addProperty("hired", tempHired);
+            person.addProperty("fired", tempFired);
+            person.addProperty("salary", employee.getSalary());
+
+            var temp = person.toString().split(",");
+            List<String> loopList = List.of(
+                    temp[0],
+                    temp[1],
+                    temp[2],
+                    temp[3]
+            );
+            tempList.addAll(loopList);
+        }
+        var temp = StringHelper.separateLines(tempList);
+        var expected = StringHelper.mergeToOne(temp);
+
         // 5) compare
         assertEquals(expected, result);
     }

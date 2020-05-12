@@ -1,5 +1,6 @@
 package ru.job4j.design.srp;
 
+import com.google.gson.JsonObject;
 import daniils.DateHelper;
 import daniils.StringHelper;
 
@@ -74,6 +75,66 @@ public class ReportEngine {
         }
         tempList.add("</table>");
         tempList.add("</html>");
+        var temp = StringHelper.separateLines(tempList);
+        return StringHelper.mergeToOne(temp);
+    }
+
+    /**
+     * Generate report of {@code Employee} by {@param filter} as String in XML format.
+     * You can push this String into file.
+     *
+     * @param filter - filter for search from all employees.
+     * @return - report as String in XML format.
+     */
+    public String generateXml(Predicate<Employee> filter) {
+        var tempList = new ArrayList<>(List.of(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+        ));
+        for (Employee employee : store.findBy(filter)) {
+            var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getHired());
+            var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getFired());
+            List<String> loopList = List.of(
+                    "<employee>",
+                    "    <name>" + employee.getName() + "</name>",
+                    "    <hired>" + tempHired + "</hired>",
+                    "    <fired>" + tempFired + "</fired>",
+                    "    <salary>" + employee.getSalary() + "</salary>",
+                    "</employee>"
+            );
+            tempList.addAll(loopList);
+        }
+        var temp = StringHelper.separateLines(tempList);
+        return StringHelper.mergeToOne(temp);
+    }
+
+    /**
+     * Generate report of {@code Employee} by {@param filter} as String in JSON format.
+     * You can push this String into file.
+     *
+     * @param filter - filter for search from all employees.
+     * @return - report as String in JSON format.
+     */
+    public String generateJson(Predicate<Employee> filter) {
+        var tempList = new ArrayList<String>();
+        for (Employee employee : store.findBy(filter)) {
+            var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getHired());
+            var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", employee.getFired());
+
+            JsonObject person = new JsonObject();
+            person.addProperty("name", employee.getName());
+            person.addProperty("hired", tempHired);
+            person.addProperty("fired", tempFired);
+            person.addProperty("salary", employee.getSalary());
+
+            var temp = person.toString().split(",");
+            List<String> loopList = List.of(
+                    temp[0],
+                    temp[1],
+                    temp[2],
+                    temp[3]
+            );
+            tempList.addAll(loopList);
+        }
         var temp = StringHelper.separateLines(tempList);
         return StringHelper.mergeToOne(temp);
     }

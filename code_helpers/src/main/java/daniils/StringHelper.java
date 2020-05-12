@@ -56,6 +56,11 @@ public class StringHelper {
         return list.stream().map(string -> String.format(newFormat, string)).collect(Collectors.toList());
     }
 
+    /**
+     * Merge List<String> list in one {@code String} save line separate.
+     * @param list - String to merge.
+     * @return - String from all stings in {@param list}.
+     */
     public static String mergeToOne(List<String> list) {
         StringBuilder result = new StringBuilder();
         for (var string : list) {
