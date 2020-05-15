@@ -15,7 +15,7 @@ public class Board {
             }
             sb.append(System.lineSeparator());
         }
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
         return sb.toString();
     }
     public static void paint(int width, int height) {

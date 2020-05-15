@@ -21,7 +21,7 @@ public class Defragment {
                     j++;
                 }
             }
-            System.out.print(array[index] + " ");
+//            System.out.print(array[index] + " ");
         }
         return array;
     }

@@ -4,7 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Base data model.
+ * Data model: Food.
+ * * can be placed in stores.
  */
 public class Food {
     private String name;
@@ -13,6 +14,13 @@ public class Food {
     private double price;
     private double discount;
 
+    /**
+     * Constructor with changes in name and expireDate other is default.
+     * * createDate - default is: 4 months ago.
+     *
+     * @param name
+     * @param expireDate
+     */
     public Food(String name, Calendar expireDate) {
         var createTime = new GregorianCalendar();
         createTime.add(Calendar.MONTH, -4);

@@ -3,9 +3,10 @@ package ru.job4j.pseudo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.StringJoiner;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -22,14 +23,14 @@ public class PaintTest {
 
     @Before
     public void loadOutput() {
-        System.out.println("execute before method");
+//        System.out.println("execute before method");
         System.setOut(new PrintStream(this.out));
     }
 
     @After
     public void backOutput() {
         System.setOut(this.stdout);
-        System.out.println("execute after method");
+//        System.out.println("execute after method");
     }
 
     @Test

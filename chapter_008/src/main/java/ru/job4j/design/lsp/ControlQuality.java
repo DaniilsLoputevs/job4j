@@ -15,8 +15,8 @@ public class ControlQuality {
     }
 
     /**
-     * accept food and put in right store.
-     * in while it find a right store and put if store say True by method accept
+     * Accept food and put in right store.
+     * In while it find a right store and put if store say True by method accept
      *
      * @param food - food that need to put.
      */
