@@ -9,11 +9,11 @@ import java.util.List;
 
 /**
  * Default Parking.
- *
+ * <p>
  * * truckExtraPlaces - how many Trucks can be placed in Car's place.
  * * truckExtraPlaces - counter how many Truck's Extra free places have left.
  */
-public class defaultParking implements Parking {
+public class DefaultParking implements Parking {
     // limits
     private int carPlaces;
     private int truckPlaces;
@@ -25,7 +25,7 @@ public class defaultParking implements Parking {
     // collection
     private List<Machine> parking;
 
-    public defaultParking(int carPlaces, int truckPlaces, int truckExtraPlaces) {
+    public DefaultParking(int carPlaces, int truckPlaces, int truckExtraPlaces) {
         this.carPlaces = carPlaces;
         this.truckPlaces = truckPlaces;
         this.truckExtraPlaces = truckExtraPlaces;
@@ -114,7 +114,7 @@ public class defaultParking implements Parking {
     @Override
     public String toString() {
         var temp = StringHelper.separateLines(List.of(
-                "defaultParking",
+                "DefaultParking",
                 "carPlaces; " + carPlaces,
                 "truckPlaces= " + truckPlaces,
                 "truckExtraPlaces= " + truckExtraPlaces,

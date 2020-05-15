@@ -27,7 +27,7 @@ public class ParkingTest {
                 new Truck("sixth"),
                 new Truck("seventh")
         );
-        parking = new defaultParking(20, 5, 1);
+        parking = new DefaultParking(20, 5, 1);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ParkingTest {
         assertEquals(25, parking.allPlaces());
         assertEquals(8, parking.occupiedPlace());
 
-        var tempParking = (defaultParking) parking;
+        var tempParking = (DefaultParking) parking;
         assertEquals(17, tempParking.getCarPlacesFree());
         assertEquals(0, tempParking.getTruckPlacesFree());
         assertEquals(0, tempParking.getTruckExtraPlacesFree());
