@@ -1,4 +1,4 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.food;
 
 import daniils.DateHelper;
 import org.junit.Before;
