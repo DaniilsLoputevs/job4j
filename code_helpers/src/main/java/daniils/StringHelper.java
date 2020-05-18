@@ -58,6 +58,7 @@ public class StringHelper {
 
     /**
      * Merge List<String> list in one {@code String} save line separate.
+     *
      * @param list - String to merge.
      * @return - String from all stings in {@param list}.
      */
@@ -67,6 +68,17 @@ public class StringHelper {
             result.append(string);
         }
         return result.toString();
+    }
+
+    /**
+     * Use two methods in one code line. See below:
+     *
+     * @param list - see {@code separateLines(List<String> list) }
+     * @return see {@code mergeToOne(List<String> list)}
+     */
+    public static String separateAndMerge(List<String> list) {
+        var temp = separateLines(list);
+        return mergeToOne(temp);
     }
 
 }
