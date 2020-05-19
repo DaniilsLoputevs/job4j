@@ -8,6 +8,8 @@ import java.util.function.Predicate;
  */
 public interface Store {
 
+    void add(Employee em);
+
     /**
      * Search Employees by {@param filter}.
      *

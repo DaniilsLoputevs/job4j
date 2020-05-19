@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MemStore implements Store {
-
     private final List<Employee> employees = new ArrayList<>();
 
+    @Override
     public void add(Employee em) {
         employees.add(em);
     }

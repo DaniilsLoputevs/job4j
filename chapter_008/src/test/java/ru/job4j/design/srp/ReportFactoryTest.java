@@ -5,6 +5,8 @@ import daniils.DateHelper;
 import daniils.StringHelper;
 import org.junit.Before;
 import org.junit.Test;
+import ru.job4j.design.srp.report.ReportFactory;
+import ru.job4j.design.srp.report.ReportType;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 
-public class ReportEngineTest {
+public class ReportFactoryTest {
     // 1) init
     private MemStore store = new MemStore();
     private Calendar now = Calendar.getInstance();
@@ -28,7 +30,7 @@ public class ReportEngineTest {
     @Test
     public void defaultGenerator() {
         // 3) action
-        var result = new ReportEngine(store).generate(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.STRING, employee -> true);
         // 4) expected
         var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", worker.getHired());
         var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", worker.getFired());
@@ -45,7 +47,7 @@ public class ReportEngineTest {
     @Test
     public void htmlGenerator() {
         // 3) action
-        var result = new ReportEngine(store).generateHtml(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.HTML, employee -> true);
         // 4) expected
         List<String> list = List.of(
                 "<!DOCTYPE html>",
@@ -84,7 +86,7 @@ public class ReportEngineTest {
     @Test
     public void xmlGenerator() {
         // 3) action
-        var result = new ReportEngine(store).generateXml(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.XML, employee -> true);
         // 4) expected
         List<String> list = List.of(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -113,7 +115,7 @@ public class ReportEngineTest {
     @Test
     public void jsonGenerator() {
         // 3) action
-        var result = new ReportEngine(store).generateJson(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.JSON, employee -> true);
         // 4) expected
         List<String> list = List.of(
         );
@@ -152,7 +154,7 @@ public class ReportEngineTest {
         store.add(second);
         store.add(third);
         // 3) action
-        var result = new ReportEngine(store).generateForHr(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.HR, employee -> true);
         // 4) expected
         var expected = "Name; Salary;" + System.lineSeparator()
                 + "Vasja;125.0;" + System.lineSeparator()
@@ -165,7 +167,7 @@ public class ReportEngineTest {
     @Test
     public void accountingGenerator() {
         // 3) action
-        var result = new ReportEngine(store).generateForAccounting(employee -> true);
+        var result = new ReportFactory(store).create(ReportType.ACCOUNTING, employee -> true);
         // 4) expected
         var tempHired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", worker.getHired());
         var tempFired = DateHelper.dateFormat("yyy-MM-dd  HH:mm:ss", worker.getFired());
