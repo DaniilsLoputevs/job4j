@@ -1,5 +1,10 @@
 package ru.job4j.design.lsp.food;
 
+import ru.job4j.design.lsp.food.models.Food;
+
+/**
+ * Class don't use.
+ */
 public class Context {
     private StoreStrategy storeStrategy;
 
