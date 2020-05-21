@@ -5,26 +5,35 @@ package ru.job4j.design.lsp.parking.models;
  */
 public class Machine {
     private String name;
-    private MachineType machineType;
+    private String carNumber;
+    private int height;
 
-    public Machine(String name, MachineType machineType) {
+    public Machine(String name, String carNumber, int height) {
         this.name = name;
-        this.machineType = machineType;
+        this.carNumber = carNumber;
+        this.height = height;
     }
+
 
     public String getName() {
         return name;
     }
 
-    public MachineType getMachineType() {
-        return machineType;
+    public String getCarNumber() {
+        return carNumber;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
 
     @Override
     public String toString() {
         return "Machine{"
                 + "name='" + name + '\''
-                + ", machineType=" + machineType
+                + ", carNumber=" + carNumber
+                + ", height=" + height
                 + '}';
     }
 }

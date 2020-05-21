@@ -17,21 +17,21 @@ public class ParkingTest {
     @Before
     public void setUp() {
         machineList = List.of(
-                new Car("firstC"),
-                new Car("SecondC"),
-                new Truck("firstT"),
-                new Truck("SecondT"),
-                new Truck("thirdT"),
-                new Truck("forthT"),
-                new Truck("fifthT"),
-                new Truck("sixth"),
-                new Truck("seventh")
+                new Car("firstC", "100"),
+                new Car("SecondC", "200"),
+                new Truck("firstT", "300"),
+                new Truck("SecondT", "400"),
+                new Truck("thirdT", "500"),
+                new Truck("forthT", "600"),
+                new Truck("fifthT", "700"),
+                new Truck("sixth", "800"),
+                new Truck("seventh", "900")
         );
         parking = new DefaultParking(20, 5, 1);
     }
 
     @Test
-    public void devRun() {
+    public void acceptTest() {
         parking.acceptAll(machineList);
 
         assertEquals(25, parking.allPlaces());
@@ -41,5 +41,14 @@ public class ParkingTest {
         assertEquals(17, tempParking.getCarPlacesFree());
         assertEquals(0, tempParking.getTruckPlacesFree());
         assertEquals(0, tempParking.getTruckExtraPlacesFree());
+    }
+
+    @Test
+    public void leaveTest() {
+        parking.acceptAll(machineList);
+
+        var temp = parking.leave("100");
+        assertEquals(7, parking.occupiedPlace());
+        assertEquals("100", temp.getCarNumber());
     }
 }

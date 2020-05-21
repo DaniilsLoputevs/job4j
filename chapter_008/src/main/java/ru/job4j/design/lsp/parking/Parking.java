@@ -23,6 +23,13 @@ public interface Parking {
      */
     boolean acceptAll(List<Machine> machineList);
 
+    /**
+     * Take out machine with {@param number}.
+     * @param number - machine number.
+     * @return - Left machine.
+     */
+    Machine leave(String number);
+
     int occupiedPlace();
 
     int allPlaces();

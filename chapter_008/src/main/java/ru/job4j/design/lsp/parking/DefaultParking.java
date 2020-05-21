@@ -2,7 +2,6 @@ package ru.job4j.design.lsp.parking;
 
 import daniils.StringHelper;
 import ru.job4j.design.lsp.parking.models.Machine;
-import ru.job4j.design.lsp.parking.models.MachineType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,18 +42,18 @@ public class DefaultParking implements Parking {
      * @param machine - machine that it try to accept.
      * @return - True if machine accepted.
      */
-    @Override
     public boolean accept(Machine machine) {
-        var type = machine.getMachineType();
+        var type = machine.getHeight();
         var result = false;
 
-        if (type.equals(MachineType.CAR)) {
+        if (type <= 180) {
             result = addCar(machine);
-        } else if (type.equals(MachineType.TRUCK)) {
+        } else if (type >= 210) {
             result = addTruck(machine);
         }
         return result;
     }
+
 
     @Override
     public boolean acceptAll(List<Machine> machineList) {
@@ -87,6 +86,22 @@ public class DefaultParking implements Parking {
             carPlacesFree--;
         }
         return result;
+    }
+
+    @Override
+    public Machine leave(String number) {
+        return parking.remove(findIndexByNumber(number));
+    }
+
+    private int findIndexByNumber(String number) {
+        int count = 0;
+        for (var machine : this.parking) {
+            if (number.equals(machine.getCarNumber())) {
+                break;
+            }
+            count++;
+        }
+        return count;
     }
 
     public int getCarPlacesFree() {
