@@ -80,7 +80,7 @@ public class IOHelper {
      * @param expected   - Ожидаемое содержимое.
      * @return true/false
      */
-    public static boolean compareInfoFromFileWithList(String sourcePath, List expected) {
+    public static boolean compareInfoFromFileWithList(String sourcePath, List<String> expected) {
         List<String> fileLines = readFileToList(sourcePath, ArrayList::new);
         return fileLines.containsAll(expected);
     }
@@ -98,7 +98,9 @@ public class IOHelper {
      * Создать новый файл.
      * * Можно сразу сделать его директорией.
      *
-     * @param path Путь.
+     * @param path    - Path.
+     * @param makeDir - Make this file Dir or not.
+     * @return - Created file.
      */
     public static File createFile(String path, boolean makeDir) {
         File file = new File(path);
