@@ -1,4 +1,4 @@
-package ru.job4j.exam;
+package ru.job4j.exam.analyze;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,10 +6,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class AnalizeTest {
+public class AnalyzeTest {
     private List<User> initList = new ArrayList<>();
     private List<User> newList = new ArrayList<>();
 
@@ -43,17 +42,17 @@ public class AnalizeTest {
                 new User(25, "Six")     // add
         ));
 
-        var info = new Analize.Info();
+        var info = new Analyze.Info();
         info.added = 2;
         info.deleted = 2;
         info.changed = 2;
 
-        var analise = new Analize().diff(initList, newList);
+        var analise = new Analyze().diff(initList, newList);
 
         System.out.println("info:    " + info.toString());
         System.out.println("analise: " + analise.toString());
 
-        assertThat(analise.equals(info), is(true));
+        assertEquals(analise, info);
     }
 
 
@@ -73,16 +72,16 @@ public class AnalizeTest {
                 new User(4, "Hundred")    // change
         ));
 
-        var info = new Analize.Info();
+        var info = new Analyze.Info();
         info.added = 0;
         info.deleted = 2;
         info.changed = 2;
 
-        var analise = new Analize().diff(initList, newList);
+        var analise = new Analyze().diff(initList, newList);
 
         System.out.println("info:    " + info.toString());
         System.out.println("analise: " + analise.toString());
 
-        assertThat(analise.equals(info), is(true));
+        assertEquals(analise, info);
     }
 }

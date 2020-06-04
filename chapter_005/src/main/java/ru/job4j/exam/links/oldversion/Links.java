@@ -1,20 +1,21 @@
-package ru.job4j.exam;
+package ru.job4j.exam.links.oldversion;
 
 import java.util.*;
 
-/** Задание после Экзамена - Решено 15.02.2020
- *
+/**
+ * Задание после Экзамена - Решено 15.02.2020
+ * <p>
  * A1;B1;C1
  * A2;B2;C2
  * ...
- *
+ * <p>
  * Найти множество уникальных строчек и разбить его на непересекающиеся группы по следующему критерию:
  * Если две строчки имеют совпадения непустых значений в одной или более колонках, они принадлежат одной группе.
  * Например, строчки
  * 111;123;222
  * 200;123;100
  * 300;;100
- *
+ * <p>
  * все принадлежат одной группе, так как первые две строчки имеют одинаковое значение 123 во второй колонке,
  * а две последние одинаковое значение 100 в третьей колонке
  * в) Вывести полученные группы в файл в следующем формате:
@@ -27,15 +28,17 @@ import java.util.*;
  * строчка1
  * строчка2
  * строчка3
- *
+ * <p>
  * В начале вывода указать получившиееся число групп с более чем одним элементом.
  * Сверху расположить группы с наибольшим числом элементов.
  */
 public class Links {
 
-    /** Груперует строки в Группы по совпадениям в столбике строк
+    /**
+     * Груперует строки в Группы по совпадениям в столбцах строк.
+     *
      * @param inputStrings - Входнный массив строк.
-     * @return Лист с группами строк.
+     * @return - Лист с группами строк.
      */
     public List<Group> grouping(String[] inputStrings) {
         var result = new LinkedList<Group>();
@@ -65,19 +68,22 @@ public class Links {
     }
 
 
-    /** Модель группы для объяденения строк.
+    /**
+     * Модель группы для объяденения строк.
      * Модель расчитана на 3 столбика в строчке.
      * String[] groupKeys - Ключи которые определяються совпадениями по столбикам и далее не перезаписываются.
-     * Индекс и этом масиввиве значит номер столбика. Одно совпадение по столбику, ключ записан и не меняеться.
+     * Индекс в этом масиввиве значит номер столбика. Одно совпадение по столбику, ключ записан и не меняеться.
      */
     static class Group {
         private String[] container = new String[100];
         private int size = 0;
-        private String[] groupKeys = new String[] {"???", "???", "???"};
+        private String[] groupKeys = new String[]{"???", "???", "???"};
 
-        /** Добавить елемент в группу.
+        /**
+         * Добавить елемент в группу.
+         *
          * @param string - Строчка для добавления.
-         * @param keys - Ключи из строчки.
+         * @param keys   - Ключи из строчки.
          * @return true - Добавили, false - нет, это пойдёт в другую группу.
          */
         public boolean add(String string, String[] keys) {
@@ -94,9 +100,11 @@ public class Links {
             return result;
         }
 
-        /** Проверка по столбику, пожем ли: добавить строчку.
+        /**
+         * Проверка по столбику, пожем ли: добавить строчку.
          * Сравнивает ключи в столбика, если нет ключа, то проходим по всей группе.
-         * @param column - Индекс столбика.
+         *
+         * @param column       - Индекс столбика.
          * @param potentialKey - Возможно новый ключ.
          * @return Можем добавить или нет.
          */
@@ -107,9 +115,11 @@ public class Links {
                     : findKeyInColumnAndSetIfEquals(column, potentialKey);
         }
 
-        /** Сравнивает ключ по во группе в пределе столбика.
+        /**
+         * Сравнивает ключ по во группе в пределе столбика.
          * Если нашёл совпадение, то:  groupKeys[column] = potentialKey;
-         * @param column  - Мндекс столбика.
+         *
+         * @param column       - Мндекс столбика.
          * @param potentialKey - Возможно новый ключ.
          * @return Есть совпадающий ключ или нет.
          */
@@ -129,8 +139,11 @@ public class Links {
         }
 
 
-        /** ---------- Constructors ---------- */
-        public Group() { }
+        /**
+         * ---------- Constructors ----------
+         */
+        public Group() {
+        }
 
         public Group(String[] container, int size, String[] groupKeys) {
             this.container = container;
@@ -138,7 +151,9 @@ public class Links {
             this.groupKeys = groupKeys;
         }
 
-        /** ---------- equals && hashCode && toString ---------- */
+        /**
+         * ---------- equals && hashCode && toString ----------
+         */
         @Override
         public boolean equals(Object o) {
             if (this == o) {
@@ -152,6 +167,7 @@ public class Links {
                     && Arrays.equals(container, group.container)
                     && Arrays.equals(groupKeys, group.groupKeys);
         }
+
         @Override
         public int hashCode() {
             int result = Objects.hash(size);
@@ -159,11 +175,12 @@ public class Links {
             result = 31 * result + Arrays.hashCode(groupKeys);
             return result;
         }
+
         @Override
         public String toString() {
             StringBuilder result = new StringBuilder(
-                    "GroupKeys: " + " " + this.groupKeys[0]  + " "
-                            + this.groupKeys[1]  + " " + this.groupKeys[2]
+                    "GroupKeys: " + " " + this.groupKeys[0] + " "
+                            + this.groupKeys[1] + " " + this.groupKeys[2]
                             + " --- Size:" + size + " --- " + "contain: \n");
 
             for (String string : container) {

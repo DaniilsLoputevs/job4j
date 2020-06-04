@@ -1,21 +1,24 @@
-package ru.job4j.exam;
+package ru.job4j.exam.analyze;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/** Нужно понять:
+/**
+ * Нужно понять:
  * Сколько добавлено новых пользователей.
  * Сколько изменено пользователей. Изменённым считается объект в котором изменилось имя, а id осталось прежним.
  * Сколько удалено пользователей.
  * Обязательно напишите тесты.
  */
-public class Analize {
+public class Analyze {
 
-    /** Собирает инф о разности между версиями коллекций
+    /**
+     * Собирает инф о разности между версиями коллекций
+     *
      * @param previous - начальные данные.
-     * @param current - измененные данные.
+     * @param current  - измененные данные.
      * @return Info
      */
     public Info diff(List<User> previous, List<User> current) {
@@ -67,6 +70,4 @@ public class Analize {
                     + '}';
         }
     }
-
-
 }

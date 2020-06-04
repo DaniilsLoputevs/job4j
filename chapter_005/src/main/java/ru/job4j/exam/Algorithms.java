@@ -1,6 +1,6 @@
-package ru.job4j.exam;
-
-public class Algorithms {
+//package ru.job4j.exam;
+//
+//public class Algorithms {
     /** Термины:
      * O >> Бремя выполнения итерации.
      * n >> Кол-во, итераций/элементов/проверок.
@@ -56,4 +56,4 @@ public class Algorithms {
      *
      *
      */
-}
+//}
