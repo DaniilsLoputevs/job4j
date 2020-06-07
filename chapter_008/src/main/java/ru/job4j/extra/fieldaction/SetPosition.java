@@ -4,14 +4,18 @@ package ru.job4j.extra.fieldaction;
  * Set player position.
  * Switch player to position
  */
-public class SetPosition extends BaseAction {
+public class SetPosition implements FieldAction {
+    String info;
+    int actionParam;
+
     public SetPosition(String info, int actionParam) {
-        super(info, actionParam);
+        this.info = info;
+        this.actionParam = actionParam;
     }
 
     @Override
     public String info() {
-        return super.info;
+        return this.info;
     }
 
     @Override

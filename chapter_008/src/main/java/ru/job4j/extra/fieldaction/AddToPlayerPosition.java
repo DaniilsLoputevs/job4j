@@ -3,14 +3,18 @@ package ru.job4j.extra.fieldaction;
 /**
  * Add value to current player's position.
  */
-public class AddToPlayerPosition extends BaseAction {
+public class AddToPlayerPosition  implements FieldAction{
+    String info;
+    int actionParam;
+
     public AddToPlayerPosition(String info, int actionParam) {
-        super(info, actionParam);
+        this.info = info;
+        this.actionParam = actionParam;
     }
 
     @Override
     public String info() {
-        return super.info;
+        return this.info;
     }
 
     @Override

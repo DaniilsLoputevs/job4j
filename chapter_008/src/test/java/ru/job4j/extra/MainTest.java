@@ -52,39 +52,62 @@ public class MainTest {
         System.out.print("Winner: " + winner.toString());
     }
 
-    class PlayerStub extends BasePlayer {
+    /* ----------- Stub Classes ----------- */
+
+    class PlayerStub implements Player {
+        protected String name;
+
         public PlayerStub(String name) {
-            super(name);
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
 
         @Override
         public String showName() {
-            return super.name;
+            return this.name;
         }
     }
+
     class DiceStub implements Dice {
         @Override
         public int getNum() {
             return new Random().nextInt(6);
         }
     }
-    class GameStub extends BaseGame {
+
+    class GameStub implements Game {
+        protected HashMap<Player, Integer> playerPositionMap;
+
+        @Override
+        public void setPlayers(List<Player> playerList) {
+            this.playerPositionMap = new HashMap<>(playerList.size());
+            for (Player player : playerList) {
+                this.playerPositionMap.put(player, 0);
+            }
+        }
+
         @Override
         public int getPlayerPosition(Player player) {
-            return super.playerPositionMap.get(player);
+            return this.playerPositionMap.get(player);
         }
 
         @Override
         public void setPlayerPosition(Player player, int newPosition) {
-            super.playerPositionMap.put(player, newPosition);
+            this.playerPositionMap.put(player, newPosition);
         }
 
         @Override
         public void start(List<Player> playerList, Field field) {
         }
     }
+
     class GameTurnStub implements GameTurn {
         String info = "";
+
         @Override
         public void acceptInfo(String string) {
             this.info += string + System.lineSeparator();
@@ -95,23 +118,29 @@ public class MainTest {
             return info;
         }
     }
-    class FieldStub extends BaseField {
+
+    class FieldStub implements Field {
+        protected HashMap<Integer, FieldAction> actionMap;
+
         public FieldStub(int size) {
-            super(size);
+            this.actionMap = new HashMap<>(size);
+            for (int i = 0; i < size; i++) {
+                this.actionMap.put(i, null);
+            }
         }
 
         public FieldStub(HashMap<Integer, FieldAction> actionMap) {
-            super(actionMap);
+            this.actionMap = actionMap;
         }
 
         @Override
         public FieldAction getActionByPosition(int position) {
-            return super.actionMap.get(position);
+            return this.actionMap.get(position);
         }
 
         @Override
         public int getCountOfField() {
-            return super.actionMap.size();
+            return this.actionMap.size();
         }
     }
 }
