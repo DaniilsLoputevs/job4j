@@ -1,6 +1,7 @@
 package daniils;
 
 import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +9,20 @@ import java.util.function.Predicate;
 
 public class DateHelperTest {
 
-    @Ignore
+    //    @Ignore
+    @Test
     public void devRun() {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        int[] arr1 = new int[]{1, 2};
+        System.out.println(sumAllElementsInArr(arr, 0));
+    }
 
+    int sumAllElementsInArr(int[] arr, int startIndex) {
+        var temp = arr[startIndex++];
+        if (startIndex < arr.length) {
+            temp += sumAllElementsInArr(arr, startIndex);
+        }
+        return temp;
     }
 
     @Ignore
@@ -49,8 +61,8 @@ public class DateHelperTest {
         System.out.println(two.getTest());
 
 
-
     }
+
     class UUU {
         //        private List test;
         private int test;
