@@ -24,7 +24,7 @@ public class OutputHelper {
         this.outputS = outputS;
     }
 
-    public void accept(Object string) {
+    public Object accept(Object string) {
         if (outputC != null) {
             outputC.accept(string);
         } else if (outputF != null) {
@@ -32,8 +32,8 @@ public class OutputHelper {
         } else if (outputP != null) {
             outputP.test(string);
         } else {
-            outputS.get();
+            return outputS.get();
         }
-
+        return null;
     }
 }

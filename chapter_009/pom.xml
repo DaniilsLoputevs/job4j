@@ -16,6 +16,12 @@
             <artifactId>java-sizeof</artifactId>
             <version>0.0.5</version>
         </dependency>
+        <dependency>
+            <groupId>ru.job4j</groupId>
+            <artifactId>code_helpers</artifactId>
+            <version>3.0</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>

@@ -40,6 +40,15 @@ public class IOHelper {
         return readFileToList(file.getPath(), listConstructor);
     }
 
+    /* ########## Short form ########## */
+    public static List<String> readFileToList(String path) {
+        return readFileToList(path, ArrayList::new);
+    }
+
+    public static List<String> readFileToList(File file) {
+        return readFileToList(file, ArrayList::new);
+    }
+
     /**
      * Записать List в файл{@code path}.
      * * Если не нужно разделять строки >> sysSeparator = "";
