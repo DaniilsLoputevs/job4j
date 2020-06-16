@@ -23,7 +23,8 @@ public class DefaultCacheMap implements CacheMap {
 
     @Override
     public List<String> getCacheContent(String fileName) {
-        if (fileName != null && !this.cachesContains(fileName)) {
+        var temp = this.cacheMap.get(fileName);
+        if (fileName != null && !this.cachesContains(fileName) && temp == null) {
             this.loadCachesByName(fileName);
         }
         return this.cacheMap.get(fileName).get();

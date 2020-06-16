@@ -10,17 +10,10 @@ public class DefaultCacheMapTest {
 
     @Test
     public void load() {
-        var temp = new DefaultCacheMap();
-        temp.load("file_one.txt");
-        var resultTwo = temp.getCacheContent("file_two.txt"); // extra load
-        var expectedTwo = List.of(
-                "eeeeeeeeeeeeee",
-                "ffffffffffffffffffffffffff",
-                "gggg",
-                "hhhhhhhhhhhhhhhhhhhh"
-        );
-        assertEquals(expectedTwo, resultTwo);
-        var resultOne = temp.getCacheContent("file_one.txt");
+        var cacheMap = new DefaultCacheMap();
+        cacheMap.load("file_one.txt");
+
+        var resultOne = cacheMap.getCacheContent("file_one.txt");
         var expectedOne = List.of(
                 "aaaaaaaaaaaaaaaaaa",
                 "bbbbbbbbbbbbbb",
@@ -28,5 +21,14 @@ public class DefaultCacheMapTest {
                 "dddddddddddd"
         );
         assertEquals(expectedOne, resultOne);
+
+        var resultTwo = cacheMap.getCacheContent("file_two.txt"); // extra load
+        var expectedTwo = List.of(
+                "eeeeeeeeeeeeee",
+                "ffffffffffffffffffffffffff",
+                "gggg",
+                "hhhhhhhhhhhhhhhhhhhh"
+        );
+        assertEquals(expectedTwo, resultTwo);
     }
 }
