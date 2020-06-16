@@ -28,7 +28,7 @@ public class DefaultCacheMap implements CacheMap {
             if (isCacheValueClean(fileName)) {
                 this.loadCachesByName(fileName);
             }
-            var temp  = this.cacheMap.get(fileName);
+            var temp = this.cacheMap.get(fileName);
             if (temp != null) {
                 rsl = temp.get();
             }
@@ -49,7 +49,12 @@ public class DefaultCacheMap implements CacheMap {
     }
 
     private boolean isCacheValueClean(String fileName) {
-        return this.cacheMap.get(fileName) == null;
+        var rsl = true;
+        var temp = this.cacheMap.get(fileName);
+        if (temp != null) {
+            rsl = temp.get() == null;
+        }
+        return rsl;
     }
 
 }
