@@ -23,30 +23,33 @@ public class DefaultCacheMap implements CacheMap {
 
     @Override
     public List<String> getCacheContent(String fileName) {
-        var temp = this.cacheMap.get(fileName);
-        if (fileName != null && !this.cachesContains(fileName) && temp == null) {
-            this.loadCachesByName(fileName);
+        List<String> rsl = null;
+        if (fileName != null) {
+            if (isCacheValueClean(fileName)) {
+                this.loadCachesByName(fileName);
+            }
+            var temp  = this.cacheMap.get(fileName);
+            if (temp != null) {
+                rsl = temp.get();
+            }
         }
-        return this.cacheMap.get(fileName).get();
+        return rsl;
     }
 
-    @Override
-    public boolean cachesContains(String fileName) {
-        return this.cacheMap.containsKey(fileName);
-    }
-
-    public void loadCachesByName(String fileName) {
+    private void loadCachesByName(String fileName) {
         try {
-            String filePath;
-            filePath = DefaultCacheMap.class.getClassLoader().getResource("caches/" + fileName).getFile();
+            var filePath = DefaultCacheMap.class.getClassLoader().getResource("caches/" + fileName).getFile();
 //            System.out.println("filePath: " + filePath);
 
             var temp = IOHelper.readFileToList(filePath);
-            var fileContentRef = new SoftReference<>(temp);
-            this.cacheMap.put(fileName, fileContentRef);
+            this.cacheMap.put(fileName, new SoftReference<>(temp));
         } catch (Exception e) {
             System.out.println("WRONG: Cache's directory doesn't contains file with this name: " + fileName);
         }
+    }
+
+    private boolean isCacheValueClean(String fileName) {
+        return this.cacheMap.get(fileName) == null;
     }
 
 }

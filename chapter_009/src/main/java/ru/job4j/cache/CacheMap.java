@@ -10,5 +10,4 @@ public interface CacheMap {
 
     List<String> getCacheContent(String fileName);
 
-    boolean cachesContains(String fileName);
 }
