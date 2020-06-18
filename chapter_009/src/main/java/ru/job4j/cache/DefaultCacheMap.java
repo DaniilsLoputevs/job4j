@@ -4,6 +4,7 @@ import daniils.IOHelper;
 
 import java.io.File;
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,49 +13,52 @@ public class DefaultCacheMap implements CacheMap {
 
 
     @Override
-    public void load(File txtFile) {
-        this.loadCachesByName(txtFile.getName());
+    public void load(File file) {
+        this.loadCachesByName(file.getName());
     }
 
     @Override
-    public void load(String txtFileName) {
-        this.loadCachesByName(txtFileName);
+    public void load(String fileName) {
+        this.loadCachesByName(fileName);
+    }
+
+    @Override
+    public void load(String fileName, List<String> fileContent) {
+        putInMap(fileName, fileContent);
     }
 
     @Override
     public List<String> getCacheContent(String fileName) {
-        List<String> rsl = null;
+        List<String> rsl = new ArrayList<>();
         if (fileName != null) {
-            if (isCacheValueClean(fileName)) {
-                this.loadCachesByName(fileName);
-            }
-            var temp = this.cacheMap.get(fileName);
-            if (temp != null) {
-                rsl = temp.get();
+            if (cacheMap.containsKey(fileName)) {
+                rsl = getOrLoadCache(fileName);
+            } else {
+                rsl = loadCachesByName(fileName);
             }
         }
         return rsl;
     }
 
-    private void loadCachesByName(String fileName) {
+    private List<String> loadCachesByName(String fileName) {
+        List<String> fileContent = new ArrayList<>();
         try {
             var filePath = DefaultCacheMap.class.getClassLoader().getResource("caches/" + fileName).getFile();
-//            System.out.println("filePath: " + filePath);
-
-            var temp = IOHelper.readFileToList(filePath);
-            this.cacheMap.put(fileName, new SoftReference<>(temp));
+            fileContent = IOHelper.readFileToList(filePath);
+            putInMap(fileName, fileContent);
         } catch (Exception e) {
             System.out.println("WRONG: Cache's directory doesn't contains file with this name: " + fileName);
         }
+        return fileContent;
     }
 
-    private boolean isCacheValueClean(String fileName) {
-        var rsl = true;
-        var temp = this.cacheMap.get(fileName);
-        if (temp != null) {
-            rsl = temp.get() == null;
-        }
-        return rsl;
+    private List<String> getOrLoadCache(String fileName) {
+        var rsl = this.cacheMap.get(fileName).get();
+        return (rsl == null) ? this.loadCachesByName(fileName) : rsl;
+    }
+
+    private void putInMap(String fileName, List<String> fileContent) {
+        this.cacheMap.put(fileName, new SoftReference<>(fileContent));
     }
 
 }
