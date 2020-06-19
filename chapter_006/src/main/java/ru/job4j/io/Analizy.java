@@ -1,6 +1,6 @@
 package ru.job4j.io;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 
 import java.util.ArrayList;
 import java.util.List;

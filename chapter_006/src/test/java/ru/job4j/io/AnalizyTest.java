@@ -1,10 +1,10 @@
 package ru.job4j.io;
 
+import daniils.IOHelper;
+import daniils.StringHelper;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
-import ru.job4j.helpers.StringHelper;
 
 import java.io.IOException;
 import java.util.LinkedList;

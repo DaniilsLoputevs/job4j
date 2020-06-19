@@ -1,6 +1,6 @@
 package ru.job4j.copy02;
 
-import ru.job4j.helpers.IOHelper;
+import daniils.IOHelper;
 
 import java.nio.file.Path;
 import java.util.List;

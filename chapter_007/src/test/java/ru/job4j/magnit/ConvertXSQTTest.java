@@ -1,14 +1,17 @@
 package ru.job4j.magnit;
 
-import org.junit.After;
+import daniils.IOHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.job4j.db.ConnectionRollback;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,44 +26,19 @@ public class ConvertXSQTTest {
     private File xslScheme = new File("./src/test/java/ru/job4j/magnit/xslScheme.xml");
     private File xsltTarget;
 
+    private static final Logger LOG = LoggerFactory.getLogger(ConvertXSQTTest.class);
+
     @Before
     public void setUp() {
-        String tmpPathToBase = null;
-        try {
-            tmpPathToBase = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        var config = new Config();
-        config.init();
-        storeSQl = new StoreSQL(config, tmpPathToBase);
-
-        try {
-            storeSQl.getConnect().setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        initStoreSQL();
         try {
             xmlTarget = tempFolder.newFile("xmlTarget.xml");
             xsltTarget = tempFolder.newFile("xsltTarget.xml");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         storeXML = new StoreXML(xmlTarget);
         convertXSQT = new ConvertXSQT();
-    }
-
-    @After
-    public void finish() {
-        try {
-            storeSQl.getConnect().rollback();
-            storeSQl.getConnect().setAutoCommit(true);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Rule
@@ -114,8 +92,23 @@ public class ConvertXSQTTest {
                 "        \\</entries>"
         );
         assertEquals(xslExpected, xslResult);
-
     }
 
 
+    private void initStoreSQL() {
+        try {
+            var config = new Config();
+            config.init();
+            var dbPath = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
+            var connect = DriverManager.getConnection(
+                    config.get("testUrl") + '/' + dbPath);
+
+            // just make a comment line below if you don't need a rollback connection
+            connect = ConnectionRollback.create(connect);
+            this.storeSQl = new StoreSQL(connect);
+
+        } catch (SQLException | IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
 }

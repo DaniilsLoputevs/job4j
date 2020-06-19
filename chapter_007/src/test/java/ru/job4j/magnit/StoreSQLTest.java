@@ -1,46 +1,41 @@
 package ru.job4j.magnit;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.job4j.db.ConnectionRollback;
 
 import java.io.IOException;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
 public class StoreSQLTest {
     private StoreSQL storeSQl;
+    private static final Logger LOG = LoggerFactory.getLogger(StoreSQLTest.class);
 
     @Before
     public void setUp() {
-        String tmpPathToBase = null;
         try {
-            tmpPathToBase = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            var config = new Config();
+            config.init();
 
-        var config = new Config();
-        config.init();
-        storeSQl = new StoreSQL(config, tmpPathToBase);
+            var dbPath = tempFolder.newFile("magnitShopTask.sqlite3").getPath();
 
-        try {
-            storeSQl.getConnect().setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+            var connect = DriverManager.getConnection(
+                    config.get("testUrl") + '/' + dbPath);
 
-    @After
-    public void finish() {
-        try {
-            storeSQl.getConnect().rollback();
-            storeSQl.getConnect().setAutoCommit(true);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // just make a comment line below if you don't need a rollback connection
+            connect = ConnectionRollback.create(connect);
+
+            storeSQl = new StoreSQL(connect);
+
+        } catch (SQLException | IOException e) {
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -55,5 +50,4 @@ public class StoreSQLTest {
         var temp = storeSQl.load();
         assertEquals(10, temp.size());
     }
-
 }

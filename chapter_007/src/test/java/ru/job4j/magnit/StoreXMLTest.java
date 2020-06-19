@@ -1,10 +1,10 @@
 package ru.job4j.magnit;
 
+import daniils.IOHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
 
 import java.io.File;
 import java.util.ArrayList;

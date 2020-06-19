@@ -1,10 +1,10 @@
 package ru.job4j.search;
 
+import daniils.IOHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.helpers.IOHelper;
 
 import java.util.Set;
 
