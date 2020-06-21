@@ -2,6 +2,8 @@ package ru.job4j.ref;
 
 import net.jcip.annotations.ThreadSafe;
 
+import java.util.Objects;
+
 @ThreadSafe
 public class User {
     private int id;
@@ -30,7 +32,12 @@ public class User {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name='" + name + '\'' + '}';
+        return "User{" + "name= " + name + ", hashCode= " + hashCode() + '\'' + '}';
     }
 }
