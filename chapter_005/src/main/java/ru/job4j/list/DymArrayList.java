@@ -18,9 +18,10 @@ public class DymArrayList<E> implements Iterable<E> {
         this.container[size++] = value;
         modCount++;
         if (container.length == size - 1) {
-            grow();
+            reSize();
         }
     }
+
     public E get(int index) {
         return (E) this.container[index];
     }
@@ -34,6 +35,7 @@ public class DymArrayList<E> implements Iterable<E> {
         for (int i = 0; i < this.size; i++) {
             if (container[i].equals(value)) {
                 result = true;
+                break;
             }
         }
         return result;
@@ -44,15 +46,17 @@ public class DymArrayList<E> implements Iterable<E> {
         return new LocalIterator();
     }
 
-    private void grow() {
+    private void reSize() {
         this.container = Arrays.copyOf(container, container.length * 2);
     }
 
 
-
-
+    /**
+     * fail-fast - iterator will throw ConcurrentModificationException
+     * if collection will change while iterator exist.
+     */
     private class LocalIterator implements Iterator<E> {
-        private int expectedModCount = modCount;
+        private final int expectedModCount = modCount;
         private int position = 0;
 
         @Override
@@ -60,6 +64,7 @@ public class DymArrayList<E> implements Iterable<E> {
             checkForModification();
             return size > position;
         }
+
         @Override
         public E next() {
             checkForModification();

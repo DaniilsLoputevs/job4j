@@ -3,7 +3,6 @@ package ru.job4j.synhrnonize;
 public interface UserStorage {
     boolean add(User user);
 
-
     boolean update(User user);
 
     boolean delete(User user);
