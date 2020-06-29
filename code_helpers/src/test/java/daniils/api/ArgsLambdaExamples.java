@@ -14,7 +14,7 @@ public class ArgsLambdaExamples {
     public void runFlag() {
         var args = new String[]{"-exe", "something"};
 
-        Properties prop = new ArgsLambda.Builder()
+        Properties prop = ArgsLambda.build()
                 .load(args)   // load(...) like first option.
                 .add("-exe")  // add flag
                 .run();       // start processing args
@@ -27,7 +27,7 @@ public class ArgsLambdaExamples {
         var args = new String[]{"url", "w.leningrad.ru"};
         var log = new ArrayList<String>();
 
-        Properties prop = new ArgsLambda.Builder()
+        Properties prop = ArgsLambda.build()
                 .load(args)
                 .add("url", arg -> arg.contains(".org"))  // add normal-key
                 .print(log::add)              // print option (save all warnings to log)
@@ -45,7 +45,7 @@ public class ArgsLambdaExamples {
     public void runMultiKey() {
         var args = new String[]{"-exe", "1", "kb", "s"};
 
-        Map<String, String> prop = new ArgsLambda.Builder()
+        Map<String, List<String>> prop = ArgsLambda.build()
                 .add("-exe", List.of(          // add multi-key
                         arg -> arg.equals("1"),    // first param validate
                         arg -> arg.equals("kb"),   // second param validate
@@ -53,10 +53,10 @@ public class ArgsLambdaExamples {
                 .load(args)                        // load like last option
                 .runToMap();                       // start and return like Map<String, String>
 
-        var values = prop.get("-exe").split("-");
-        assertEquals("1", values[0]);
-        assertEquals("kb", values[1]);
-        assertEquals("s", values[2]);
+        var values = prop.get("-exe");
+        assertEquals("1", values.get(0));
+        assertEquals("kb", values.get(1));
+        assertEquals("s", values.get(2));
     }
 
     /* ######## Specific cases ######## */
@@ -66,7 +66,7 @@ public class ArgsLambdaExamples {
     public void runOverloadKeyParams() {
         var args = new String[]{"-exe", "10", "mb"};
 
-        Properties prop = new ArgsLambda.Builder()
+        Properties prop = ArgsLambda.build()
                 .add("-exe", List.of(
                         arg -> arg.equals("1"),
                         arg -> arg.equals("kb"),
@@ -75,14 +75,13 @@ public class ArgsLambdaExamples {
                 .loadAndRun(args);        // * if we have args for second way to validate,
         // it's mean that first way fail and must have option {.continuable()}
 
-        Properties alternativeValidate = new ArgsLambda.Builder()
+        Properties alternativeValidate = ArgsLambda.build()
                 .add("-exe", List.of(          // add overload to multi-key validate
                         arg -> arg.equals("10"),   // new variant that you wait from args
                         arg -> arg.equals("mb")))
                 .loadAndRun(args);                 // loadAndRun(...) in use.
 
-        new ArgsLambda.Builder()
-                .update(prop, alternativeValidate);   // update first prop with new prop from second prop
+        ArgsLambda.build().update(prop, alternativeValidate);   // update first prop with new prop from second prop
 
         /* How it work
             first properties with option {.continuable()} will save:

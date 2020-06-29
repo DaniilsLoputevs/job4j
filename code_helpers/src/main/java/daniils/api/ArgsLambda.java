@@ -1,9 +1,6 @@
 package daniils.api;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -33,7 +30,7 @@ import java.util.function.Predicate;
  * <p>
  * ### run() ### - start conversion arguments to Properties. It is final option.
  * - run()
- * - runToMap() - run and return {@see java.util.Map}
+ * - runToMap() - return Map. key = "key" - value = List<Key's param>
  * <p>
  * ### update(...) ### - update {@param secondProperties} to {@param firstProperties}.
  * - update(Properties firstProperties, Properties secondProperties)
@@ -67,54 +64,53 @@ import java.util.function.Predicate;
  * <p>
  * multi-key - Key with 2 and more params.
  * ask Properties to get multi-key value, - it will return:
- * key: "multi-key" - value: "-{first param}-{second param}-{third param}".
+ * key: "multi-key" - value: "{first param}-{second param}-{third param}".
  * code:
  * String value = prop.get("-s");  // -s - speed - download speed
  * values == "1-kb-s"
- * * You can parse this value in your program.
+ * * You need parse this value in your program.
+ * * OR you can use {API runToMap()} to get separated params.
+ *
+ * @author Daniils Loputevs.
+ * @version 2.0
+ * @since version: 2 Date: 29.06.2020.
  */
 public class ArgsLambda {
-    /**
-     * final Properties that it build and fill.
-     */
-    private final Properties properties = new Properties();
 
-    /**
-     * Map contains all expected normal-keys and their validate.
-     */
-    private final Map<String, Predicate<String>> keyMap = new HashMap<>();
-    /**
-     * Map contains all expected multi-keys and their validate.
-     */
-    private final Map<String, List<Predicate<String>>> multiKeyMap = new HashMap<>();
-    /**
-     * args from console.
-     */
-    private String[] args;
+    public static Container build() {
+        return new Container();
+    }
 
-    /* Settings */
+    public static class Container {
+        /**
+         * final Properties that it build and fill.
+         */
+        private final Properties properties = new Properties();
 
-    /**
-     * Print all warnings. Default: false
-     */
-    private boolean print = false;
-    /**
-     * If print warnings ==>> print to? Default: System.out
-     */
-    private Consumer<String> output = System.out::println;
+        /**
+         * Map contains all expected multi-keys and their validate.
+         */
+        private final Map<String, List<Predicate<String>>> multiKeyMap = new HashMap<>();
+        /**
+         * args from console.
+         */
+        private String[] args;
 
-    /**
-     * continue processing if any param fail validate. Default: false
-     */
-    private boolean continuable = false;
+        /* Settings */
 
+        /**
+         * Print all warnings. Default: false
+         */
+        private boolean print = false;
+        /**
+         * If print warnings ==>> print to? Default: System.out
+         */
+        private Consumer<String> output = System.out::println;
 
-    public static class Builder {
-        private final ArgsLambda constructor;
-
-        public Builder() {
-            this.constructor = new ArgsLambda();
-        }
+        /**
+         * continue processing if any param fail validate. Default: false
+         */
+        private boolean continuable = false;
 
         /**
          * add flag.
@@ -122,8 +118,8 @@ public class ArgsLambda {
          * @param flag flag.
          * @return this builder.
          */
-        public Builder add(String flag) {
-            constructor.properties.setProperty(flag, flag);
+        public Container add(String flag) {
+            this.properties.setProperty(flag, flag);
             return this;
         }
 
@@ -134,20 +130,21 @@ public class ArgsLambda {
          * @param paramValidate validate for key's param.
          * @return this builder.
          */
-        public Builder add(String key, Predicate<String> paramValidate) {
-            constructor.keyMap.put(key, paramValidate);
+        public Container add(String key, Predicate<String> paramValidate) {
+            this.multiKeyMap.put(key, List.of(paramValidate));
             return this;
         }
 
         /**
          * add multi-key. You need to parse value for use. {@see class javaDoc}
+         * OR you can you option {@code runToMap()} - to get
          *
          * @param key             key.
          * @param paramsValidates validates for key's params.
          * @return this builder.
          */
-        public Builder add(String key, List<Predicate<String>> paramsValidates) {
-            constructor.multiKeyMap.put(key, paramsValidates);
+        public Container add(String key, List<Predicate<String>> paramsValidates) {
+            this.multiKeyMap.put(key, paramsValidates);
             return this;
         }
 
@@ -157,8 +154,8 @@ public class ArgsLambda {
          * @param args args from console.
          * @return this builder.
          */
-        public Builder load(String[] args) {
-            constructor.args = args;
+        public Container load(String[] args) {
+            this.args = args;
             return this;
         }
 
@@ -169,7 +166,7 @@ public class ArgsLambda {
          * @return {@code java.util.Properties}
          */
         public Properties loadAndRun(String[] args) {
-            constructor.args = args;
+            this.args = args;
             return run();
         }
 
@@ -179,22 +176,68 @@ public class ArgsLambda {
          * @return {@code java.util.Properties}.
          */
         public Properties run() {
-            if (!this.constructor.keyMap.isEmpty()) {
-                keyRun();
+            for (int i = 0; i < this.args.length; i++) {
+                var currentArg = this.args[i];
+                List<Predicate<String>> validateList = this.multiKeyMap.remove(currentArg);
+
+                check:
+                if (validateList != null) {
+                    if (i < this.args.length - validateList.size()) {
+                        var resultParamValue = new StringBuilder();
+                        int paramIndex = 1;
+
+                        for (var paramPredicate : validateList) {
+                            var expectedKeyParam = this.args[i + paramIndex++];
+
+                            if (paramPredicate.test(expectedKeyParam)) {
+
+                                if (paramIndex == 2) {
+                                    resultParamValue.append(expectedKeyParam);
+                                } else {
+                                    resultParamValue.append("-").append(expectedKeyParam);
+                                }
+                            } else {
+                                if (this.print) {
+                                    this.output.accept(showFailValidateMsg(currentArg, expectedKeyParam));
+                                }
+                                if (!this.continuable) {
+                                    break check;
+                                }
+                            }
+                        }
+                        this.properties.setProperty(currentArg, resultParamValue.toString());
+                    } else {
+                        if (this.print) {
+                            this.output.accept(showArgsWithoutParams(currentArg));
+                        }
+                        if (!this.continuable) {
+                            break check;
+                        }
+                    }
+                }
             }
-            if (!this.constructor.multiKeyMap.isEmpty()) {
-                multiKeyRun();
-            }
-            return this.constructor.properties;
+            return this.properties;
         }
 
         /**
-         * Start conversion arguments to Properties. It is final option.
+         * Start processing arguments and return Map. key = "key" - value = List<Key's param>
+         * key    - key
+         * value  - List<key's param>
          *
-         * @return {@code java.util.Map<String, String>}.
+         * @return Map<String, List < String>>
          */
-        public Map<String, String> runToMap() {
-            return (Map) run();
+        public Map<String, List<String>> runToMap() {
+            run();
+            Map<String, List<String>> map = new HashMap<>();
+            for (var entry : properties.entrySet()) {
+                if (entry.getKey() != null && entry.getValue() != null) {
+
+                    var params = (String) entry.getValue();
+                    List<String> tempList = Arrays.asList(params.split("-"));
+                    map.put((String) entry.getKey(), tempList);
+                }
+            }
+            return map;
         }
 
         /**
@@ -206,7 +249,7 @@ public class ArgsLambda {
          * @param secondProperties -
          * @return updated {@param firstProperties}.
          */
-        public Builder update(Properties firstProperties, Properties secondProperties) {
+        public Container update(Properties firstProperties, Properties secondProperties) {
             for (var tempEntry : secondProperties.entrySet()) {
                 var keyParam = firstProperties.getProperty((String) tempEntry.getKey());
                 if (keyParam == null) {
@@ -222,8 +265,8 @@ public class ArgsLambda {
          *
          * @return this builder.
          */
-        public Builder print() {
-            constructor.print = true;
+        public Container print() {
+            this.print = true;
             return this;
         }
 
@@ -233,9 +276,9 @@ public class ArgsLambda {
          * @param output -
          * @return this builder.
          */
-        public Builder print(Consumer<String> output) {
-            constructor.print = true;
-            constructor.output = output;
+        public Container print(Consumer<String> output) {
+            this.print = true;
+            this.output = output;
             return this;
         }
 
@@ -244,87 +287,12 @@ public class ArgsLambda {
          *
          * @return this builder.
          */
-        public Builder continuable() {
-            constructor.continuable = true;
+        public Container continuable() {
+            this.continuable = true;
             return this;
         }
 
-        /* ####### private thing ####### */
-
-        private void keyRun() {
-            for (int i = 0; i < constructor.args.length; i++) {
-                var currentArg = constructor.args[i];
-                var paramValidate = constructor.keyMap.remove(currentArg);
-
-                check:
-                if (paramValidate != null) {
-                    if (i < constructor.args.length - 1) {
-                        var expectedKeyParam = constructor.args[i + 1];
-
-                        if (paramValidate.test(expectedKeyParam)) {
-                            constructor.properties.setProperty(currentArg, expectedKeyParam);
-                        } else {
-                            if (constructor.print) {
-                                constructor.output.accept(showFailValidateMsg(currentArg, expectedKeyParam));
-                            }
-                            if (!constructor.continuable) {
-                                break check;
-                            }
-                        }
-                    } else {
-                        if (constructor.print) {
-                            constructor.output.accept(showArgsWithoutParams(currentArg));
-                        }
-                        if (!constructor.continuable) {
-                            break check;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void multiKeyRun() {
-            for (int i = 0; i < constructor.args.length; i++) {
-                var currentArg = constructor.args[i];
-                List<Predicate<String>> validateList = constructor.multiKeyMap.remove(currentArg);
-
-                check:
-                if (validateList != null) {
-                    if (i < constructor.args.length - validateList.size()) {
-                        var resultParamValue = new StringBuilder();
-                        int paramIndex = 1;
-
-                        for (Predicate<String> paramPredicate : validateList) {
-                            var expectedKeyParam = constructor.args[i + paramIndex++];
-
-                            if (paramPredicate.test(expectedKeyParam)) {
-
-                                if (paramIndex == 2) {
-                                    resultParamValue.append(expectedKeyParam);
-                                } else {
-                                    resultParamValue.append("-").append(expectedKeyParam);
-                                }
-                            } else {
-                                if (constructor.print) {
-                                    constructor.output.accept(showFailValidateMsg(currentArg, expectedKeyParam));
-                                }
-                                if (!constructor.continuable) {
-                                    break check;
-                                }
-                            }
-                        }
-                        constructor.properties.setProperty(currentArg, resultParamValue.toString());
-                    } else {
-                        if (constructor.print) {
-                            constructor.output.accept(showArgsWithoutParams(currentArg));
-                        }
-                        if (!constructor.continuable) {
-                            break check;
-                        }
-                    }
-                }
-            }
-        }
+        /* ####### WARNINGS ####### */
 
         private String showFailValidateMsg(String key, String param) {
             return "WARNING - ArgsLambda: This key and value fail validate:" + System.lineSeparator()
@@ -337,6 +305,5 @@ public class ArgsLambda {
                     + "requested parameters for this key:" + System.lineSeparator()
                     + "key:   " + key + System.lineSeparator();
         }
-
     }
 }
