@@ -23,25 +23,25 @@ import java.util.function.Predicate;
  * <p>
  * API:
  * ### add(...) ### - add arg that you expect from console and add validate for value of this key.
- * - add(expectedFlag)                                                       -- add flag
- * - add(String expectedKey, Predicate<String> valueValidate)                -- add normal-key
- * - add(String expectedMultiKey, List<Predicate<String>> paramsValidates)   -- add multi-key
+ * - add({@param expectedFlag})                                                       -- add flag
+ * - add(String {@param expectedKey}, Predicate<String> {@param valueValidate})                -- add normal-key
+ * - add(String {@param expectedMultiKey}, List<Predicate<String>> {@param paramsValidates})   -- add multi-key
  * <p>
  * ### load(...) ### - load args from console.
- * - load(String[] args}                    -- It can be first or pre-last option.
- * - loadAndRun(String[] args}              -- {API load} && {API run} in code string.
+ * - load(String[] {@param args}}                    -- It can be first or pre-last option.
+ * - loadAndRun(String[] {@param args}}              -- {API load} && {API run} in code string.
  * <p>
  * ### run() ### - start conversion arguments to Properties. It is final option.
  * - run()
  * - runToMap() - run and return {@see java.util.Map}
  * <p>
- * ### merge(...) ### - merge {@param secondProperties} to {@param firstProperties}.
- * - merge(Properties firstProperties, Properties secondProperties)
+ * ### update(...) ### - update {@param secondProperties} to {@param firstProperties}.
+ * - update(Properties firstProperties, Properties secondProperties)
  * ***** Additional options *****
  * <p>
  * ### print(...) ### - turn on print all warnings. default: false
  * - print()
- * - print(Consumer<String> output ) - print all warnings to this output.
+ * - print({@param Consumer<String> output} ) - print all warnings to this output.
  * <p>
  * ## continuable ## - continue processing if any param fail validate. Default: false
  * - continuable()
@@ -73,7 +73,7 @@ import java.util.function.Predicate;
  * values == "1-kb-s"
  * * You can parse this value in your program.
  */
-class ArgsLambda {
+public class ArgsLambda {
     /**
      * final Properties that it build and fill.
      */
@@ -139,6 +139,13 @@ class ArgsLambda {
             return this;
         }
 
+        /**
+         * add multi-key. You need to parse value for use. {@see class javaDoc}
+         *
+         * @param key             key.
+         * @param paramsValidates validates for key's params.
+         * @return this builder.
+         */
         public Builder add(String key, List<Predicate<String>> paramsValidates) {
             constructor.multiKeyMap.put(key, paramsValidates);
             return this;
@@ -163,7 +170,7 @@ class ArgsLambda {
          */
         public Properties loadAndRun(String[] args) {
             constructor.args = args;
-            return mainRun();
+            return run();
         }
 
         /**
@@ -172,7 +179,13 @@ class ArgsLambda {
          * @return {@code java.util.Properties}.
          */
         public Properties run() {
-            return mainRun();
+            if (!this.constructor.keyMap.isEmpty()) {
+                keyRun();
+            }
+            if (!this.constructor.multiKeyMap.isEmpty()) {
+                multiKeyRun();
+            }
+            return this.constructor.properties;
         }
 
         /**
@@ -181,18 +194,19 @@ class ArgsLambda {
          * @return {@code java.util.Map<String, String>}.
          */
         public Map<String, String> runToMap() {
-            return (Map) mainRun();
+            return (Map) run();
         }
 
         /**
          * Merge {@param secondProperties} to {@param firstProperties}.
          * Don't override properties. Only add new properties.
+         * * add all properties pair that doesn't contains or value = null
          *
          * @param firstProperties  -
          * @param secondProperties -
          * @return updated {@param firstProperties}.
          */
-        public Builder merge(Properties firstProperties, Properties secondProperties) {
+        public Builder update(Properties firstProperties, Properties secondProperties) {
             for (var tempEntry : secondProperties.entrySet()) {
                 var keyParam = firstProperties.getProperty((String) tempEntry.getKey());
                 if (keyParam == null) {
@@ -203,33 +217,39 @@ class ArgsLambda {
             return this;
         }
 
+        /**
+         * print all warnings to console.
+         *
+         * @return this builder.
+         */
         public Builder print() {
             constructor.print = true;
             return this;
         }
 
+        /**
+         * print all warnings to this output.
+         *
+         * @param output -
+         * @return this builder.
+         */
         public Builder print(Consumer<String> output) {
             constructor.print = true;
             constructor.output = output;
             return this;
         }
 
+        /**
+         * Use this option if you want to continue validate then one or more params fail validate.
+         *
+         * @return this builder.
+         */
         public Builder continuable() {
             constructor.continuable = true;
             return this;
         }
 
         /* ####### private thing ####### */
-
-        private Properties mainRun() {
-            if (!this.constructor.keyMap.isEmpty()) {
-                keyRun();
-            }
-            if (!this.constructor.multiKeyMap.isEmpty()) {
-                multiKeyRun();
-            }
-            return this.constructor.properties;
-        }
 
         private void keyRun() {
             for (int i = 0; i < constructor.args.length; i++) {
