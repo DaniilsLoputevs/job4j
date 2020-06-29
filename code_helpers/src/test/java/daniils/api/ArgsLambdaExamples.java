@@ -45,8 +45,8 @@ public class ArgsLambdaExamples {
     public void runMultiKey() {
         var args = new String[]{"-exe", "1", "kb", "s"};
 
-        Map<String, List<String>> prop = ArgsLambda.build()
-                .add("-exe", List.of(          // add multi-key
+        Map<String, List<String>> prop = ArgsLambda.build()  // add multi-key
+                .add("-exe", List.of(
                         arg -> arg.equals("1"),    // first param validate
                         arg -> arg.equals("kb"),   // second param validate
                         arg -> arg.equals("s")))   // third param validate
@@ -75,9 +75,10 @@ public class ArgsLambdaExamples {
                 .loadAndRun(args);        // * if we have args for second way to validate,
         // it's mean that first way fail and must have option {.continuable()}
 
+        // add overload to multi-key validate, - new variant that you wait from args
         Properties alternativeValidate = ArgsLambda.build()
-                .add("-exe", List.of(          // add overload to multi-key validate
-                        arg -> arg.equals("10"),   // new variant that you wait from args
+                .add("-exe", List.of(
+                        arg -> arg.equals("10"),
                         arg -> arg.equals("mb")))
                 .loadAndRun(args);                 // loadAndRun(...) in use.
 

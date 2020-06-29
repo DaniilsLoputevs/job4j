@@ -231,8 +231,8 @@ public class ArgsLambda {
             Map<String, List<String>> map = new HashMap<>();
             for (var entry : properties.entrySet()) {
                 if (entry.getKey() != null && entry.getValue() != null) {
-
                     var params = (String) entry.getValue();
+
                     List<String> tempList = Arrays.asList(params.split("-"));
                     map.put((String) entry.getKey(), tempList);
                 }
