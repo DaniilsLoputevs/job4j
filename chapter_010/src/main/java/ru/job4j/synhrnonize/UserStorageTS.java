@@ -24,6 +24,11 @@ public class UserStorageTS implements UserStorage {
     }
 
     @Override
+    public synchronized User get(int id) {
+        return this.store.get(id);
+    }
+
+    @Override
     public synchronized boolean update(User user) {
         if (this.store.containsKey(user.getId())) {
             this.store.replace(user.getId(), user);
@@ -46,8 +51,15 @@ public class UserStorageTS implements UserStorage {
         if (userFrom != null && userTo != null) {
             if (userFrom.getAmount() > amount && amount > 0) {
                 synchronized (this) {
-                    userFrom.changeAmount(-amount);
-                    userTo.changeAmount(amount);
+
+                    var tempFrom = new User(fromId, userFrom.getAmount() - amount);
+                    var tempTo = new User(toId, userTo.getAmount() + amount);
+
+                    this.store.replace(fromId, tempFrom);
+                    this.store.replace(toId, tempTo);
+
+//                    userFrom.changeAmount(-amount);
+//                    userTo.changeAmount(amount);
                     rsl = true;
                 }
             } else {
@@ -60,5 +72,12 @@ public class UserStorageTS implements UserStorage {
     @Override
     public synchronized int size() {
         return this.store.size();
+    }
+
+    /* ####### private things ####### */
+
+    private synchronized void refreshUsers(int fromId, int newFromAmount, int toId, int newToAmount) {
+        this.store.replace(fromId, new User(fromId, newFromAmount));
+        this.store.replace(toId, new User(toId, newToAmount));
     }
 }
