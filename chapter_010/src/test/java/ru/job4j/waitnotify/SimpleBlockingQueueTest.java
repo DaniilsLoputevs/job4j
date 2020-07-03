@@ -10,9 +10,9 @@ public class SimpleBlockingQueueTest {
                 () -> {
                     try {
                         queue.offer(2);
-                        Thread.sleep(10000);
+                        Thread.sleep(5000);
                         queue.offer(3);
-                        Thread.sleep(10000);
+                        Thread.sleep(5000);
                         queue.offer(4);
 
                     } catch (InterruptedException e) {

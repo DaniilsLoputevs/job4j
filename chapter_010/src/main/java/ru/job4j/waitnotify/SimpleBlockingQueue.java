@@ -19,16 +19,9 @@ public class SimpleBlockingQueue<T> {
     public void offer(T value) {
         synchronized (this) {
             if (queue.size() == maxQueSize) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " - "
-                        + Thread.currentThread().getState() + " - WAIT");
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                threadGoSleep();
             } else {
-                System.out.println(Thread.currentThread().getName() + " - "
-                        + Thread.currentThread().getState() + " - Que +1");
+                info(" - Que +1");
                 queue.add(value);
                 this.notifyAll();
             }
@@ -39,19 +32,31 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             T rsl = null;
             if (queue.size() == 0) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " - "
-                        + Thread.currentThread().getState() + " - WAIT");
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                threadGoSleep();
             } else {
-                System.out.println(Thread.currentThread().getName() + " - "
-                    + Thread.currentThread().getState() + " - Que -1");
+                info(" - Que -1");
                 rsl = queue.poll();
             }
             return rsl;
+        }
+    }
+
+    public synchronized int size() {
+        return this.queue.size();
+    }
+
+    private void info(String string) {
+        System.out.println(Thread.currentThread().getName() + " - "
+                + Thread.currentThread().getState() + string);
+    }
+
+    private void threadGoSleep() {
+        try {
+            System.out.println(Thread.currentThread().getName() + " - "
+                    + Thread.currentThread().getState() + " - WAIT");
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
