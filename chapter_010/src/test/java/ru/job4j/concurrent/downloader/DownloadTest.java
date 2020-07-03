@@ -32,10 +32,19 @@ public class DownloadTest {
     }
 
     @Test
-    public void mainTest() {
+    public void downloadTest() {
         assertTrue(IOHelper.readFileToList(targetFile).isEmpty());
         String[] args = {"-url", url, "-t", path, "-n", "download_test.xml", "-s", "2", "kb"};
-        Download.logic(args);
+
+        new Download().downloadByArgs(args);
         assertFalse(IOHelper.readFileToList(targetFile).isEmpty());
     }
+
+    //    @Test
+//    public void mainTest() {
+//        assertTrue(IOHelper.readFileToList(targetFile).isEmpty());
+//        String[] args = {"-url", url, "-t", path, "-n", "download_test.xml", "-s", "2", "kb"};
+//        Download.logic(args);
+//        assertFalse(IOHelper.readFileToList(targetFile).isEmpty());
+//    }
 }

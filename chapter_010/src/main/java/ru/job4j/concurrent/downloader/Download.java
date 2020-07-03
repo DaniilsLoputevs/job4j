@@ -16,7 +16,7 @@ import java.util.Map;
  * kof = "b"
  */
 public class Download {
-    public static void logic(String[] args) {
+    public void downloadByArgs(String[] args) {
         var config = processingArgs(args);
 
         String url = config.get("-url").get(0);
@@ -41,7 +41,7 @@ public class Download {
     /**
      * -url {url value} -t {target path} -n {name} -s {num} {kof}
      */
-    public static Map<String, List<String>> processingArgs(String[] args) {
+    private Map<String, List<String>> processingArgs(String[] args) {
         return ArgsLambda.build()
                 .add("-url", arg -> arg.contains("https://"))
                 .add("-t", ars -> true)
@@ -55,7 +55,7 @@ public class Download {
                 .runToMap();
     }
 
-    private static long speedConvert(List<String> speed) {
+    private long speedConvert(List<String> speed) {
         long realSpeed = Integer.parseInt(speed.get(0));
         var speedInString = speed.get(1);
         if (speedInString.equalsIgnoreCase("kb")) {
@@ -67,7 +67,8 @@ public class Download {
     }
 
     public static void main(String[] args) {
-        logic(args);
+       var download = new Download();
+       download.downloadByArgs(args);
     }
 
 }
