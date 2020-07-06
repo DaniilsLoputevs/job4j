@@ -12,6 +12,10 @@ public class SimpleBlockingQueue<T> {
     private final Queue<T> queue = new LinkedList<T>();
     private final int maxQueSize;
 
+    public SimpleBlockingQueue() {
+        this.maxQueSize = 32;
+    }
+
     public SimpleBlockingQueue(int maxQueSize) {
         this.maxQueSize = maxQueSize;
     }
