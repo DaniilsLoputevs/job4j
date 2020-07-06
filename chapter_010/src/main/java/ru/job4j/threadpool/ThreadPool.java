@@ -1,19 +1,20 @@
 package ru.job4j.threadpool;
 
+import net.jcip.annotations.ThreadSafe;
 import ru.job4j.waitnotify.SimpleBlockingQueue;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@ThreadSafe
 public class ThreadPool {
     private final int threadCount = Runtime.getRuntime().availableProcessors();
     private final List<Thread> threads = new LinkedList<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
-    private boolean work;
+    private boolean work = true;
 
     public ThreadPool() {
         initAndStartThreads();
-        work = true;
     }
 
 
