@@ -9,11 +9,11 @@ public class CasCounterTest {
     public void when3PushThen3Poll() {
         var counter = new CasCounter();
         var threadOne = new Thread(
-            () -> {
-                for (int i = 0; i < 10; i++) {
-                    counter.increment();
+                () -> {
+                    for (int i = 0; i < 10; i++) {
+                        counter.increment();
+                    }
                 }
-            }
         );
         var threadTwo = new Thread(
                 () -> {

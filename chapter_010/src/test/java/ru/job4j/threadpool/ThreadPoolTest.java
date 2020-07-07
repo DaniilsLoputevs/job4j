@@ -50,7 +50,6 @@ public class ThreadPoolTest {
         assertTrue(newOutput.toString().contains("Thread pool: thread"));
         assertTrue(newOutput.toString().contains("Thread pool: shutdown"));
         assertTrue(newOutput.toString().contains("Thread pool: all threads state:"));
-        assertTrue(newOutput.toString().contains("Thread pool: thread 3 - WAITING"));
         assertTrue(newOutput.toString().contains("Thread pool: thread 1 - TERMINATED"));
     }
 
