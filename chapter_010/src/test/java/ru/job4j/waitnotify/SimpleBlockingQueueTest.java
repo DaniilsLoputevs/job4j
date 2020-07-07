@@ -1,13 +1,33 @@
 package ru.job4j.waitnotify;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SimpleBlockingQueueTest {
+    private ByteArrayOutputStream newOutput;
+    private PrintStream defaultOutput;
+
+    @Before
+    public void changeOutput() {
+        newOutput = new ByteArrayOutputStream();
+        defaultOutput = System.out;
+        System.setOut(new PrintStream(newOutput));
+    }
+
+    @After
+    public void returnOutput() {
+        System.setOut(defaultOutput);
+    }
+
     @Test
     public void iterateTwoThreads() {
         var queue = new SimpleBlockingQueue<Integer>(3);
@@ -67,6 +87,15 @@ public class SimpleBlockingQueueTest {
         }
         System.out.println("main - finish work");
         System.out.println("Program finish");
+
+
+        assertTrue(newOutput.toString().contains("main - RUNNABLE - Que +1"));
+        assertTrue(newOutput.toString().contains("Producer - RUNNABLE - Que +1"));
+        assertTrue(newOutput.toString().contains("Consumer - RUNNABLE - Que -1"));
+        assertTrue(newOutput.toString().contains("Main - AWAKE"));
+        assertTrue(newOutput.toString().contains("Main - join others"));
+        assertTrue(newOutput.toString().contains("Consumer - RUNNABLE - WAIT"));
+        assertTrue(newOutput.toString().contains("main - finish work"));
     }
     /*
     Program start
@@ -140,6 +169,14 @@ public class SimpleBlockingQueueTest {
         }
         System.out.println("### Program Finish ###");
         assertEquals(Arrays.asList(1, 2, 3), buffer);
+
+        assertTrue(newOutput.toString().contains("consumer - STARTED"));
+        assertTrue(newOutput.toString().contains("producer - offer(): 1"));
+        assertTrue(newOutput.toString().contains("producer - RUNNABLE - Que +1"));
+        assertTrue(newOutput.toString().contains("consumer - poll(): null"));
+        assertTrue(newOutput.toString().contains("producer - offer(): 2"));
+        assertTrue(newOutput.toString().contains("consumer - poll(): 1"));
+        assertTrue(newOutput.toString().contains("producer - FINISH ALL"));
     }
     /*
     ### Program Start ###
