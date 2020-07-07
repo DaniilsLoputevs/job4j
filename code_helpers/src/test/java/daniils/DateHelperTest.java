@@ -1,6 +1,5 @@
 package daniils;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.ref.SoftReference;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class DateHelperTest {
 
@@ -105,11 +105,14 @@ public class DateHelperTest {
         int num = 10;
     }
 
-    @Ignore
+    @Test
     public void exp() {
-        var test = new UserArray().filter(user -> user.name.equals("laptop"));
-//        var test = new UserArray().filter(user -> user.age == 10);
+//      "Clean Code".equalsIgnoreCase(b.getName());
+    }
 
+
+    public Integer add(Supplier<Integer> supplier) {
+        return supplier.get();
     }
 
     class UserArray {
