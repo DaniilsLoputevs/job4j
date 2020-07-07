@@ -173,7 +173,6 @@ public class SimpleBlockingQueueTest {
         assertTrue(newOutput.toString().contains("consumer - STARTED"));
         assertTrue(newOutput.toString().contains("producer - offer(): 1"));
         assertTrue(newOutput.toString().contains("producer - RUNNABLE - Que +1"));
-        assertTrue(newOutput.toString().contains("consumer - poll(): null"));
         assertTrue(newOutput.toString().contains("producer - offer(): 2"));
         assertTrue(newOutput.toString().contains("consumer - poll(): 1"));
         assertTrue(newOutput.toString().contains("producer - FINISH ALL"));
