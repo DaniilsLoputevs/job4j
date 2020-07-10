@@ -60,7 +60,7 @@ public class SimpleBlockingQueue<T> {
                     + Thread.currentThread().getState() + " - WAIT");
             this.wait();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 }

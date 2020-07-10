@@ -5,16 +5,29 @@ import ru.job4j.waitnotify.SimpleBlockingQueue;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @ThreadSafe
 public class ThreadPool {
-    private final int threadCount = Runtime.getRuntime().availableProcessors();
     private final List<Thread> threads = new LinkedList<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
-    private boolean work = true;
+    private final AtomicBoolean work = new AtomicBoolean(true);
 
     public ThreadPool() {
-        initAndStartThreads();
+        int threadCount = Runtime.getRuntime().availableProcessors();
+        for (int i = 0; i < threadCount; i++) {
+            threads.add(new Thread(
+                    () -> {
+                        while (work.get()) {
+                            var temp = tasks.poll();
+                            if (temp != null) {
+                                temp.run();
+                            }
+                        }
+                    }, "Thread pool: thread " + i
+            ));
+        }
+        threads.forEach(Thread::start);
     }
 
 
@@ -34,11 +47,11 @@ public class ThreadPool {
      */
     public void shutdown() {
         System.out.println("Thread pool: shutdown");
-        work = false;
-        tasks.offer(null);
+        work.set(false);
+        threads.forEach(Thread::interrupt);
     }
 
-    public synchronized void showAllThreadsState() {
+    public void showAllThreadsState() {
         System.out.println("Thread pool: all threads state:");
         threads.forEach(thread -> System.out.printf("%s %s %s%n",
                 thread.getName(), '-', thread.getState()));
@@ -60,26 +73,4 @@ public class ThreadPool {
         }
     }
 
-    /* ====== private things ====== */
-
-    private void initAndStartThreads() {
-        for (int i = 0; i < threadCount; i++) {
-            threads.add(new Thread(
-                    () -> {
-                        while (work) {
-                            try {
-                                var temp = tasks.poll();
-                                if (temp != null) {
-                                    temp.run();
-                                }
-                                Thread.sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, "Thread pool: thread " + i
-            ));
-        }
-        threads.forEach(Thread::start);
-    }
 }

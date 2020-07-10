@@ -1,6 +1,6 @@
 package daniils;
 
-public class ArrayHelper {
+public class Algorithms {
     /**
      * Sum all elements in {@param arr}.
      *

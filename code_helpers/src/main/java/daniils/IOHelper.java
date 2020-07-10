@@ -72,6 +72,15 @@ public class IOHelper {
         writeListToFile(file.getPath(), content, sysSeparator);
     }
 
+    public static void writeStringToFie(String path, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+            writer.write(content);
+        } catch (IOException e) {
+            System.out.println("IOException: IOHelper - write List to File!");
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Переписать Текст из {@code source} в файл по {@code targetPath}.
      *

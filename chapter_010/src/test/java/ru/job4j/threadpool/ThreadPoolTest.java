@@ -45,6 +45,9 @@ public class ThreadPoolTest {
         threadPool.showAllThreadsState();
         System.out.println("### Finish Program ###");
 
+        // ### LOG ###
+//        TestHelper.saveLog("src/test/java/ru/job4j/threadpool/logN.txt", newOutput.toString());
+        // ### LOG ###
 
         assertTrue(newOutput.toString().contains("loading: 1"));
         assertTrue(newOutput.toString().contains("Thread pool: thread"));
