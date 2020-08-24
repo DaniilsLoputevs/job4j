@@ -5,6 +5,90 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
+ * NEW JAVADOC
+ *
+ *
+ *
+ * Class for processing "args from console"{@link Properties}.
+ * HOW IT WORKS
+ * example:
+ * We have: String[] args = new String {"keyOne", "ArgOne", "KeyTwo", "ArgTwo"}
+ * We need: check that ArgOne - pass logic check for THIS arg. IF pass >>> write this arg to pair with "keyOne".
+ * and the same for "ArgTwo" and "keyOne".
+ * code:
+ * String[] args = new String {"-url", "www.example.com", "-command", "\\open"}
+ * Properties prop = new ArgsLambda.Builder()
+ * .add("-url", arg -> arg.contains("www."))
+ * .add("-command", arg -> arg.contains("\\"))
+ * .print()
+ * .loadAndRun(args);
+ * }
+ * ##### For more code examples see {@see ArgsLambdaExamples} #####
+ * ### Some terms that this javaDoc use ###
+ * ### Args type ###
+ * <p>
+ * flags - expect that this key will not have param.
+ * * this is for logical check: Do we have this option or not (TRUE || FALSE).
+ * code:
+ * If args HAVE flag:
+ * property.get("flag"); ==> will return: "flag"
+ * If args DON'T HAVE flag:
+ * property.get("flag"); ==> will return: null
+ * </p>
+ * <p>
+ * normal-key - key with 1 param.
+ * code:
+ * If arg PASS validate:
+ * property.get("key"); ==> will return: "KeyParam"
+ * If args DON'T PASS validate:
+ * WARNINGS: N key fail validate with param: M - and stop processing next args.
+ * * OR you can use option {API continuable();} and continue, but you will have:
+ * property.get("key"); ==> will return: null
+ * </p>
+ * <p>
+ * multi-key - Key with 2 and more params.
+ * * IF YOU USE THIS KEY - please you option {API runToMap();}.
+ * * It will be better way that parse your value.
+ * If arg PASS validate:
+ * property.get("multi-key"); ==> will return: "keyParam1-keyParam2-keyParam3".
+ * OR
+ * property.get("multi-key"); ==> will return: list.of("keyParam1", "keyParam2", "keyParam3").
+ * If args DON'T PASS validate:
+ * WARNINGS: N key fail validate with param: M - and stop processing next args.
+ * * OR you can use option {API continuable();} and continue, but you will have:
+ * property.get("key"); ==> will return: null
+ * </p>
+ * ### Short API description ###
+ * ### add(...) ### - add pair of: arg that you expect and validate for param of this arg
+ * - add(String expectedFlag)                                                -- add flag
+ * - add(String expectedKey, Predicate<String> valueValidate)                -- add normal-key
+ * - add(String expectedMultiKey, List<Predicate<String>> paramsValidates)   -- add multi-key
+ * <p>
+ * ### load(...) ### - load args for processing.
+ * - load(String[] args}                    -- It can be first or pre-last option.
+ * - loadAndRun(String[] args}              -- {API load} && {API run} in code string.
+ * <p>
+ * ### run() ### - start conversion arguments to Properties. It is final option.
+ * - run()                               - return {@link Properties}.
+ * - runToMap()                          - return Map. key = "key" - value = List<Key's param>.
+ * <p>
+ * ### update(...) ### - update {@param secondProperties} to {@param firstProperties}.
+ * - update(Properties firstProperties, Properties secondProperties)
+ * ***** Additional options *****
+ * <p>
+ * ### print(...) ### - turn on print all warnings. default: false
+ * - print()                                  - change Setting: print = true;
+ * - print({@param Consumer<String> output} ) - print all warnings to this output.
+ * <p>
+ * ## continuable ## - continue processing if any param fail validate. Default: false
+ * - continuable()
+ *
+ *
+ *
+ * OLD JAVADOC - maybe it will help to somebody.
+ *
+ *
+ *
  * Class for construct {@see java.util.Properties} from args{@see public static void main(String[] args)}
  * How to use:
  * <p>
@@ -42,7 +126,6 @@ import java.util.function.Predicate;
  * <p>
  * ## continuable ## - continue processing if any param fail validate. Default: false
  * - continuable()
- * <p>
  * <p>
  * <p>
  * Args type:
@@ -91,12 +174,13 @@ public class ArgsLambda {
          * Map contains all expected multi-keys and their validate.
          */
         private final Map<String, List<Predicate<String>>> multiKeyMap = new HashMap<>();
+
         /**
          * args from console.
          */
         private String[] args;
 
-        /* Settings */
+        /* ####### Settings ####### */
 
         /**
          * Print all warnings. Default: false
@@ -160,7 +244,7 @@ public class ArgsLambda {
         }
 
         /**
-         * {API load} && {API run} in code string.
+         * {API load} && {API run} in one string.
          *
          * @param args from console.
          * @return {@code java.util.Properties}
@@ -260,8 +344,11 @@ public class ArgsLambda {
             return this;
         }
 
+        /* ####### Settings ####### */
+
         /**
-         * print all warnings to console.
+         * Change setting: print all warnings to output.
+         * * Default output is: usual console console.
          *
          * @return this builder.
          */
@@ -271,7 +358,8 @@ public class ArgsLambda {
         }
 
         /**
-         * print all warnings to this output.
+         * Change setting: print all warnings to output.
+         * Change setting: set new output for print {@param output}.
          *
          * @param output -
          * @return this builder.
@@ -283,7 +371,7 @@ public class ArgsLambda {
         }
 
         /**
-         * Use this option if you want to continue validate then one or more params fail validate.
+         * Change setting: continue validate then one or more params fail validate.
          *
          * @return this builder.
          */
