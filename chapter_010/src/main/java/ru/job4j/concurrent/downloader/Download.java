@@ -71,4 +71,18 @@ public class Download {
        download.downloadByArgs(args);
     }
 
+    //    public static File download(String url, String target) {
+//        try (var in = new BufferedInputStream(new URL(url).openStream());
+//             var out = new FileOutputStream(target)) {
+//
+//            byte[] dataBuffer = new byte[4096];
+//            while (in.read(dataBuffer) != -1) {
+//                out.write(dataBuffer);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return new File(target);
+//    }
+
 }

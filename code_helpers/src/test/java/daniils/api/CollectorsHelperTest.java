@@ -27,13 +27,13 @@ public class CollectorsHelperTest {
                 new Data("5", "eee")
         );
         int i = 0;
-        var Function = new Function<Integer, Integer>() {
+        var function = new Function<Integer, Integer>() {
             @Override
             public Integer apply(Integer counter) {
                 return counter++;
             }
         };
-        var map = CollectorsHelper.toMap(list, data -> Function.apply(i), data -> data.name);
+        var map = CollectorsHelper.toMap(list, data -> function.apply(i), data -> data.name);
         System.out.println(map);
     }
     static class Data {
@@ -47,10 +47,10 @@ public class CollectorsHelperTest {
 
         @Override
         public String toString() {
-            return "Data{" +
-                    "id='" + id + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
+            return "Data{"
+                    + "id='" + id + '\''
+                    + ", name='" + name + '\''
+                    + '}';
         }
     }
 

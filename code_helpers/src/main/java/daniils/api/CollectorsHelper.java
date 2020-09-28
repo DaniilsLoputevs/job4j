@@ -13,18 +13,17 @@ public class CollectorsHelper {
     }
 
     /**
-     *
-     * @param values - init data, that going to map.
+     * @param values  - init data, that going to map.
      * @param nextKey - how to get next key.
      * @param nextVal - how to get next key.
-     * @param <K> - key class Type
-     * @param <V> - val class Type
-     * @param <D> - List generic class Type - data type.
+     * @param <K>     - key class Type
+     * @param <V>     - val class Type
+     * @param <D>     - List generic class Type - data type.
      * @return Map<K, V>
      */
     public static <K, V, D> Map<K, V> toMap(List<D> values,
                                             Function<D, K> nextKey,
-                                            Function<D, V> nextVal ) {
+                                            Function<D, V> nextVal) {
         Map<K, V> rsl = new HashMap<>();
         values.forEach(data -> rsl.put(nextKey.apply(data), nextVal.apply(data)));
         return rsl;
