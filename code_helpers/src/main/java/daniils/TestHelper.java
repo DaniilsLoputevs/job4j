@@ -25,7 +25,7 @@ public class TestHelper {
      * @param consoleLog log content.
      */
     public static void saveLog(String path, String consoleLog) {
-        IOHelper.writeStringToFie(path, consoleLog);
+        IOHelper.writeStringToFile(path, consoleLog);
     }
 
 }

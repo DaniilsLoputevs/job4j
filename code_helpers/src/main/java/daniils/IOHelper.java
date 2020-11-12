@@ -72,7 +72,7 @@ public class IOHelper {
         writeListToFile(file.getPath(), content, sysSeparator);
     }
 
-    public static void writeStringToFie(String path, String content) {
+    public static void writeStringToFile(String path, String content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
             writer.write(content);
         } catch (IOException e) {
