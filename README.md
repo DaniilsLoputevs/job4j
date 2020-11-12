@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/DaniilsLoputevs/job4j.svg?branch=master)](https://travis-ci.org/DaniilsLoputevs/job4j)
 [![codecov](https://codecov.io/gh/DaniilsLoputevs/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/DaniilsLoputevs/job4j)
  
- Studying repository on web-course: [jo4j](https://job4j.ru/)
+ Studying repository on web-course: [job4j](https://job4j.ru/)
 
 ## Chapters:
 * chapter_001 - Base C-like syntaxis and java core.
