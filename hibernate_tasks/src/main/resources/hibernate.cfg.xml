@@ -34,8 +34,8 @@
         <mapping class="models.lazyinit.Brand" />
         <mapping class="models.lazyinit.CarLazy" />
 
-<!--        <mapping class="models.hql.Student" />-->
-<!--        <mapping class="models.hql.Candidate" />-->
+        <mapping class="models.hql.Student" />
+        <mapping class="models.hql.Candidate" />
 
     </session-factory>
 </hibernate-configuration>
