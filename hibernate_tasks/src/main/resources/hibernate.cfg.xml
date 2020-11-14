@@ -24,5 +24,18 @@
         <mapping class="models.integrationtests.Engine"/>
         <mapping class="models.integrationtests.HistoryOwner"/>
 
+
+        <mapping class="models.manytoone.Brand" />
+        <mapping class="models.manytoone.Car" />
+
+        <mapping class="models.manytomany.Author" />
+        <mapping class="models.manytomany.Book" />
+
+        <mapping class="models.lazyinit.Brand" />
+        <mapping class="models.lazyinit.CarLazy" />
+
+<!--        <mapping class="models.hql.Student" />-->
+<!--        <mapping class="models.hql.Candidate" />-->
+
     </session-factory>
 </hibernate-configuration>

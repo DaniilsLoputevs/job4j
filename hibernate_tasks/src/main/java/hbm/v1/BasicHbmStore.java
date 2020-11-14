@@ -1,4 +1,4 @@
-package hbm;
+package hbm.v1;
 
 import java.util.List;
 
