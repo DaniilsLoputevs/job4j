@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Context {
+    /**
+     * key - class name
+     * val - class instance
+     */
     private final Map<String, Object> els = new HashMap<>();
 
     public void reg(Class<?> cl) {
