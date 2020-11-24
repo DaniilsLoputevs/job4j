@@ -1,9 +1,12 @@
 package di;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@Component
 public class ConsoleInput {
 
     private final List<String> inputBuffer = new ArrayList<>();

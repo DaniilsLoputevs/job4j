@@ -1,7 +1,7 @@
 package di;
 
 public class Main {
-    public static final Context globalContext = init();
+    public static final Context GLOBAL_CONTEXT = init();
 
     private static Context init() {
         var context = new Context();
@@ -13,12 +13,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StartUI ui = globalContext.get(StartUI.class);
+        StartUI ui = GLOBAL_CONTEXT.get(StartUI.class);
         ui.add("Petr Arsentev");
         ui.add("Ivan ivanov");
         ui.print();
 
-        ConsoleInput input = globalContext.get(ConsoleInput.class);
+        ConsoleInput input = GLOBAL_CONTEXT.get(ConsoleInput.class);
         input.add("Petr Arsentev");
         input.add("Ivan ivanov");
         input.add("Andrei Hincu");

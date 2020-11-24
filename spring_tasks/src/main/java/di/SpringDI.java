@@ -5,10 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class SpringDI {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
-        appContext.register(Store.class);
-        appContext.register(StartUI.class);
-        appContext.register(ConsoleInput.class);
-
+        appContext.scan("di");
 
         appContext.refresh();
         StartUI ui = appContext.getBean(StartUI.class);
