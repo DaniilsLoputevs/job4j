@@ -24,6 +24,9 @@
         <mapping class="models.integrationtests.Engine"/>
         <mapping class="models.integrationtests.HistoryOwner"/>
 
+        <mapping class="models.integrationtests.manytomany.Student"/>
+        <mapping class="models.integrationtests.manytomany.University"/>
+
 
         <mapping class="models.manytoone.Brand" />
         <mapping class="models.manytoone.Car" />
