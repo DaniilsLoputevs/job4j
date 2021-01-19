@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
  * 21.11.2020 05:11
  * Oт Петр Арсентьев к Daniil Loputevs
  * "Нужно показать аннотацию @ManyToMany. Любой пример."
+ *
+ * http://java-online.ru/hibernate-entities.xhtml
  */
 public class Example {
     private final SessionFactory sf = initSf();
