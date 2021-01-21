@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.rest.models.Person;
-import ru.job4j.rest.repositories.PersonRepository;
+import ru.job4j.rest.services.PersonService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,9 +13,9 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/person")
 public class PersonController {
-    private final PersonRepository persons;
+    private final PersonService persons;
     
-    public PersonController(final PersonRepository persons) {
+    public PersonController(final PersonService persons) {
         this.persons = persons;
     }
     
@@ -37,7 +37,7 @@ public class PersonController {
     
     @PostMapping("/")
     public ResponseEntity<Person> create(@RequestBody Person person) {
-        return new ResponseEntity<Person>(
+        return new ResponseEntity<>(
                 this.persons.save(person),
                 HttpStatus.CREATED
         );
@@ -51,9 +51,7 @@ public class PersonController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        Person person = new Person();
-        person.setId(id);
-        this.persons.delete(person);
+        this.persons.delete(id);
         return ResponseEntity.ok().build();
     }
     
