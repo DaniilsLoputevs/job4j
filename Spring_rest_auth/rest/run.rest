@@ -1,0 +1,36 @@
+# Create Employee
+POST http://localhost:8080/employee/
+Content-Type: application/json
+
+{
+  "login": "job4j@gmail.com",
+  "password": "123"
+}
+
+###
+
+# Update Employee
+PUT http://localhost:8080/employee/14
+Content-Type: application/json
+
+{
+  "login": "job4j@gmail.com",
+  "password": "123"
+}
+
+###
+
+# FindAll Employee
+GET http://localhost:8080/employee/
+
+
+###
+# FindById Employee
+GET http://localhost:8080/employee/14
+
+###
+
+# Delete Employee
+DELETE http://localhost:8080/employee/14
+
+###
