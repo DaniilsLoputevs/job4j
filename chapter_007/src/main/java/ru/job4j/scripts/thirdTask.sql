@@ -29,7 +29,7 @@ create table car (
 insert into car_body(name)       values ('mk1'), ('mk2'), ('mk2-1'), ('mk-3');
 insert into engine(name)         values ('v500'), ('v600'), ('v500m'), ('v750');
 insert into transmission(name)   values ('A'), ('M'), ('AM'), ('AF');
-insert into car(name, car_body_id, engine_id, transmission_id) values 
+insert into car(name, car_body_id, engine_id, transmission_id) values
 ('Дура, не разбей!!!', 2, 2, 2), -- XDXDXD
 ('Абсолют Огурчик', 3, 3, 3), -- XDXDXD
 ('Местный караван с картошкой', 4, 4, 4),  -- XDXDXD
@@ -37,7 +37,7 @@ insert into car(name, car_body_id, engine_id, transmission_id) values
 
 
 -- 1) Вывести список всех машин и все привязанные к ним детали.
-select car.name, body.name, e.name, t.name from car 
+select car.name, body.name, e.name, t.name from car
 	left join car_body as body    on body.id = car.car_body_id
 	left join engine as e         on e.id = car.engine_id
 	left join transmission as t   on t.id = car.transmission_id;

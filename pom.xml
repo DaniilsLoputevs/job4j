@@ -20,6 +20,9 @@
         <module>chapter_009</module>
         <module>code_helpers</module>
         <module>chapter_010</module>
+        <module>hibernate_tasks</module>
+        <module>Spring_rest_auth</module>
+        <module>spring_tasks</module>
     </modules>
 
     <properties>

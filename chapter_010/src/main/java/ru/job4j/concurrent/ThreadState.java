@@ -10,11 +10,13 @@ public class ThreadState {
         first.start();
         System.out.println("second state: " + second.getState());
         second.start();
-        while (first.getState() != Thread.State.TERMINATED && second.getState() != Thread.State.TERMINATED) {
+        while (isThreadAlive(first) || isThreadAlive(second)) {
             System.out.println("first state: " + first.getState());
             System.out.println("second state: " + second.getState());
         }
-        System.out.println("first state: " + first.getState());
-        System.out.println("second state: " + second.getState());
+    }
+
+    private static boolean isThreadAlive(Thread thread) {
+        return thread.getState() != Thread.State.TERMINATED;
     }
 }

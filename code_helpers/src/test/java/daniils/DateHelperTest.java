@@ -1,13 +1,55 @@
 package daniils;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class DateHelperTest {
+
+    private final HashMap<String, SoftReference<List<String>>> cacheMap = new HashMap<>();
+
+    @Test
+    public void devRun1() {
+        String[][] strings = new String[1][1];
+        String st = new String("test");
+
+        class DateType {
+        }
+        class Manager implements Cloneable {
+            public DateType one;
+            public DateType two;
+
+            public Manager(DateType one, DateType two) {
+                this.one = one;
+                this.two = two;
+            }
+
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return super.clone();
+            }
+        }
+
+        var one = new DateType();
+        var two = new DateType();
+
+        var a = new Manager(one, two);
+
+        try {
+            var b = a.clone();
+            System.out.println("a in hashCode: " + a);
+            System.out.println("b in hashCode: " + b);
+            System.out.println("a && b - equals: " + a.equals(b));
+//            System.out.println("" + );
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
 
     //    @Ignore
     @Test
@@ -25,42 +67,15 @@ public class DateHelperTest {
         return temp;
     }
 
-    @Ignore
+    @Test
     public void devRun2() {
-//        var player = new BasePlayer("test", 'O');
-//        field.writeOnField(4,2, player.getSign());
-//        field.showField();
-
-
-//        var one = new UUU();
-//        var two = new UUU();
-//        System.out.println(one.getBbb().equals(two.getBbb()));
-
-//        var temp = new ArrayList<>(List.of("111", "222"));
-        var temp = 10;
-        UUU one = new UUU(temp);
-        UUU two = new UUU(temp);
-
-//        System.out.println(ttt.equals(aaa));
-
-//        System.out.println(temp.toString());
-        System.out.println(temp);
-//        System.out.println(one.getTest().toString());
-//        System.out.println(two.getTest().toString());
-        System.out.println(one.getTest());
-        System.out.println(two.getTest());
-
-        System.out.println("START");
-
-//        temp.add(2, "333");
-        temp = 15;
-        System.out.println(temp);
-//        System.out.println(one.getTest().toString());
-//        System.out.println(two.getTest().toString());
-        System.out.println(one.getTest());
-        System.out.println(two.getTest());
-
-
+        boolean one = true;
+        boolean two = true;
+        while (one && two) {
+            System.out.println("Всё хорошо");
+            one = false;
+        }
+        System.out.println("Что-то, не так...");
     }
 
     class UUU {
@@ -90,11 +105,14 @@ public class DateHelperTest {
         int num = 10;
     }
 
-    @Ignore
+    @Test
     public void exp() {
-        var test = new UserArray().filter(user -> user.name.equals("laptop"));
-//        var test = new UserArray().filter(user -> user.age == 10);
+//      "Clean Code".equalsIgnoreCase(b.getName());
+    }
 
+
+    public Integer add(Supplier<Integer> supplier) {
+        return supplier.get();
     }
 
     class UserArray {
@@ -117,4 +135,6 @@ public class DateHelperTest {
         String name;
         int age;
     }
+
+
 }

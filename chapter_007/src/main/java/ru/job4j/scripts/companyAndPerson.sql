@@ -38,6 +38,5 @@ from person join company on person.company_id = company.id
 where company.id != 3;
 
 -- компании с макс кол-во человек.
-with tbl as (select company.name as c_names, count(person.company_id) as person_count
-from company, person where person.company_id = company.id group by company.name)
-select * from tbl where person_count >= all(select person_count from tbl);
+select company.name, count(company.name) as maximum from company left outer join person
+    on company.id = person.company_id group by company.name order by maximum DESC limit 1;
